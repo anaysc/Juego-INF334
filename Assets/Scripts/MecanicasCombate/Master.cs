@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Master : MonoBehaviour
+namespace Combate
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Master : MonoBehaviour
     {
-        
-    }
+        private Personaje[] personajes = new Personaje[4]; //Los 4 slots de personajes
+        private Enemigo[] enemigos = new Enemigo[4]; //Los 4 slots de enemigos
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public Personaje GetPersonaje(int indice)
+        {
+            return personajes[indice];
+        }
+        public Enemigo GetEnemigo(int indice)
+        {
+            return enemigos[indice];
+        }
+
     }
 }

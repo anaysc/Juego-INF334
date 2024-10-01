@@ -1,18 +1,12 @@
+using Combate;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemigo : MonoBehaviour
+namespace Combate
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Enemigo : Creatura
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

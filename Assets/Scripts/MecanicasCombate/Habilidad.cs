@@ -8,6 +8,8 @@ namespace Combate
         protected string patron; //una secuencia de 16 caracteres que representa un compás. "nxxx" significa negra, "cx" corchea, "s" semicorchea, "bxxxxxxx" blanca.
         protected float costoMana = 0;
 
+        public string Patron { get => patron; }
+
         protected abstract void Activar(Master master, Creatura creatura, int gradoDeExito); //La creatura es el personaje o enemigo realizando la habilidad
                                                                                              //El grado de exito va de 0 a 3 (?): Fallo, Ok, Bien, Perfecto 
         public virtual bool SePuedeActivar(Master master, Creatura creatura, int gradoDeExito)
