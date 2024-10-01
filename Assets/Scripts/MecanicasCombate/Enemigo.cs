@@ -7,6 +7,6 @@ namespace Combate
 {
     public class Enemigo : Creatura
     {
-
+        public override bool EsPersonaje() { return false; }
     }
 }

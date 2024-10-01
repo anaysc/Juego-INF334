@@ -6,17 +6,11 @@ namespace Combate
 {
     public class Master : MonoBehaviour
     {
-        private Personaje[] personajes = new Personaje[4]; //Los 4 slots de personajes
-        private Enemigo[] enemigos = new Enemigo[4]; //Los 4 slots de enemigos
+        private List<Personaje> personajes = new List<Personaje>(); //Los 4 slots de personajes
+        private List<Enemigo> enemigos = new List<Enemigo>(); //Los 4 slots de enemigos
 
-        public Personaje GetPersonaje(int indice)
-        {
-            return personajes[indice];
-        }
-        public Enemigo GetEnemigo(int indice)
-        {
-            return enemigos[indice];
-        }
-
+        //Encapsulamos las listas y ahora son readonly
+        public List<Personaje> Personajes { get => personajes; }
+        public List<Enemigo> Enemigos { get => enemigos; }
     }
 }
