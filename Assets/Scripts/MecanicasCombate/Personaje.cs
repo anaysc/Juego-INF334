@@ -6,6 +6,8 @@ namespace Combate
 {
     public class Personaje : Creatura
     {
+        public override bool EsPersonaje() { return true; }
+
         public (Habilidad, int) DetectarPatron(string patron, float[] desviaciones) //Entrega la habilidad del personaje que más concuerde con el patrón recibido, y el grado de éxito
         {
             //patron es un string de 16 (o menos pasra detección parcial) caracteres 
@@ -23,6 +25,7 @@ namespace Combate
             }
             return (habilidades[mejorIndice], ErrorAGradoDeExito(mejorError));
         }
+
         private float CalcularError(string patronObjetivo, string patronEjecutado, float[] desviaciones)
         {
             //Borrador, la versión final será un poco más compleja
