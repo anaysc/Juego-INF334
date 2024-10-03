@@ -18,9 +18,13 @@ public class PersonajeUI : MonoBehaviour
     private int compasesRestantesOffbeat = 0; // Controla los compases que debe sonar el track 2 (offbeat)
     private double beatInterval = 0f;     // Intervalo de tiempo entre beats
     private double previousBeatTime = 0f; // Tiempo del beat anterior
+    private float inputsTime[8] // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
+    private int cont = 0; //lleva la cuenta de en qué parte de la lista de inputs time vamos
 
     void Start()
     {
+        inputsTime = [0,0,0,0,0,0,0,0]
+        cont = 0;
         // Obtener referencia al Cronometro en la escena
         cronometro = FindObjectOfType<Cronometro>();  // Encuentra el Cronometro en la escena
         if (cronometro != null)
@@ -48,78 +52,44 @@ public class PersonajeUI : MonoBehaviour
     }
 
     // Método que se llama cada vez que ocurre un "OnBeat"
-    void OnBeat(double tiempoBeat)
+    void OnBeat(double tiempoBeat, bool firstBeat)
     {
-    
-        // Calcula el intervalo entre beats
-        if (previousBeatTime > 0f)
+//en un compás ir llevando registro de cada vez que se apreta el input: tendre una lista de floats de los tiempos en los que se apretó 
+//ocurre el beat, esperamos un poco y después actualizamos
+//cada beat, le mandas el registro a una funcion (por ej detectar patron). si el grado de exito de detectar patron es 0, el track para
+//detectar patron eventualmente, siempre te entregará el mejor patrón, cuando el grado de éxito no es 0. como tengo este patrón,
+//puedo comparar el beat que sigue, para mostrarle en pantalla si lo está haciendo bien
+//cada habilidad sólo se puede realizar al comienzo de (dos compases) y cada 2 compases etc. al final de los dos compases, se evalua
+//que tan bien lo hizo con el historial (lista de floats) que en teoría 
+        if (firstBeat == true && habilidadActivada == false) //si estamos al comienzo de un compás
         {
-            beatInterval = tiempoBeat - previousBeatTime;
-        }
-        previousBeatTime = tiempoBeat;
-
-        if (tiempoInput >= 0f && beatInterval > 0f)
-        {
-            double halfBeatInterval = beatInterval / 2f;
-
-            // Tiempos del beat y del contratiempo
-            double tiempoOffbeat = tiempoBeat + halfBeatInterval;
-
-            // Calcula desviaciones respecto al beat y al contratiempo
-            double desviacionBeat = Mathf.Abs((float)(tiempoInput - tiempoBeat));
-            double desviacionOffbeat = Mathf.Abs((float)(tiempoInput - tiempoOffbeat));
-
-            // Verifica si la desviación está dentro del margen permitido
-            if (desviacionBeat <= tiempoMaxDesviacion)
-            {
-                // Beat
-                if (!estaTocandoBase)
-                {
-                    ActivarTrackBase();
-                    Debug.Log("¡Beat correcto! Activando pista base.");
-                }
-                else
-                {
-                    Debug.Log("¡Beat perfecto! Manteniendo pista base.");
-                }
-            }
-            else if (desviacionOffbeat <= tiempoMaxDesviacion)
-            {
-                // Offbeat
-                if (estaTocandoBase)
-                {
-                    Debug.Log("¡Offbeat detectado! Cambiando a pista offbeat.");
-                    ActivarOffbeat();
-                }
-                else
-                {
-                    Debug.Log("¡Offbeat correcto! Manteniendo pista offbeat.");
-                }
-            }
-            else
-            {
-                Debug.Log("Desviación fuera del rango. Beat: " + desviacionBeat + ", Offbeat: " + desviacionOffbeat);
-            }
-
-            // Resetea el tiempo del input
-            tiempoInput = -1f;
             habilidadActivada = true;
-        }
-
-        // Resetea el estado de activación de la habilidad
-        habilidadActivada = false;
-
-        // Control del tiempo que debe sonar la pista offbeat
-        if (compasesRestantesOffbeat > 0)
-        {
-            compasesRestantesOffbeat--;
-
-            if (compasesRestantesOffbeat == 0)
+            inputsTime[cont] = tiempoInput; //si no se apretó ningún otro input después de este, el prox tiempo input quedaría igual ??? 
+            cont++; 
+            var (habilidadDetectadaPrimero, gradoExito) = personaje.DetectarPatron(inputsTime);
+            if (gradoExito >= 1) //si 
             {
-                Debug.Log("Finalizan los compases del offbeat, volviendo a pista base.");
-                ActivarTrackBase();  // Vuelve a la pista base después del offbeat
+                habilidadDetectadaPrimero.track.Play() //la clase Habilidad deberia tener el atributo track que guarde las respectivas canciones
             }
         }
+        if (habilidadActivada == true && firstBeat == false)
+        {
+            inputsTime[cont] = tiempoInput; //si no se apretó ningún otro input después de este, el prox tiempo input quedaría igual ??? 
+            cont++; 
+            var (habilidadDetectada, gradoExito) = personaje.DetectarPatron(inputsTime);
+            //eventualmente agregar código que muestre que hiciste bien el beat que se supone que iba en ese lugar
+        }
+        if (cont == 7) //último beat de la habilidad, se muestra "puntaje obtenido"
+        {
+            var (habilidadDetectada, gradoExito) = personaje.DetectarPatron(inputsTime);
+            habilidadDetectadaPrimero.track.Stop();  
+            Debug.Log("Obtuviste un puntaje de " + gradoExito)
+            cont = 0;
+            habilidadActivada = false;
+            inputsTime = [0,0,0,0,0,0,0,0]
+
+        }
+ 
     }
 
     // Activa la pista base (track 1)

@@ -8,6 +8,8 @@ public class Cronometro : MonoBehaviour
     public float bpm = 129f; // Beats por minuto.
     public double lastBeat { get; private set; }  // Almacena el tiempo del último beat en dspTime
     private double nextTickTime; // Tiempo del siguiente tick en DSP.
+    public int beatCount = 0; // Contador de beats dentro de un compás de 4/4
+    private const int beatsPerCompas = 4; // Número de beats por compás (4/4)
 
     // Modificamos el evento OnBeat para que emita el tiempo del beat
     public event System.Action<double> OnBeat; // Evento que notifica a otras clases sobre el "beat".
@@ -33,6 +35,7 @@ public class Cronometro : MonoBehaviour
         nextTickTime += intervalBetweenTicks;
 
         lastBeat = nextTickTime - intervalBetweenTicks;  // Inicializa el tiempo del primer beat
+        beatCount = 0; 
     }
 
     void Update()
@@ -45,11 +48,19 @@ public class Cronometro : MonoBehaviour
 
             lastBeat = nextTickTime; 
             // Dispara el evento OnBeat para sincronizar con otras clases.
-            OnBeat?.Invoke(lastBeat);  // Pasa el tiempo del beat como parámetro
+            beatCount++;
+            bool firstBeat = (beatCount == 1); // Para saber si es el inicio del compás o no
+            OnBeat?.Invoke(lastBeat, firstBeat);  // Pasa el tiempo del beat y si es el inicio del compás como parámetros
 
             // Calcula el tiempo para el siguiente tick.
             double intervalBetweenTicks = 60.0 / bpm;
             nextTickTime += intervalBetweenTicks;
+            // Si hemos llegado al último beat del compás, reiniciamos el contador
+            if (beatCount >= beatsPerCompas)
+            {
+                beatCount = 0; // Reiniciamos el contador de beats
+            }
+
         }
     }
 }
