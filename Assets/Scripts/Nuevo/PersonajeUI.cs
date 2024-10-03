@@ -20,7 +20,7 @@ public class PersonajeUI : MonoBehaviour
     private double previousBeatTime = 0f; // Tiempo del beat anterior
     private float inputsTime[8] // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private int cont = 0; //lleva la cuenta de en qué parte de la lista de inputs time vamos
-
+    private Habilidad habilidadDetectadaPrimero;
     void Start()
     {
         inputsTime = [0,0,0,0,0,0,0,0]
@@ -34,6 +34,7 @@ public class PersonajeUI : MonoBehaviour
         }
 
         habilidadActivada = false;
+        habilidadDetectadaPrimero = null;
     }
 
     void Update()
@@ -66,7 +67,8 @@ public class PersonajeUI : MonoBehaviour
             habilidadActivada = true;
             inputsTime[cont] = tiempoInput; //si no se apretó ningún otro input después de este, el prox tiempo input quedaría igual ??? 
             cont++; 
-            var (habilidadDetectadaPrimero, gradoExito) = personaje.DetectarPatron(inputsTime);
+            var (habilidadDetectada, gradoExito) = personaje.DetectarPatron(inputsTime);
+            habilidadDetectadaPrimero = habilidadDetectada;
             if (gradoExito >= 1) //si 
             {
                 habilidadDetectadaPrimero.track.Play() //la clase Habilidad deberia tener el atributo track que guarde las respectivas canciones
@@ -82,11 +84,12 @@ public class PersonajeUI : MonoBehaviour
         if (cont == 7) //último beat de la habilidad, se muestra "puntaje obtenido"
         {
             var (habilidadDetectada, gradoExito) = personaje.DetectarPatron(inputsTime);
-            habilidadDetectadaPrimero.track.Stop();  
+            habilidadDetectadaPrimero.track.Stop(); //que pasa si no es la misma habilidad que empezo la cancion? esta logica 
             Debug.Log("Obtuviste un puntaje de " + gradoExito)
             cont = 0;
             habilidadActivada = false;
             inputsTime = [0,0,0,0,0,0,0,0]
+            habilidadDetectadaPrimero = null;
 
         }
  
