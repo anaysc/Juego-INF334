@@ -6,7 +6,7 @@ namespace Combate
 {
     public class Personaje : Creatura
     {
-        const float ERRORMAX = 2.5f;
+        const float ERRORMAX = 2f;
 
         public override bool EsPersonaje() { return true; }
 

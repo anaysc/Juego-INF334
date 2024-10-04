@@ -12,7 +12,7 @@ public class Cronometro : MonoBehaviour
     private const int beatsPerCompas = 4; // Número de beats por compás (4/4)
 
     // Modificamos el evento OnBeat para que emita el tiempo del beat
-    public event System.Action<double> OnBeat; // Evento que notifica a otras clases sobre el "beat".
+    public event System.Action<double, bool> OnBeat; // Evento que notifica a otras clases sobre el "beat".
 
     void Start()
     {

@@ -12,18 +12,18 @@ public class PersonajeUI : MonoBehaviour
     public float tiempoMaxDesviacion = 0.2f; // Margen de desviación permitido respecto al beat
 
     private Cronometro cronometro;       // Referencia al Cronometro en la escena
-    private double tiempoInput = -1;     // Tiempo en el que el jugador ha presionado la tecla
+    private float tiempoInput = -1;     // Tiempo en el que el jugador ha presionado la tecla
     private bool habilidadActivada;      // Indica si ya se activó la habilidad en el beat actual
     private bool estaTocandoBase = false; // Indica si el track base está sonando
     private int compasesRestantesOffbeat = 0; // Controla los compases que debe sonar el track 2 (offbeat)
     private double beatInterval = 0f;     // Intervalo de tiempo entre beats
     private double previousBeatTime = 0f; // Tiempo del beat anterior
-    private float inputsTime[8] // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
+    private double previousFirstBeatTime = 0f; //Tiempo en que empezó el ciclo de habilidad actual (del primer beat)
+    private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private int cont = 0; //lleva la cuenta de en qué parte de la lista de inputs time vamos
-    private Habilidad habilidadDetectadaPrimero;
+    private Habilidad habilidadDetectadaActual;
     void Start()
     {
-        inputsTime = [0,0,0,0,0,0,0,0]
         cont = 0;
         // Obtener referencia al Cronometro en la escena
         cronometro = FindObjectOfType<Cronometro>();  // Encuentra el Cronometro en la escena
@@ -34,7 +34,7 @@ public class PersonajeUI : MonoBehaviour
         }
 
         habilidadActivada = false;
-        habilidadDetectadaPrimero = null;
+        habilidadDetectadaActual = null;
     }
 
     void Update()
@@ -47,7 +47,9 @@ public class PersonajeUI : MonoBehaviour
     {
         if (Input.GetKeyDown(teclaControl))  // Si el jugador presiona la tecla asignada
         {
-            tiempoInput = AudioSettings.dspTime;  // Captura el tiempo en que se presiona la tecla
+            double tiempo = (AudioSettings.dspTime - previousFirstBeatTime)/(beatInterval) * 4; //Se normaliza para que esté entre 0 y 32 (semicorcheas de 2 compases)
+            inputsTime.Add((float)tiempo);
+            //tiempoInput = (float) AudioSettings.dspTime;  // Captura el tiempo en que se presiona la tecla
             Debug.Log("Input detectado en tiempo: " + tiempoInput);
         }
     }
@@ -61,38 +63,66 @@ public class PersonajeUI : MonoBehaviour
 //detectar patron eventualmente, siempre te entregará el mejor patrón, cuando el grado de éxito no es 0. como tengo este patrón,
 //puedo comparar el beat que sigue, para mostrarle en pantalla si lo está haciendo bien
 //cada habilidad sólo se puede realizar al comienzo de (dos compases) y cada 2 compases etc. al final de los dos compases, se evalua
-//que tan bien lo hizo con el historial (lista de floats) que en teoría 
+//que tan bien lo hizo con el historial (lista de floats) que en teoría
+
+        if(cont == 8) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
+        {
+            (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
+            DetenerTrackHabilidad();
+            Debug.Log("Obtuviste un puntaje de " + gradoExito);
+            //Aqui debería ejecutarse la habilidad
+            cont = 0;
+            habilidadActivada = false;
+            float lastTime = inputsTime[inputsTime.Count - 1];
+            inputsTime.Clear();
+            if(lastTime >= 31)
+            {
+                inputsTime.Add(lastTime-32); //Añade el ultimo input del ciclo anterior en caso de que pueda entenderse como el primero del nuevo
+            }
+            habilidadDetectadaActual = null;
+        }
+        //Esto se ejecuta inmediatamente despues de lo anterior
         if (firstBeat == true && habilidadActivada == false) //si estamos al comienzo de un compás
         {
-            habilidadActivada = true;
-            inputsTime[cont] = tiempoInput; //si no se apretó ningún otro input después de este, el prox tiempo input quedaría igual ??? 
-            cont++; 
-            var (habilidadDetectada, gradoExito) = personaje.DetectarPatron(inputsTime);
-            habilidadDetectadaPrimero = habilidadDetectada;
+            //notar que cont parte en 0
+            habilidadActivada = true; 
+            (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime, cont*4 + 1); //cont*4 + 1 porque hay 4 semicorcheas en un beat, y ademas se considera la primera semicorchea del beat actual
+            habilidadDetectadaActual = habilidadDetectada;
             if (gradoExito >= 1) //si 
             {
-                habilidadDetectadaPrimero.track.Play() //la clase Habilidad deberia tener el atributo track que guarde las respectivas canciones
+                ActivarTrackHabilidad(habilidadDetectada);
             }
+            cont++;
         }
         if (habilidadActivada == true && firstBeat == false)
         {
-            inputsTime[cont] = tiempoInput; //si no se apretó ningún otro input después de este, el prox tiempo input quedaría igual ??? 
-            cont++; 
-            var (habilidadDetectada, gradoExito) = personaje.DetectarPatron(inputsTime);
+            (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime, cont*4+1);
+            if(habilidadDetectada != habilidadDetectadaActual)
+            {
+                DetenerTrackHabilidad();
+                if (gradoExito >= 1)
+                {
+                    habilidadDetectadaActual = habilidadDetectada;
+                    ActivarTrackHabilidad(habilidadDetectada);
+                }
+            }
+            else if(gradoExito==0)
+            {
+                DetenerTrackHabilidad();
+            }
+            cont++;
+
             //eventualmente agregar código que muestre que hiciste bien el beat que se supone que iba en ese lugar
         }
-        if (cont == 7) //último beat de la habilidad, se muestra "puntaje obtenido"
-        {
-            var (habilidadDetectada, gradoExito) = personaje.DetectarPatron(inputsTime);
-            habilidadDetectadaPrimero.track.Stop(); //que pasa si no es la misma habilidad que empezo la cancion? esta logica 
-            Debug.Log("Obtuviste un puntaje de " + gradoExito)
-            cont = 0;
-            habilidadActivada = false;
-            inputsTime = [0,0,0,0,0,0,0,0]
-            habilidadDetectadaPrimero = null;
 
-        }
- 
+    }
+    void ActivarTrackHabilidad(Habilidad habilidad)
+    {
+        //Vacio por ahora pero aqui deberia implementarse que empieze a sonar lo que dice el nombre
+    }
+    void DetenerTrackHabilidad()
+    {
+        //Detiene el track de habilidad que esté activo en el momento
     }
 
     // Activa la pista base (track 1)
