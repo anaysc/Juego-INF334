@@ -50,7 +50,7 @@ public class PersonajeUI : MonoBehaviour
             double tiempo = (AudioSettings.dspTime - previousFirstBeatTime)/(beatInterval) * 4; //Se normaliza para que esté entre 0 y 32 (semicorcheas de 2 compases)
             inputsTime.Add((float)tiempo);
             //tiempoInput = (float) AudioSettings.dspTime;  // Captura el tiempo en que se presiona la tecla
-            Debug.Log("Input detectado en tiempo: " + tiempoInput);
+            Debug.Log("Input detectado en tiempo: " + tiempo);
         }
     }
 
@@ -71,6 +71,8 @@ public class PersonajeUI : MonoBehaviour
             DetenerTrackHabilidad();
             Debug.Log("Obtuviste un puntaje de " + gradoExito);
             //Aqui debería ejecutarse la habilidad
+
+            previousFirstBeatTime = tiempoBeat;
             cont = 0;
             habilidadActivada = false;
             float lastTime = inputsTime[inputsTime.Count - 1];
