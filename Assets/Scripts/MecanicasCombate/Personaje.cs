@@ -8,6 +8,11 @@ namespace Combate
     {
         const float ERRORMAX = 2f;
 
+        public Personaje(string nombre, float maxHp, float maxMana, float baseDamage) : base(nombre, maxHp, maxMana, baseDamage)
+        {
+            //Por ahora solo hace lo mismo que el constructor de Creatura
+        }
+
         public override bool EsPersonaje() { return true; }
 
         public (Habilidad, int) DetectarPatron(List<float> inputs, int largo = 32) //Entrega la habilidad del personaje que más concuerde con el patrón recibido, y el grado de éxito

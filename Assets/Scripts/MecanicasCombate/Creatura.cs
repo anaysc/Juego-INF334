@@ -10,6 +10,7 @@ namespace Combate
         protected Master master;
 
         //Stats
+        private string nombre;
         private float maxHp; //La máxima vida de la creatura
         private float hp;    //La vida actual de la creatura
         private float maxMana;
@@ -19,6 +20,8 @@ namespace Combate
         private int posicion; //Posición en el juego (0-3) son los slots de los personajes o enemigos segun corresponda. Debe concordar con el indice en las listas del master
 
         //Propiedades para encapsular las stats. No se que tan necesario es esto en realidad, pero se supone que es buen práctica.
+
+        public string Nombre { get => nombre; }
         public float MaxHp { get => maxHp; set => maxHp = value; }
         public float Hp { get => hp; 
             set {
@@ -45,5 +48,12 @@ namespace Combate
 
         public abstract bool EsPersonaje();
 
+        protected Creatura(string nombre, float maxHp, float maxMana, float baseDamage)
+        {
+            this.nombre = nombre;
+            this.maxHp = maxHp;
+            this.maxMana = maxMana;
+            this.baseDamage = baseDamage;
+        }
     }
 }

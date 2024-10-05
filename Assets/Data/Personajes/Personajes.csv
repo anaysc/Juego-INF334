@@ -1,2 +1,2 @@
-Nombre;HP;Mana;Habilidades
-Heroe Guitarra;10;3;
+Nombre;HP;Mana;DañoBase;Habilidades
+Heroe Guitarra;10;3;1;
