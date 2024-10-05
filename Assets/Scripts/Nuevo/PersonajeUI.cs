@@ -5,6 +5,9 @@ using Combate;
 
 public class PersonajeUI : MonoBehaviour
 {
+    public Master master; //Referencia al master
+
+    public string nombrePersonaje;       // Nombre del personaje
     public Personaje personaje;          // Referencia al objeto Personaje
     public KeyCode teclaControl;         // Tecla asignada para controlar este personaje
     public AudioSource pistaBase;        // AudioSource para la pista base (track 1)
@@ -22,8 +25,14 @@ public class PersonajeUI : MonoBehaviour
     private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private int cont = 0; //lleva la cuenta de en qué parte de la lista de inputs time vamos
     private Habilidad habilidadDetectadaActual;
+
     void Start()
     {
+        if(nombrePersonaje != "")
+        {
+            SeleccionarPersonaje(nombrePersonaje); //Temporalmente esto funciona así
+        }
+
         cont = 0;
         // Obtener referencia al Cronometro en la escena
         cronometro = FindObjectOfType<Cronometro>();  // Encuentra el Cronometro en la escena
@@ -40,6 +49,19 @@ public class PersonajeUI : MonoBehaviour
     void Update()
     {
         DetectarInput();  // Detecta la pulsación del jugador en cada frame
+    }
+
+    private void SeleccionarPersonaje(string nuevoNombre)
+    {
+        if(master.DictPersonajes.TryGetValue(nuevoNombre, out Personaje p))
+        {
+            nombrePersonaje = nuevoNombre;
+            personaje = p;
+        }
+        else
+        {
+            Debug.Log("No se encontró el personaje: " + nuevoNombre);
+        }
     }
 
     // Detecta la tecla asignada al personaje

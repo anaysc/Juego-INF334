@@ -14,26 +14,29 @@ namespace Lector
 
             foreach (string linea in lineas)
             {
-                string[] parametros = linea.Split(';');
-                string nombre = parametros[0];
-                float maxHp = float.Parse(parametros[1]);
-                float maxMana = float.Parse(parametros[2]);
-                float baseDamage = float.Parse(parametros[3]);
-                string[] nombresHabilidades = parametros[4].Split(','); 
-                
-                Personaje personaje = new Personaje(nombre, maxHp, maxMana, baseDamage);
-                foreach(string h in nombresHabilidades)
+                if (linea != "")
                 {
-                    if (habilidades.ContainsKey(h))
+                    string[] parametros = linea.Split(';');
+                    string nombre = parametros[0];
+                    float maxHp = float.Parse(parametros[1]);
+                    float maxMana = float.Parse(parametros[2]);
+                    float baseDamage = float.Parse(parametros[3]);
+                    string[] nombresHabilidades = parametros[4].Split(',');
+
+                    Personaje personaje = new Personaje(nombre, maxHp, maxMana, baseDamage);
+                    foreach (string h in nombresHabilidades)
                     {
-                        personaje.Habilidades.Add(habilidades[h]);
+                        if (habilidades.ContainsKey(h))
+                        {
+                            personaje.Habilidades.Add(habilidades[h]);
+                        }
+                        else
+                        {
+                            Debug.Log("Habilidad " + h + " no encontrada");
+                        }
                     }
-                    else
-                    {
-                        Debug.Log("Habilidad " + h + " no encontrada");
-                    }
+                    personajes.Add(nombre, personaje);
                 }
-                personajes.Add(nombre, personaje);
             }
 
             return personajes;
@@ -44,16 +47,21 @@ namespace Lector
 
             foreach (string linea in lineas)
             {
-                string[] parametros = linea.Split(';');
-                string nombre = parametros[0];
-                string tipo = parametros[1];
-                string patron = parametros[2].Replace(" ", ""); //Remueve los espacios
-                float costoMana = float.Parse(parametros[3]);
-                string[] otrosParametros = parametros[4].Split(",");
+                if (linea != "")
+                {
+                    string[] parametros = linea.Split(';');
+                    string nombre = parametros[0];
+                    string tipo = parametros[1];
+                    string patron = parametros[2].Replace(" ", ""); //Remueve los espacios
+                    float costoMana = float.Parse(parametros[3]);
+                    string[] otrosParametros = parametros[4].Split(",");
 
-                Habilidad habilidad = CrearHabilidadPorTipo(tipo);
-                habilidad.Inicializar(nombre, patron, costoMana, otrosParametros);
-                habilidades.Add(nombre, habilidad);
+                    Habilidad habilidad = CrearHabilidadPorTipo(tipo);
+                    habilidad.Inicializar(nombre, patron, costoMana, otrosParametros);
+                    habilidades.Add(nombre, habilidad);
+
+                    Debug.Log("Habilidad " + nombre + " cargada");
+                }
             }
 
             return habilidades;

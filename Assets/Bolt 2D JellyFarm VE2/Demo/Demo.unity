@@ -820,6 +820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tickAudioSource: {fileID: 553252414}
   bpm: 64.5
+  beatCount: 0
 --- !u!82 &553252414
 AudioSource:
   m_ObjectHideFlags: 0
@@ -973,6 +974,52 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &691793351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 691793353}
+  - component: {fileID: 691793352}
+  m_Layer: 0
+  m_Name: MasterCombate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &691793352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691793351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b38fc8be600ae4bad12db4a12cc474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  archivoHabilidades: {fileID: 4900000, guid: d1cc1644af856094a9e575177b5e8e58, type: 3}
+  archivoPersonajes: {fileID: 4900000, guid: 51567f660a72a5c4ebf62c92206de5cf, type: 3}
+--- !u!4 &691793353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691793351}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.613476, y: 0.4296097, z: -0.012839517}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3636,6 +3683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d48c8c0cc28d4946902463e009ad34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  master: {fileID: 0}
+  nombrePersonaje: 
   teclaControl: 100
   pistaBase: {fileID: 1583399562}
   pistaOffbeat: {fileID: 1283911368}
@@ -3904,3 +3953,4 @@ SceneRoots:
   - {fileID: 1283911369}
   - {fileID: 510666406}
   - {fileID: 352492092}
+  - {fileID: 691793353}
