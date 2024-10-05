@@ -1,0 +1,3 @@
+Nombre;Tipo;Patron;Mana;Parametros
+BaseGuitarra;Ataque;nxxx nxxx nxxx nxxx nxxx nxxx nxxx nxxx;0;damageMulti:1
+EspecialGuitarra;Ataque;cxcx sscx nxxx nxxx cxcx sscx bxxx xxxx;2;damageMulti:3

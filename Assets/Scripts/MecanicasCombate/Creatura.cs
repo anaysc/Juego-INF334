@@ -36,6 +36,7 @@ namespace Combate
 
         //Habilidades
         protected List<Habilidad> habilidades = new List<Habilidad>();
+        public List<Habilidad> Habilidades { get => habilidades; }
 
         private void Morir()
         {
@@ -43,5 +44,6 @@ namespace Combate
         }
 
         public abstract bool EsPersonaje();
+
     }
 }
