@@ -8,9 +8,9 @@ namespace Lector
 {
     public static class Lector
     {
-        public static List<Personaje> LeerPersonajes(string[] lineas, Dictionary<string,Habilidad> habilidades)
+        public static Dictionary<string, Personaje> LeerPersonajes(string[] lineas, Dictionary<string,Habilidad> habilidades)
         {
-            List<Personaje> personajes = new List<Personaje>();
+            Dictionary<string, Personaje> personajes = new Dictionary<string, Personaje>();
 
             foreach (string linea in lineas)
             {
@@ -33,14 +33,14 @@ namespace Lector
                         Debug.Log("Habilidad " + h + " no encontrada");
                     }
                 }
-                personajes.Add(personaje);
+                personajes.Add(nombre, personaje);
             }
 
             return personajes;
         }
-        public static List<Habilidad> LeerHabilidades(string[] lineas)
+        public static Dictionary<string,Habilidad> LeerHabilidades(string[] lineas)
         {
-            List<Habilidad> habilidades = new List<Habilidad>();
+            Dictionary<string, Habilidad> habilidades = new Dictionary<string, Habilidad>();
 
             foreach (string linea in lineas)
             {
@@ -53,6 +53,7 @@ namespace Lector
 
                 Habilidad habilidad = CrearHabilidadPorTipo(tipo);
                 habilidad.Inicializar(nombre, patron, costoMana, otrosParametros);
+                habilidades.Add(nombre, habilidad);
             }
 
             return habilidades;
@@ -65,6 +66,7 @@ namespace Lector
             }
             else
             {
+                Debug.Log("No se encontró el tipo de habilidad: " + tipo);
                 return new Ataque();
             }
         }

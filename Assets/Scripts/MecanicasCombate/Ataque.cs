@@ -27,6 +27,21 @@ namespace Combate
             }
             return false;
         }
+        protected override void SetParametros(string[] parametros)
+        {
+            foreach(string parametro in parametros)
+            {
+                if (parametro.Split(':',2)[0] == "damageMulti")
+                {
+                    int i = 0;
+                    foreach(string valor in parametro.Split(":", 2)[1].Split('|'))
+                    {
+                        damageMulti[i] = float.Parse(valor);
+                        i++;
+                    }
+                }
+            }
+        }
 
         protected virtual Creatura ElegirObjetivo(Master master, Creatura creatura)
         {
