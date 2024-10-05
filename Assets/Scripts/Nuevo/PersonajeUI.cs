@@ -89,8 +89,6 @@ public class PersonajeUI : MonoBehaviour
         //cada habilidad sólo se puede realizar al comienzo de (dos compases) y cada 2 compases etc. al final de los dos compases, se evalua
         //que tan bien lo hizo con el historial (lista de floats) que en teoría
 
-        Debug.Log("tiempoBeat: " + (tiempoBeat-previousFirstBeatTime)/beatInterval * 4);
-
         if(cont == 7) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
         {
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
@@ -101,14 +99,18 @@ public class PersonajeUI : MonoBehaviour
             previousFirstBeatTime = tiempoBeat;
             cont = 0;
             habilidadActivada = false;
-            float lastTime = inputsTime[inputsTime.Count - 1];
-            inputsTime.Clear();
-            if(lastTime >= 31)
+            if (inputsTime.Count > 0)
             {
-                inputsTime.Add(lastTime-32); //Añade el ultimo input del ciclo anterior en caso de que pueda entenderse como el primero del nuevo
+                float lastTime = inputsTime[inputsTime.Count - 1];
+                inputsTime.Clear();
+                if (lastTime >= 31)
+                {
+                    inputsTime.Add(lastTime - 32); //Añade el ultimo input del ciclo anterior en caso de que pueda entenderse como el primero del nuevo
+                }
             }
             habilidadDetectadaActual = null;
         }
+        Debug.Log("tiempoBeat: " + (tiempoBeat - previousFirstBeatTime) / beatInterval * 4);
         //Esto se ejecuta inmediatamente despues de lo anterior
         if (firstBeat == true && habilidadActivada == false) //si estamos al comienzo de un compás
         {
