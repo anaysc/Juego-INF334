@@ -28,6 +28,8 @@ public class PersonajeUI : MonoBehaviour
 
     void Start()
     {
+        previousFirstBeatTime = AudioSettings.dspTime;
+        beatInterval = 60.0 / Cronometro.bpm;
         if(nombrePersonaje != "")
         {
             SeleccionarPersonaje(nombrePersonaje); //Temporalmente esto funciona así
@@ -79,15 +81,15 @@ public class PersonajeUI : MonoBehaviour
     // Método que se llama cada vez que ocurre un "OnBeat"
     void OnBeat(double tiempoBeat, bool firstBeat)
     {
-//en un compás ir llevando registro de cada vez que se apreta el input: tendre una lista de floats de los tiempos en los que se apretó 
-//ocurre el beat, esperamos un poco y después actualizamos
-//cada beat, le mandas el registro a una funcion (por ej detectar patron). si el grado de exito de detectar patron es 0, el track para
-//detectar patron eventualmente, siempre te entregará el mejor patrón, cuando el grado de éxito no es 0. como tengo este patrón,
-//puedo comparar el beat que sigue, para mostrarle en pantalla si lo está haciendo bien
-//cada habilidad sólo se puede realizar al comienzo de (dos compases) y cada 2 compases etc. al final de los dos compases, se evalua
-//que tan bien lo hizo con el historial (lista de floats) que en teoría
-
-        if(cont == 8) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
+        //en un compás ir llevando registro de cada vez que se apreta el input: tendre una lista de floats de los tiempos en los que se apretó 
+        //ocurre el beat, esperamos un poco y después actualizamos
+        //cada beat, le mandas el registro a una funcion (por ej detectar patron). si el grado de exito de detectar patron es 0, el track para
+        //detectar patron eventualmente, siempre te entregará el mejor patrón, cuando el grado de éxito no es 0. como tengo este patrón,
+        //puedo comparar el beat que sigue, para mostrarle en pantalla si lo está haciendo bien
+        //cada habilidad sólo se puede realizar al comienzo de (dos compases) y cada 2 compases etc. al final de los dos compases, se evalua
+        //que tan bien lo hizo con el historial (lista de floats) que en teoría
+        
+        if(cont == 7) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
         {
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
             DetenerTrackHabilidad();
