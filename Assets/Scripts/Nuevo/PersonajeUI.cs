@@ -88,7 +88,9 @@ public class PersonajeUI : MonoBehaviour
         //puedo comparar el beat que sigue, para mostrarle en pantalla si lo está haciendo bien
         //cada habilidad sólo se puede realizar al comienzo de (dos compases) y cada 2 compases etc. al final de los dos compases, se evalua
         //que tan bien lo hizo con el historial (lista de floats) que en teoría
-        
+
+        Debug.Log("tiempoBeat: " + (tiempoBeat-previousFirstBeatTime)/beatInterval * 4);
+
         if(cont == 7) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
         {
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
