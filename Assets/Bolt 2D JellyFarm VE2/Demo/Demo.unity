@@ -3683,8 +3683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d48c8c0cc28d4946902463e009ad34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  master: {fileID: 0}
-  nombrePersonaje: 
+  master: {fileID: 691793352}
+  nombrePersonaje: Heroe Guitarra
   teclaControl: 100
   pistaBase: {fileID: 1583399562}
   pistaOffbeat: {fileID: 1283911368}
