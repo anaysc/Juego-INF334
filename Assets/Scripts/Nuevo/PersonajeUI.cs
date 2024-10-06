@@ -7,6 +7,7 @@ public class PersonajeUI : MonoBehaviour
 {
     public Master master; //Referencia al master
 
+    public string nombreTrackBase;
     public string nombrePersonaje;       // Nombre del personaje
     public Personaje personaje;          // Referencia al objeto Personaje
     public KeyCode teclaControl;         // Tecla asignada para controlar este personaje
@@ -14,6 +15,7 @@ public class PersonajeUI : MonoBehaviour
     // public AudioSource pistaOffbeat;     // AudioSource para la pista offbeat (track 2)
     public float tiempoMaxDesviacion = 0.2f; // Margen de desviación permitido respecto al beat
     public AudioSource audioSource;  // El AudioSource preexistente en el GameObject
+    public AudioSource audioSourceBase; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
 
     private Cronometro cronometro;       // Referencia al Cronometro en la escena
     private float tiempoInput = -1;     // Tiempo en el que el jugador ha presionado la tecla
@@ -49,19 +51,17 @@ public class PersonajeUI : MonoBehaviour
 
         habilidadActivada = false;
         habilidadDetectadaActual = null;
-        // Aquí buscamos la primera habilidad (habilidad base) del personaje y reproducimos su track
-        if (personaje != null && personaje.Habilidades.Count > 0)
+        // Aquí buscamos el track base del personaje y reproducimos su track
+        if (personaje != null)
         {
-            Habilidad habilidadBase = personaje.Habilidades[0];  // Obtener la primera habilidad del personaje
-
             // Usar el AudioManager para obtener el AudioClip correspondiente
-            AudioClip audioBase = audioManager.ObtenerAudioPorNombre(habilidadBase.Nombre);
+            AudioClip audioBase = audioManager.ObtenerAudioPorNombre(nombreTrackBase);
 
-            if (audioBase != null && audioSource != null)
+            if (audioBase != null && audioSourceBase != null)
             {
-                audioSource.clip = audioBase;  // Asignar el AudioClip al AudioSource
-                audioSource.Play();            // Reproducir el audio
-                Debug.Log("Reproduciendo el track de la habilidad base: " + habilidadBase.Nombre);
+                audioSourceBase.clip = audioBase;  // Asignar el AudioClip al AudioSource
+                audioSourceBase.Play();            // Reproducir el audio
+                Debug.Log("Reproduciendo el track de la habilidad base: " + nombreTrackBase);
             }
             else
             {
@@ -70,7 +70,7 @@ public class PersonajeUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("El personaje no tiene habilidades o no está asignado.");
+            Debug.LogWarning("El personaje no está asignado.");
         }
 
     }
@@ -122,6 +122,7 @@ public class PersonajeUI : MonoBehaviour
             Debug.Log("Acá3");
 
             DetenerTrackHabilidad();
+            ActivarTrackBase();
             Debug.Log("Obtuviste un puntaje de " + gradoExito);
             //Aqui debería ejecutarse la habilidad
 
@@ -178,58 +179,66 @@ public class PersonajeUI : MonoBehaviour
         }
 
     }
-void ActivarTrackHabilidad(Habilidad habilidad)
-{
-    // Asegúrate de que tienes una referencia al AudioManager
-    AudioManager audioManager = FindObjectOfType<AudioManager>();
-
-    // Verificamos si la habilidad es válida y si el AudioManager está presente
-    if (habilidad != null && audioManager != null)
+    void ActivarTrackHabilidad(Habilidad habilidad)
     {
-        // Busca el AudioClip correspondiente a la habilidad en el diccionario
-        AudioClip trackHabilidad = audioManager.ObtenerAudioPorNombre(habilidad.Nombre);
+        //primero muteamos la habilidad base
+        audioSourceBase.mute = true;
 
-        // Verificamos si se encontró el AudioClip correspondiente
-        if (trackHabilidad != null)
+        // Asegúrate de que tienes una referencia al AudioManager
+        AudioManager audioManager = FindObjectOfType<AudioManager>(); //Esto deberia poder borrarse porque el objeto consigue la referencia en start
+
+        // Verificamos si la habilidad es válida y si el AudioManager está presente
+        if (habilidad != null && audioManager != null)
         {
-            // Si el GameObject ya tiene un AudioSource, lo usamos para reproducir la pista
-            AudioSource audioSource = GetComponent<AudioSource>();
+            // Busca el AudioClip correspondiente a la habilidad en el diccionario
+            AudioClip trackHabilidad = audioManager.ObtenerAudioPorNombre(habilidad.Nombre);
 
-            if (audioSource == null)
+            // Verificamos si se encontró el AudioClip correspondiente
+            if (trackHabilidad != null)
             {
-                Debug.LogWarning("El GameObject no tiene un AudioSource asignado.");
+                // Si el GameObject ya tiene un AudioSource, lo usamos para reproducir la pista
+                AudioSource audioSource = GetComponent<AudioSource>();
+
+                if (audioSource == null)
+                {
+                    Debug.LogWarning("El GameObject no tiene un AudioSource asignado.");
+                }
+                else
+                {
+                    audioSource.clip = trackHabilidad;
+                    audioSource.Play(); // Reproduce el clip
+                    Debug.Log("Reproduciendo track de la habilidad: " + habilidad.Nombre);
+                }
             }
             else
             {
-                audioSource.clip = trackHabilidad;
-                audioSource.Play(); // Reproduce el clip
-                Debug.Log("Reproduciendo track de la habilidad: " + habilidad.Nombre);
+                Debug.LogWarning("No se encontró el audio para la habilidad: " + habilidad.Nombre);
             }
         }
         else
         {
-            Debug.LogWarning("No se encontró el audio para la habilidad: " + habilidad.Nombre);
+            Debug.LogWarning("Habilidad o AudioManager no están presentes.");
         }
     }
-    else
-    {
-        Debug.LogWarning("Habilidad o AudioManager no están presentes.");
-    }
-}
 
-void DetenerTrackHabilidad()
-{
-    // Verificamos si hay un AudioSource y si está reproduciendo algo
-    if (audioSource != null && audioSource.isPlaying)
+    void DetenerTrackHabilidad()
     {
-        audioSource.Stop(); // Detener el audio que esté activo
-        Debug.Log("Track de habilidad detenido.");
+        // Verificamos si hay un AudioSource y si está reproduciendo algo
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop(); // Detener el audio que esté activo
+            Debug.Log("Track de habilidad detenido.");
+        }
+        else
+        {
+            Debug.LogWarning("No hay ningún audio reproduciéndose o el AudioSource no está asignado.");
+        }
     }
-    else
+
+    void ActivarTrackBase()
     {
-        Debug.LogWarning("No hay ningún audio reproduciéndose o el AudioSource no está asignado.");
+        audioSourceBase.mute = false;
     }
-}
 
 
 
