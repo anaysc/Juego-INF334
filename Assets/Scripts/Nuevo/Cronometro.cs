@@ -26,7 +26,7 @@ public class Cronometro : MonoBehaviour
         double intervalBetweenTicks = 60.0 / bpm;
 
         // Calcula el tiempo del primer tick (justo después de que inicie el DSP).
-        nextTickTime = AudioSettings.dspTime; // Un pequeño margen inicial.
+        nextTickTime = AudioSettings.dspTime + 0.1f; // Un pequeño margen inicial.
 
         // Programa el primer tick.
         tickAudioSource.PlayScheduled(nextTickTime);

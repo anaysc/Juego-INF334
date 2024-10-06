@@ -5,38 +5,40 @@ using Combate;
 
 public class PersonajeUI : MonoBehaviour
 {
-    public Master master; // Referencia al master
+    public Master master; //Referencia al master
 
     public string nombrePersonaje;       // Nombre del personaje
     public Personaje personaje;          // Referencia al objeto Personaje
     public KeyCode teclaControl;         // Tecla asignada para controlar este personaje
-    public float tiempoMaxDesviacion = 0.7f; // Margen de desviación permitido en beats
-    public AudioSource audioSource;      // El AudioSource preexistente en el GameObject
+    // public AudioSource pistaBase;        // AudioSource para la pista base (track 1)
+    // public AudioSource pistaOffbeat;     // AudioSource para la pista offbeat (track 2)
+    public float tiempoMaxDesviacion = 0.2f; // Margen de desviación permitido respecto al beat
+    public AudioSource audioSource;  // El AudioSource preexistente en el GameObject
 
     private Cronometro cronometro;       // Referencia al Cronometro en la escena
-    private double tiempoInput = -1;     // Tiempo en el que el jugador ha presionado la tecla
-    private bool habilidadActivada;      // Indica si la habilidad está activada
-    private double beatInterval = 0f;    // Intervalo de tiempo entre beats
+    private float tiempoInput = -1;     // Tiempo en el que el jugador ha presionado la tecla
+    private bool habilidadActivada;      // Indica si ya se activó la habilidad en el beat actual
+    private bool estaTocandoBase = false; // Indica si el track base está sonando
+    private int compasesRestantesOffbeat = 0; // Controla los compases que debe sonar el track 2 (offbeat)
+    private double beatInterval = 0f;     // Intervalo de tiempo entre beats
     private double previousBeatTime = 0f; // Tiempo del beat anterior
     private double previousFirstBeatTime = 0f; //Tiempo en que empezó el ciclo de habilidad actual (del primer beat)
+    private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
+    private int cont = 0; //lleva la cuenta de en qué parte de la lista de inputs time vamos
     private Habilidad habilidadDetectadaActual;
     private AudioManager audioManager;
-    private double ultimoTiempoBeat = 0f; // Último tiempoBeat recibido
-    private Habilidad habilidadEspecifica; // La habilidad que se activará (BajoHabilidad1)
-    private int beatsSinceAbilityActivated = 0; // Beats desde que la habilidad fue activada
-    private bool inputCorrectoEnBeat = false; // Indica si el input fue correcto en el beat
 
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
         previousFirstBeatTime = AudioSettings.dspTime;
         beatInterval = 60.0 / Cronometro.bpm;
-
-        if (nombrePersonaje != "")
+        if(nombrePersonaje != "")
         {
-            SeleccionarPersonaje(nombrePersonaje); // Temporalmente esto funciona así
+            SeleccionarPersonaje(nombrePersonaje); //Temporalmente esto funciona así
         }
 
+        cont = 0;
         // Obtener referencia al Cronometro en la escena
         cronometro = FindObjectOfType<Cronometro>();  // Encuentra el Cronometro en la escena
         if (cronometro != null)
@@ -47,18 +49,7 @@ public class PersonajeUI : MonoBehaviour
 
         habilidadActivada = false;
         habilidadDetectadaActual = null;
-
-        // Asignar la habilidad específica (habilidad1)
-        if (personaje != null && personaje.Habilidades.Count > 1)
-        {
-            habilidadEspecifica = personaje.Habilidades[1]; // Suponiendo que es la segunda en la lista
-        }
-        else
-        {
-            Debug.LogWarning("No se encontró la habilidad específica.");
-        }
-
-        // Reproducir la habilidad base
+        // Aquí buscamos la primera habilidad (habilidad base) del personaje y reproducimos su track
         if (personaje != null && personaje.Habilidades.Count > 0)
         {
             Habilidad habilidadBase = personaje.Habilidades[0];  // Obtener la primera habilidad del personaje
@@ -81,6 +72,7 @@ public class PersonajeUI : MonoBehaviour
         {
             Debug.LogWarning("El personaje no tiene habilidades o no está asignado.");
         }
+
     }
 
     void Update()
@@ -90,7 +82,7 @@ public class PersonajeUI : MonoBehaviour
 
     private void SeleccionarPersonaje(string nuevoNombre)
     {
-        if (master.DictPersonajes.TryGetValue(nuevoNombre, out Personaje p))
+        if(master.DictPersonajes.TryGetValue(nuevoNombre, out Personaje p))
         {
             nombrePersonaje = nuevoNombre;
             personaje = p;
@@ -106,63 +98,10 @@ public class PersonajeUI : MonoBehaviour
     {
         if (Input.GetKeyDown(teclaControl))  // Si el jugador presiona la tecla asignada
         {
-            tiempoInput = AudioSettings.dspTime;  // Captura el tiempo en que se presiona la tecla
-
-            // Calcular el número de beats desde previousFirstBeatTime
-            double beatsSinceStart = (tiempoInput - previousFirstBeatTime) / beatInterval;
-
-            // Encontrar el número de beat más cercano
-            int beatNumber = Mathf.RoundToInt((float)beatsSinceStart);
-
-            // Calcular el tiempo del beat más cercano
-            double tiempoBeatCercano = previousFirstBeatTime + beatNumber * beatInterval;
-
-            // Calcular la diferencia de tiempo entre el input y el beat más cercano
-            double diferenciaTiempo = tiempoInput - tiempoBeatCercano;
-
-            // Calcular el desvío máximo permitido en segundos
-            double tiempoDesviacion = tiempoMaxDesviacion * beatInterval;
-
-            if (Mathf.Abs((float)diferenciaTiempo) <= tiempoDesviacion)
-            {
-                // Input es válido dentro del margen de desviación
-
-                // Verificar si el beat es múltiplo de 4
-                if (beatNumber % 4 == 0)
-                {
-                    // Input correcto en un beat múltiplo de 4
-                    inputCorrectoEnBeat = true;
-
-                    if (!habilidadActivada)
-                    {
-                        ActivarTrackHabilidad(habilidadEspecifica);
-                        beatsSinceAbilityActivated = 0;
-                        habilidadActivada = true;
-                    }
-                    else
-                    {
-                        // Habilidad ya activada, extenderla
-                        beatsSinceAbilityActivated = 0;
-                    }
-
-                    Debug.Log("Input válido en beat número: " + beatNumber);
-                }
-                else
-                {
-                    // Input válido pero no en beat múltiplo de 4
-                    Debug.Log("Input válido pero no en beat múltiplo de 4");
-                }
-            }
-            else
-            {
-                // Input no válido
-                if (habilidadActivada)
-                {
-                    DetenerTrackHabilidad();
-                    habilidadActivada = false;
-                }
-                Debug.Log("Input no válido");
-            }
+            double tiempo = (AudioSettings.dspTime - previousFirstBeatTime)/(beatInterval) * 4; //Se normaliza para que esté entre 0 y 32 (semicorcheas de 2 compases)
+            inputsTime.Add((float)tiempo);
+            //tiempoInput = (float) AudioSettings.dspTime;  // Captura el tiempo en que se presiona la tecla
+            Debug.Log("Input detectado en tiempo: " + tiempo);
         }
     }
 
@@ -177,7 +116,7 @@ public class PersonajeUI : MonoBehaviour
         //cada habilidad sólo se puede realizar al comienzo de (dos compases) y cada 2 compases etc. al final de los dos compases, se evalua
         //que tan bien lo hizo con el historial (lista de floats) que en teoría
 
-        /*if(cont == 7) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
+        if(cont == 7) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
         {
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
             Debug.Log("Acá3");
@@ -236,99 +175,64 @@ public class PersonajeUI : MonoBehaviour
             cont++;
 
             //eventualmente agregar código que muestre que hiciste bien el beat que se supone que iba en ese lugar
-        }*/
-
-        
-        ultimoTiempoBeat = tiempoBeat;
-
-        if (habilidadActivada)
-        {
-            beatsSinceAbilityActivated++;
-
-            if (beatsSinceAbilityActivated >= 4)
-            {
-                // Han pasado 4 beats desde que se activó la habilidad
-                if (inputCorrectoEnBeat)
-                {
-                    // El jugador presionó el input correctamente, extender la habilidad
-                    beatsSinceAbilityActivated = 0;
-                    inputCorrectoEnBeat = false; // Reiniciar para la próxima vez
-                }
-                else
-                {
-                    // El jugador no presionó el input correctamente, desactivar la habilidad
-                    DetenerTrackHabilidad();
-                    habilidadActivada = false;
-                    beatsSinceAbilityActivated = 0;
-                }
-            }
         }
+
     }
+void ActivarTrackHabilidad(Habilidad habilidad)
+{
+    // Asegúrate de que tienes una referencia al AudioManager
+    AudioManager audioManager = FindObjectOfType<AudioManager>();
 
-    void ActivarTrackHabilidad(Habilidad habilidad)
+    // Verificamos si la habilidad es válida y si el AudioManager está presente
+    if (habilidad != null && audioManager != null)
     {
-        if (habilidad != null && audioManager != null)
+        // Busca el AudioClip correspondiente a la habilidad en el diccionario
+        AudioClip trackHabilidad = audioManager.ObtenerAudioPorNombre(habilidad.Nombre);
+
+        // Verificamos si se encontró el AudioClip correspondiente
+        if (trackHabilidad != null)
         {
-            AudioClip trackHabilidad = audioManager.ObtenerAudioPorNombre(habilidad.Nombre);
+            // Si el GameObject ya tiene un AudioSource, lo usamos para reproducir la pista
+            AudioSource audioSource = GetComponent<AudioSource>();
 
-            if (trackHabilidad != null)
+            if (audioSource == null)
             {
-                float currentTime = audioSource.time; // Obtener el tiempo actual de reproducción
-
-                audioSource.Stop(); // Detener la reproducción actual
-                audioSource.clip = trackHabilidad; // Asignar el nuevo clip
-                audioSource.time = currentTime; // Establecer el tiempo de reproducción
-                audioSource.Play(); // Reproducir el nuevo clip
-
+                Debug.LogWarning("El GameObject no tiene un AudioSource asignado.");
+            }
+            else
+            {
+                audioSource.clip = trackHabilidad;
+                audioSource.Play(); // Reproduce el clip
                 Debug.Log("Reproduciendo track de la habilidad: " + habilidad.Nombre);
             }
-            else
-            {
-                Debug.LogWarning("No se encontró el audio para la habilidad: " + habilidad.Nombre);
-            }
         }
         else
         {
-            Debug.LogWarning("Habilidad o AudioManager no están presentes.");
+            Debug.LogWarning("No se encontró el audio para la habilidad: " + habilidad.Nombre);
         }
     }
-
-    void DetenerTrackHabilidad()
+    else
     {
-        if (audioSource != null)
-        {
-            float currentTime = audioSource.time; // Obtener el tiempo actual de reproducción
-
-            // Obtener la habilidad base (asumiendo que es la primera en la lista)
-            if (personaje != null && personaje.Habilidades.Count > 0)
-            {
-                Habilidad habilidadBase = personaje.Habilidades[0];
-                AudioClip baseClip = audioManager.ObtenerAudioPorNombre(habilidadBase.Nombre);
-
-                if (baseClip != null)
-                {
-                    audioSource.Stop(); // Detener la reproducción actual
-                    audioSource.clip = baseClip; // Asignar el clip base
-                    audioSource.time = currentTime; // Establecer el tiempo de reproducción
-                    audioSource.Play(); // Reproducir el clip base
-
-                    Debug.Log("Reproduciendo el track de la habilidad base: " + habilidadBase.Nombre);
-                }
-                else
-                {
-                    Debug.LogWarning("No se pudo encontrar el audio de la habilidad base.");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("El personaje no tiene habilidades o no está asignado.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("No hay ningún AudioSource asignado.");
-        }
+        Debug.LogWarning("Habilidad o AudioManager no están presentes.");
     }
+}
+
+void DetenerTrackHabilidad()
+{
+    // Verificamos si hay un AudioSource y si está reproduciendo algo
+    if (audioSource != null && audioSource.isPlaying)
+    {
+        audioSource.Stop(); // Detener el audio que esté activo
+        Debug.Log("Track de habilidad detenido.");
+    }
+    else
+    {
+        Debug.LogWarning("No hay ningún audio reproduciéndose o el AudioSource no está asignado.");
+    }
+}
+
+
+
 
     void OnDestroy()
     {
@@ -339,3 +243,4 @@ public class PersonajeUI : MonoBehaviour
         }
     }
 }
+ 
