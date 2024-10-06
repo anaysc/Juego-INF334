@@ -7,6 +7,7 @@ namespace Combate
     public class Personaje : Creatura
     {
         const float ERRORMAX = 2f;
+        const float TOLERANCIA = 0.5f;
 
         public Personaje(string nombre, float maxHp, float maxMana, float baseDamage) : base(nombre, maxHp, maxMana, baseDamage)
         {
@@ -53,10 +54,13 @@ namespace Combate
                     {
                         if (Mathf.Abs(f - j) < minDist)
                         {
-                            minDist = f;
+                            minDist = Mathf.Abs(f - j);
                         }
                     }
-                    error += minDist;
+                    if (minDist > TOLERANCIA)
+                    {
+                        error += minDist - TOLERANCIA;
+                    }
                 }
             }
 
@@ -70,9 +74,13 @@ namespace Combate
                     {
                         if (Mathf.Abs(f - j) < minDist)
                         {
-                            minDist = f;
+                            minDist = Mathf.Abs(f - j);
                         }
                     }
+                }
+                if(minDist > TOLERANCIA)
+                {
+                    error += minDist - TOLERANCIA;
                 }
             }
 
@@ -86,7 +94,7 @@ namespace Combate
             {
                 if(patronObjetivo[j] != 'x')
                 {
-                    errorBase += ERRORMAX;
+                    errorBase += ERRORMAX-TOLERANCIA;
                 }
             }
 

@@ -98,8 +98,9 @@ public class PersonajeUI : MonoBehaviour
     {
         if (Input.GetKeyDown(teclaControl))  // Si el jugador presiona la tecla asignada
         {
+            float offset = 1;
             double tiempo = (AudioSettings.dspTime - previousFirstBeatTime)/(beatInterval) * 4; //Se normaliza para que esté entre 0 y 32 (semicorcheas de 2 compases)
-            inputsTime.Add((float)tiempo);
+            inputsTime.Add((float)tiempo-offset);
             //tiempoInput = (float) AudioSettings.dspTime;  // Captura el tiempo en que se presiona la tecla
             Debug.Log("Input detectado en tiempo: " + tiempo);
         }
@@ -119,7 +120,7 @@ public class PersonajeUI : MonoBehaviour
         if(cont == 7) //Esto debería indicar que terminó el último beat del ciclo anterior, y empezó el primero del nuevo
         {
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
-            Debug.Log("Acá3");
+            //Debug.Log("Acá3");
 
             DetenerTrackHabilidad();
             ActivarTrackBase();
@@ -160,7 +161,7 @@ public class PersonajeUI : MonoBehaviour
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime, cont*4+1);
             if(habilidadDetectada != habilidadDetectadaActual)
             {
-                Debug.Log("Acá1");
+                //Debug.Log("Acá1");
                 DetenerTrackHabilidad();
                 if (gradoExito >= 1)
                 {
@@ -170,7 +171,7 @@ public class PersonajeUI : MonoBehaviour
             }
             else if(gradoExito==0)
             {
-                Debug.Log("Acá2");
+                //Debug.Log("Acá2");
                 DetenerTrackHabilidad();
             }
             cont++;
@@ -196,8 +197,6 @@ public class PersonajeUI : MonoBehaviour
             // Verificamos si se encontró el AudioClip correspondiente
             if (trackHabilidad != null)
             {
-                // Si el GameObject ya tiene un AudioSource, lo usamos para reproducir la pista
-                AudioSource audioSource = GetComponent<AudioSource>();
 
                 if (audioSource == null)
                 {
@@ -231,7 +230,7 @@ public class PersonajeUI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No hay ningún audio reproduciéndose o el AudioSource no está asignado.");
+            //Debug.LogWarning("No hay ningún audio reproduciéndose o el AudioSource no está asignado.");
         }
     }
 
