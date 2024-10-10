@@ -23,7 +23,7 @@ namespace Combate
             if (base.SePuedeActivar(master, creatura, gradoDeExito))//Recordemos que la base checkea el mana
             {
                 //Hay que checkear que no este muerto, o que no se pueda atacar por alguna otra razon
-                return ElegirObjetivo(master, creatura) == null;
+                return ElegirObjetivo(master, creatura) != null;
             }
             return false;
         }
@@ -55,10 +55,10 @@ namespace Combate
             {
                 oponentes.AddRange(master.Personajes);
             }
-            for (int i = creatura.Posicion; i < creatura.Posicion+4; i++)
+            for (int i = creatura.Posicion; i < creatura.Posicion+oponentes.Count; i++)
             {
                 int j = i;
-                if (j >= 4) j -= 4;
+                while (j >= oponentes.Count) j -= oponentes.Count;
                 if (oponentes[j] != null)
                 {
                     //Hay que checkear que no este muerto, o que no se pueda atacar por alguna otra razon

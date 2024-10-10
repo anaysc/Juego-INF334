@@ -113,6 +113,21 @@ public class PersonajeUI : MonoBehaviour
     {
         (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
         Debug.Log("Obtuviste un puntaje de " + gradoExito);
+
+        //Aqui se activan los efectos mecanicos de la habilidad
+        if(habilidadDetectada != null && gradoExito>0)
+        {
+            if(habilidadDetectada.TryActivar(master, personaje, gradoExito))
+            {
+                Debug.Log("Habilidad " + habilidadDetectada.Nombre + " Activada Correctamente");
+            }
+            else
+            {
+                Debug.Log("Habilidad " + habilidadDetectada.Nombre + " no se pudo activar");
+            }
+        }
+
+
         ActivarTrackBase();
 
         float lastInput = -1;

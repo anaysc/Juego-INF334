@@ -10,21 +10,22 @@ namespace Combate
     public class Master : MonoBehaviour
     {
         //Data
-        [SerializeField]
-        private TextAsset archivoHabilidades;
-        [SerializeField]
-        private TextAsset archivoPersonajes;
+        [SerializeField] private TextAsset archivoHabilidades;
+        [SerializeField] private TextAsset archivoPersonajes;
+        [SerializeField] private TextAsset archivoEnemigos;
 
         private Dictionary<string, Habilidad> dictHabilidades;
         private Dictionary<string, Personaje> dictPersonajes;
+        private Dictionary<string, Enemigo> dictEnemigos;
 
         private List<Personaje> slotsPersonajes = new List<Personaje>(); //Los 4 slots de personajes
         private List<Enemigo> slotsEnemigos = new List<Enemigo>(); //Los 4 slots de enemigos
 
-        [SerializeField] private List<PersonajeUI> slotsPersonajesUI = new List<PersonajeUI>();
+        [SerializeField] private List<PersonajeUI> slotsPersonajesUI = new List<PersonajeUI>(); //Asignarlos en el inspector
         //En el futuro aqui va List<EnemigoUI> slotsEnemigosUI
 
-        [SerializeField] private List<string> nombresPersonajes;
+        [SerializeField] private List<string> nombresPersonajes; //Escribirlos en el inspector
+        [SerializeField] private List<string> nombresEnemigos;
 
 
         //Encapsulamos las listas y ahora son readonly
@@ -41,9 +42,12 @@ namespace Combate
             dictHabilidades = Lector.Lector.LeerHabilidades(lineas);
             lineas = archivoPersonajes.text.Split('\n').Skip(1).ToArray();
             dictPersonajes = Lector.Lector.LeerPersonajes(lineas, dictHabilidades);
+            lineas = archivoEnemigos.text.Split('\n').Skip(1).ToArray();
+            dictEnemigos = Lector.Lector.LeerEnemigos(lineas, dictHabilidades); 
 
             //Luego se inicializan los personajes activos en los slots
             InitPersonajes();
+            InitEnemigos();
         }
 
         private void InitPersonajes() //Esta funcion inicializa slotsPersonajes y los PersonajeUI en slotsPersonajesUI, asignandoles personaje.
@@ -52,6 +56,7 @@ namespace Combate
             {
                 if (dictPersonajes.TryGetValue(nombresPersonajes[i], out Personaje p))
                 {
+                    p.Posicion = i; //El personaje tiene que saber donde está parado
                     slotsPersonajes.Add(p);
                     slotsPersonajesUI[i].SeleccionarPersonaje(p);
                 }
@@ -60,6 +65,23 @@ namespace Combate
                     slotsPersonajes.Add(null);
                     if (nombresPersonajes[i] == "") Debug.Log("Slot personaje vacío");
                     else Debug.LogWarning("Personaje " + nombresPersonajes[i] + " no se encontró");
+                }
+            }
+        }
+        private void InitEnemigos()
+        {
+            for (int i = 0; i < nombresEnemigos.Count; i++)
+            {
+                if (dictEnemigos.TryGetValue(nombresEnemigos[i], out Enemigo e))
+                {
+                    e.Posicion = i; //El enemigo tiene que saber donde está parado
+                    slotsEnemigos.Add(e);
+                }
+                else
+                {
+                    slotsEnemigos.Add(null);
+                    if (nombresEnemigos[i] == "") Debug.Log("Slot enemigo vacío");
+                    else Debug.LogWarning("Enemigo " + nombresEnemigos[i] + " no se encontró");
                 }
             }
         }

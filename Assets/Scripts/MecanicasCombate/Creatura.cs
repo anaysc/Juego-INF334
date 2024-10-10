@@ -52,7 +52,9 @@ namespace Combate
         {
             this.nombre = nombre;
             this.maxHp = maxHp;
+            hp = maxHp;
             this.maxMana = maxMana;
+            mana = maxMana;
             this.baseDamage = baseDamage;
         }
     }

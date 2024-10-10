@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Combate
 {
@@ -35,6 +36,7 @@ namespace Combate
             }
             else
             {
+                Debug.Log("La Habilidad no se puede activar porque no hay mana");
                 return false;
             }
         }

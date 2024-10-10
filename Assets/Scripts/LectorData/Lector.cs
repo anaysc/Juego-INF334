@@ -41,6 +41,39 @@ namespace Lector
 
             return personajes;
         }
+        public static Dictionary<string, Enemigo> LeerEnemigos(string[] lineas, Dictionary<string, Habilidad> habilidades)
+        {
+            Dictionary<string, Enemigo> enemigos = new Dictionary<string, Enemigo>();
+
+            foreach (string linea in lineas)
+            {
+                if (linea != "")
+                {
+                    string[] parametros = linea.Split(';');
+                    string nombre = parametros[0];
+                    float maxHp = float.Parse(parametros[1]);
+                    float maxMana = float.Parse(parametros[2]);
+                    float baseDamage = float.Parse(parametros[3]);
+                    string[] nombresHabilidades = parametros[4].Split(',');
+
+                    Enemigo enemigo = new Enemigo(nombre, maxHp, maxMana, baseDamage);
+                    foreach (string h in nombresHabilidades)
+                    {
+                        if (habilidades.ContainsKey(h))
+                        {
+                            enemigo.Habilidades.Add(habilidades[h]);
+                        }
+                        else
+                        {
+                            Debug.Log("Habilidad " + h + " no encontrada");
+                        }
+                    }
+                    enemigos.Add(nombre, enemigo);
+                }
+            }
+
+            return enemigos;
+        }
         public static Dictionary<string,Habilidad> LeerHabilidades(string[] lineas)
         {
             Dictionary<string, Habilidad> habilidades = new Dictionary<string, Habilidad>();
