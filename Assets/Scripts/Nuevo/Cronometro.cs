@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cronometro : MonoBehaviour
 {
+    /*
     public AudioSource tickAudioSource; // AudioSource que reproduce el sonido de "tick".
     public static float bpm = 129f; // Beats por minuto.
     public double lastBeat { get; private set; }  // Almacena el tiempo del último beat en dspTime
@@ -63,4 +64,5 @@ public class Cronometro : MonoBehaviour
 
         }
     }
+    */
 }
