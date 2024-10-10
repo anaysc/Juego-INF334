@@ -26,6 +26,8 @@ public class PersonajeUI : MonoBehaviour
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+
+        /*
         if(nombrePersonaje != "")
         {
             SeleccionarPersonaje(nombrePersonaje); //Temporalmente esto funciona así
@@ -34,6 +36,7 @@ public class PersonajeUI : MonoBehaviour
                 Debug.LogWarning("El personaje no está asignado");
             }
         }
+        */
 
         /*
         // Aquí buscamos el track base del personaje y reproducimos su track
@@ -78,17 +81,21 @@ public class PersonajeUI : MonoBehaviour
         
     }
 
-    private void SeleccionarPersonaje(string nuevoNombre)
+    private void SeleccionarPersonaje(string nuevoNombre) //Esta version de la funcion no se va a usar desde que la seleccion de personajes este a cargo del Master (preguntar a GAT por aclaración)
     {
         if(master.DictPersonajes.TryGetValue(nuevoNombre, out Personaje p))
         {
-            nombrePersonaje = nuevoNombre;
-            personaje = p;
+            SeleccionarPersonaje(p);
         }
         else
         {
             Debug.Log("No se encontró el personaje: " + nuevoNombre);
         }
+    }
+    public void SeleccionarPersonaje(Personaje p)
+    {
+        nombrePersonaje = p.Nombre;
+        personaje = p;
     }
 
     // Detecta la tecla asignada al personaje

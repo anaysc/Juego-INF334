@@ -21,6 +21,12 @@ namespace Combate
         private List<Personaje> slotsPersonajes = new List<Personaje>(); //Los 4 slots de personajes
         private List<Enemigo> slotsEnemigos = new List<Enemigo>(); //Los 4 slots de enemigos
 
+        [SerializeField] private List<PersonajeUI> slotsPersonajesUI = new List<PersonajeUI>();
+        //En el futuro aqui va List<EnemigoUI> slotsEnemigosUI
+
+        [SerializeField] private List<string> nombresPersonajes;
+
+
         //Encapsulamos las listas y ahora son readonly
         public List<Personaje> Personajes { get => slotsPersonajes; }
         public List<Enemigo> Enemigos { get => slotsEnemigos; }
@@ -35,6 +41,27 @@ namespace Combate
             dictHabilidades = Lector.Lector.LeerHabilidades(lineas);
             lineas = archivoPersonajes.text.Split('\n').Skip(1).ToArray();
             dictPersonajes = Lector.Lector.LeerPersonajes(lineas, dictHabilidades);
+
+            //Luego se inicializan los personajes activos en los slots
+            InitPersonajes();
+        }
+
+        private void InitPersonajes() //Esta funcion inicializa slotsPersonajes y los PersonajeUI en slotsPersonajesUI, asignandoles personaje.
+        {
+            for (int i = 0; i < nombresPersonajes.Count; i++)
+            {
+                if (dictPersonajes.TryGetValue(nombresPersonajes[i], out Personaje p))
+                {
+                    slotsPersonajes.Add(p);
+                    slotsPersonajesUI[i].SeleccionarPersonaje(p);
+                }
+                else
+                {
+                    slotsPersonajes.Add(null);
+                    if (nombresPersonajes[i] == "") Debug.Log("Slot personaje vacío");
+                    else Debug.LogWarning("Personaje " + nombresPersonajes[i] + " no se encontró");
+                }
+            }
         }
     }
 }
