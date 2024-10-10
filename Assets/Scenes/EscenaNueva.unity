@@ -916,6 +916,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   archivoHabilidades: {fileID: 4900000, guid: d1cc1644af856094a9e575177b5e8e58, type: 3}
   archivoPersonajes: {fileID: 4900000, guid: 51567f660a72a5c4ebf62c92206de5cf, type: 3}
+  slotsPersonajesUI:
+  - {fileID: 2086539922}
+  nombresPersonajes:
+  - Heroe Bajo
 --- !u!4 &691793353
 Transform:
   m_ObjectHideFlags: 0
