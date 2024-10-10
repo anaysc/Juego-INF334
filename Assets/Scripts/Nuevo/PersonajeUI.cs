@@ -107,6 +107,16 @@ public class PersonajeUI : MonoBehaviour
         (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
         Debug.Log("Obtuviste un puntaje de " + gradoExito);
         ActivarTrackBase();
+
+        float lastInput = -1;
+        if (inputsTime.Count > 0) {
+            lastInput = inputsTime[inputsTime.Count-1];
+        }
+        inputsTime.Clear();
+        if(lastInput >= 15) 
+        {
+            inputsTime.Add(lastInput-(duracionCiclo*2));
+        }
     }
 
     void CheckearHabilidad(int largo) //Debería llamarse medio beat despues de comenzar el ciclo, y opcionalmente despues
