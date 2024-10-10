@@ -16,7 +16,7 @@ namespace Combate
 
         public override bool EsPersonaje() { return true; }
 
-        public (Habilidad, int) DetectarPatron(List<float> inputs, int largo = 32) //Entrega la habilidad del personaje que más concuerde con el patrón recibido, y el grado de éxito
+        public (Habilidad, int) DetectarPatron(List<float> inputs, int largo = 16) //Entrega la habilidad del personaje que más concuerde con el patrón recibido, y el grado de éxito
         {
             //inputs deberia ser los tiempos en los que el usuario apretó el botón. 0 es al comienzo, 16 al final de un compás. Pueden pasarse un poquito de los bordes si es necesario (para considerar si el usuario apreto un poco muy pronto)
 

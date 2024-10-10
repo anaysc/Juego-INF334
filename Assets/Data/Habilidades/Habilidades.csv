@@ -1,3 +1,2 @@
 Nombre;Tipo;Patron;Mana;Parametros
-BajoBase;Ataque;nxxx nxxx nxxx nxxx nxxx nxxx nxxx nxxx;0;damageMulti:0|0.5|0.75|1
-BajoHabilidad1;Ataque;nxxx nxxx nxxx nxxx nxxx nxxx nxxx nxxx;2;damageMulti:0|1.5|2.25|3
+BajoHabilidad1;Ataque;nx nx nx nx nx nx nx nx;2;damageMulti:0|1.5|2.25|3
