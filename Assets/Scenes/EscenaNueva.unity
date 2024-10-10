@@ -4056,7 +4056,6 @@ MonoBehaviour:
   nombreTrackBase: BajoBase
   nombrePersonaje: Heroe Bajo
   teclaControl: 100
-  tiempoMaxDesviacion: 0.3
   audioSourceHabilidades:
   - {fileID: 1124054090}
   audioSourceBase: {fileID: 888404734}
