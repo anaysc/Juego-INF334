@@ -6,8 +6,8 @@ namespace Combate
 {
     public class Personaje : Creatura
     {
-        const float ERRORMAX = 2f;
-        const float TOLERANCIA = 0.5f;
+        const float ERRORMAX = 1.5f;
+        const float TOLERANCIA = 0.2f;
 
         public Personaje(string nombre, float maxHp, float maxMana, float baseDamage) : base(nombre, maxHp, maxMana, baseDamage)
         {
