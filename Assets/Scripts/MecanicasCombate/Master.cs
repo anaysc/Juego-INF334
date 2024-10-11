@@ -22,7 +22,7 @@ namespace Combate
         private List<Enemigo> slotsEnemigos = new List<Enemigo>(); //Los 4 slots de enemigos
 
         [SerializeField] private List<PersonajeUI> slotsPersonajesUI = new List<PersonajeUI>(); //Asignarlos en el inspector
-        //En el futuro aqui va List<EnemigoUI> slotsEnemigosUI
+        [SerializeField] private List<EnemigoUI> slotsEnemigosUI = new List<EnemigoUI>();
 
         [SerializeField] private List<string> nombresPersonajes; //Escribirlos en el inspector
         [SerializeField] private List<string> nombresEnemigos;
@@ -56,15 +56,15 @@ namespace Combate
             {
                 if (dictPersonajes.TryGetValue(nombresPersonajes[i], out Personaje p))
                 {
-                    p.Posicion = i; //El personaje tiene que saber donde está parado
+                    p.Posicion = i; //El personaje tiene que saber donde estï¿½ parado
                     slotsPersonajes.Add(p);
                     slotsPersonajesUI[i].SeleccionarPersonaje(p);
                 }
                 else
                 {
                     slotsPersonajes.Add(null);
-                    if (nombresPersonajes[i] == "") Debug.Log("Slot personaje vacío");
-                    else Debug.LogWarning("Personaje " + nombresPersonajes[i] + " no se encontró");
+                    if (nombresPersonajes[i] == "") Debug.Log("Slot personaje vacï¿½o");
+                    else Debug.LogWarning("Personaje " + nombresPersonajes[i] + " no se encontrï¿½");
                 }
             }
         }
@@ -74,14 +74,14 @@ namespace Combate
             {
                 if (dictEnemigos.TryGetValue(nombresEnemigos[i], out Enemigo e))
                 {
-                    e.Posicion = i; //El enemigo tiene que saber donde está parado
+                    e.Posicion = i; //El enemigo tiene que saber donde estï¿½ parado
                     slotsEnemigos.Add(e);
                 }
                 else
                 {
                     slotsEnemigos.Add(null);
-                    if (nombresEnemigos[i] == "") Debug.Log("Slot enemigo vacío");
-                    else Debug.LogWarning("Enemigo " + nombresEnemigos[i] + " no se encontró");
+                    if (nombresEnemigos[i] == "") Debug.Log("Slot enemigo vacï¿½o");
+                    else Debug.LogWarning("Enemigo " + nombresEnemigos[i] + " no se encontrï¿½");
                 }
             }
         }

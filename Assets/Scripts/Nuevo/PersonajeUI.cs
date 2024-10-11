@@ -22,6 +22,7 @@ public class PersonajeUI : MonoBehaviour
 
     private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private AudioManager audioManager;
+    // [SerializeField] private Animator animador; // Referencia al Animator del personaje
 
     void Start()
     {

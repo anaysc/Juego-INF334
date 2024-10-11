@@ -1,2 +1,4 @@
 Nombre;HP;Mana;DanoBase;Habilidades
 Heroe Bajo;10;3;1;BajoHabilidad1;
+Heroe Violin;10;3;1;ViolinHabilidad1;
+Heroe Percusion;10;3;1;PercusionHabilidad1;

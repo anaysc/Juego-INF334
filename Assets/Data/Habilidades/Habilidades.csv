@@ -1,2 +1,4 @@
 Nombre;Tipo;Patron;Mana;Parametros
 BajoHabilidad1;Ataque;nx nx nx nx nx nx nx nx;2;damageMulti:0|1.5|2.25|3
+ViolinHabilidad1;Ataque;nx nx nx nx nx nx nx nx;2;damageMulti:0|1.5|2.25|3
+PercusionHabilidad1;Ataque;nx nx nx nx nx nx nx nx;2;damageMulti:0|1.5|2.25|3
