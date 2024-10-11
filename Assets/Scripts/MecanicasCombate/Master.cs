@@ -76,6 +76,7 @@ namespace Combate
                 {
                     e.Posicion = i; //El enemigo tiene que saber donde est� parado
                     slotsEnemigos.Add(e);
+                    slotsEnemigosUI[i].SeleccionarEnemigo(e);
                 }
                 else
                 {

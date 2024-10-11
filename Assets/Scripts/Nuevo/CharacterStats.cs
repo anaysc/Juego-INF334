@@ -1,3 +1,5 @@
+using Combate;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,61 +8,44 @@ public class CharacterStats : MonoBehaviour
     public Slider healthBar;  // Asigna la barra de vida en el Inspector
     public Slider manaBar;    // Asigna la barra de magia en el Inspector
 
-    private float maxHealth = 100f;   // Vida máxima
-    private float currentHealth;      // Vida actual
-    private float maxMana = 100f;     // Magia máxima
-    private float currentMana;        // Magia actual
+    [SerializeField] private PersonajeUI personajeUI; //Solo uno de estos dos deberia tener valor no null, de acuerdo se es enemigo o personaje
+    [SerializeField] private EnemigoUI enemigoUI;
 
-    void Start()
+    private Creatura creatura;
+
+    protected virtual Creatura GetCreatura()
     {
-        // Inicializa las estadísticas
-        currentHealth = maxHealth;
-        currentMana = maxMana;
-
-        UpdateHealthBar();
-        UpdateManaBar();
+        if(personajeUI != null)
+        {
+            return personajeUI.personaje;
+        }
+        else if(enemigoUI != null)
+        {
+            return enemigoUI.enemigo;
+        }
+        else
+        {
+            Debug.LogWarning("Ni PersonajeUI ni EnemigoUI asignado");
+            return null;
+        }
     }
 
-    // Método para reducir vida
-    public void TakeDamage(float damage)
+    private void Update()
     {
-        currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
+        creatura = GetCreatura();
         UpdateHealthBar();
-    }
-
-    // Método para gastar magia
-    public void UseMana(float amount)
-    {
-        currentMana -= amount;
-        if (currentMana < 0) currentMana = 0;
         UpdateManaBar();
     }
 
     // Actualiza la barra de vida
     void UpdateHealthBar()
     {
-        healthBar.value = currentHealth / maxHealth;
+        healthBar.value = creatura.Hp / creatura.MaxHp;
     }
 
     // Actualiza la barra de magia
     void UpdateManaBar()
     {
-        manaBar.value = currentMana / maxMana;
-    }
-
-    // Métodos para regenerar vida y magia
-    public void Heal(float amount)
-    {
-        currentHealth += amount;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
-        UpdateHealthBar();
-    }
-
-    public void RegenerateMana(float amount)
-    {
-        currentMana += amount;
-        if (currentMana > maxMana) currentMana = maxMana;
-        UpdateManaBar();
+        manaBar.value = creatura.Mana / creatura.MaxMana;
     }
 }
