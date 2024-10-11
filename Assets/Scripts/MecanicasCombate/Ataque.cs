@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Combate
+namespace Combate.Habilidades
 {
     public class Ataque : Habilidad
     {
