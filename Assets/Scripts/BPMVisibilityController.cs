@@ -4,34 +4,27 @@ using UnityEngine;
 public class BPMVisibilityController : MonoBehaviour
 {
     public GameObject targetObject; // El objeto que aparecerá y desaparecerá.
-    // public AudioSource metronomeAudio; // AudioSource que reproduce el metrónomo.
-    public float bpm = 129f; // BPM del metrónomo.
+    public AudioMaster audioMaster; //Referencia al AudioMaster que se debe asignar en el inspector
 
-    private double intervalBetweenBeats; // Intervalo entre beats en segundos.
-    private double nextBeatTime; // Tiempo exacto del próximo beat.
-    private bool isVisible = false; // Estado actual de visibilidad del objeto.
+    private bool isVisible = true;
+    private int beatActual = 0;
 
-    void Start()
+    private void Start()
     {
-        // if (metronomeAudio == null)
-        // {
-        //     Debug.LogError("AudioSource del metrónomo no asignado.");
-        //     return;
-        // }
-
-        // Calcula el intervalo entre beats usando BPM y DSP Time.
-        intervalBetweenBeats = 60.0 / bpm;
-        nextBeatTime = AudioSettings.dspTime + intervalBetweenBeats; // Establece el tiempo del primer beat.
-        // metronomeAudio.Play(); // Reproduce el audio al iniciar.
+        if(audioMaster == null)
+        {
+            Debug.LogWarning("Audio Master no asignado");
+        }
     }
 
     void Update()
     {
-        // Verifica si el tiempo DSP ha alcanzado el tiempo del siguiente beat.
-        if (AudioSettings.dspTime >= nextBeatTime)
+        int beat = Mathf.FloorToInt(audioMaster.TimeInBeats);
+        if(beat > beatActual)
         {
-            ToggleVisibility(); // Alterna la visibilidad del objeto.
-            nextBeatTime += intervalBetweenBeats; // Calcula el tiempo para el siguiente beat.
+            //Deberiamos llegar aqui dentro una vez por beat
+            beatActual = beat;
+            ToggleVisibility();
         }
     }
 

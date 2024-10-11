@@ -4674,7 +4674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 1758953171}
-  bpm: 129
+  audioMaster: {fileID: 628488561}
 --- !u!4 &2142555623
 Transform:
   m_ObjectHideFlags: 0
