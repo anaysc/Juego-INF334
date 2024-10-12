@@ -12,14 +12,16 @@ public class PersonajeUI : MonoBehaviour
 
     private int cicloActual = 0;
     private float proximoCheckeo = 0;
-
+    private bool habilidadActivada = false;
     public string nombreTrackBase;
     public string nombrePersonaje;       // Nombre del personaje
     public Personaje personaje;          // Referencia al objeto Personaje
     public KeyCode teclaControl;         // Tecla asignada para controlar este personaje
     public List<AudioSource> audioSourceHabilidades;  // El AudioSource preexistente en el GameObject
     public AudioSource audioSourceBase; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
+    public AudioSource activar; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
 
+    public GameObject borde;
     private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private AudioManager audioManager;
     // [SerializeField] private Animator animador; // Referencia al Animator del personaje
@@ -27,6 +29,7 @@ public class PersonajeUI : MonoBehaviour
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        borde.SetActive(false);
 
         /*
         if(nombrePersonaje != "")
@@ -66,8 +69,11 @@ public class PersonajeUI : MonoBehaviour
         DetectarInput();  // Detecta la pulsación del jugador en cada frame
         int ciclo = Mathf.FloorToInt(audioMaster.TimeInBeats / duracionCiclo);
         float tiempoCiclo = audioMaster.TimeInBeats % duracionCiclo;
-        if(ciclo > cicloActual)
+        if(ciclo > cicloActual) //true cuando comienza un nuevo ciclo
         {
+            habilidadActivada = false;
+            //achicar al mono
+            borde.SetActive(false);
             cicloActual = ciclo;
             FinalizarCiclo();
             proximoCheckeo = 0.5f;
@@ -158,6 +164,13 @@ public class PersonajeUI : MonoBehaviour
 
     void ActivarTrackHabilidad(Habilidad habilidad)
     {
+        if (habilidadActivada == false)
+        {
+            //hacer sonido y agrandar al mono
+            activar.Play();
+            borde.SetActive(true);
+            habilidadActivada = true;
+        }
         //Primero muteamos la habilidad base y cualquier otra habilidad que podría estar sonando
         DetenerTrackHabilidad();
         audioSourceBase.mute = true;
@@ -176,6 +189,7 @@ public class PersonajeUI : MonoBehaviour
 
     void DetenerTrackHabilidad()
     {
+
         foreach(AudioSource audioSource in audioSourceHabilidades)
         {
             audioSource.mute = true;
