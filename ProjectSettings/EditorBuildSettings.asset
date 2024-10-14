@@ -9,15 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/Creditos.unity
+    guid: e2650a25558260342a077078fa68072f
+  - enabled: 1
+    path: Assets/Scenes/MenuPrincipal.unity
+    guid: d0b46affa1974214ab530223239c61a1
+  - enabled: 1
     path: Assets/Scenes/EscenaNueva.unity
     guid: 295d40a1d0bef73478d18db322b591f7
   - enabled: 1
     path: Assets/Scenes/ComoJugar.unity
     guid: a3a9f899a4938d843a31ade2fe3afd43
-  - enabled: 1
-    path: Assets/Scenes/MenuPrincipal.unity
-    guid: d0b46affa1974214ab530223239c61a1
-  - enabled: 1
-    path: Assets/Scenes/Creditos.unity
-    guid: e2650a25558260342a077078fa68072f
   m_configObjects: {}
