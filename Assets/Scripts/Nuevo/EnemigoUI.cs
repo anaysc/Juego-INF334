@@ -54,7 +54,7 @@ public class EnemigoUI : MonoBehaviour
         panelVictoria.SetActive(true);
 
         // Mostrar el tiempo que se demoró en la victoria
-        textoTiempo.text = "¡Ganaste! Tiempo: " + tiempoFinal.ToString("F2") + " segundos";
+        textoTiempo.text = "Tiempo: " + tiempoFinal.ToString("F2") + " segundos";
         
         Debug.Log("Juego terminado. Ganaste en " + tiempoFinal + " segundos.");
     }
