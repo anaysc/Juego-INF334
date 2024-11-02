@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Combate.Habilidades
 {
+    /* //Implementacion vieja
     public class Ataque : Habilidad
     {
         private float[] damageMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daño base que hace el ataque segun el grado de exito
@@ -66,6 +67,49 @@ namespace Combate.Habilidades
                 }
             }
             return null; //Esto solo ocurre si no hay oponentes
+        }
+    }
+    */
+    public class Ataque : TargetedHabilidad
+    {
+        private float[] damageMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daño base que hace el ataque segun el grado de exito
+        protected override void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito)
+        {
+            float damage = damageMulti[gradoDeExito] * creatura.BaseDamage;
+            if (objetivo != null)//Esto no deberia ser necesario igual porque ya se deberia estar checkeando a traves de SePuedeActivar
+            {
+                objetivo.Hp -= damage;
+            }
+        }
+
+        protected override List<Creatura> ElegirObjetivos(Master master, Creatura creatura)
+        {
+            List<Creatura> oponentes = new List<Creatura>();
+            if (creatura.EsPersonaje())
+            {
+                oponentes.AddRange(master.Enemigos);
+            }
+            else
+            {
+                oponentes.AddRange(master.Personajes);
+            }
+            return ElegirPrimerObjetivo(creatura.Posicion, oponentes);
+        }
+
+        protected override void SetParametros(string[] parametros)
+        {
+            foreach (string parametro in parametros)
+            {
+                if (parametro.Split(':', 2)[0] == "damageMulti")
+                {
+                    int i = 0;
+                    foreach (string valor in parametro.Split(":", 2)[1].Split('|'))
+                    {
+                        damageMulti[i] = float.Parse(valor);
+                        i++;
+                    }
+                }
+            }
         }
     }
 }

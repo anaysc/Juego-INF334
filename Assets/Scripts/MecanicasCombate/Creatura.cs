@@ -18,7 +18,7 @@ namespace Combate
         private float baseDamage;
 
         //Effectos de Estado
-        private List<(string, float)> efectosDeEstado = new List<(string, float)>(); //Los efectos de estado funcionan con un nombre y opcionalmente un valor asociado
+        private List<Estado> efectosDeEstado = new List<Estado>(); //Los efectos de estado funcionan con un nombre y opcionalmente un valor asociado
 
         private int posicion; //Posición en el juego (0-3) son los slots de los personajes o enemigos segun corresponda. Debe concordar con el indice en las listas del master
 
@@ -28,10 +28,13 @@ namespace Combate
         public float MaxHp { get => maxHp; set => maxHp = value; }
         public float Hp { get => hp; 
             set {
-                hp = value;
-                if (hp < 0)
+                if (!HasEstado("muerto"))
                 {
-                    Morir();
+                    hp = value;
+                    if (hp < 0)
+                    {
+                        Morir();
+                    }
                 }
             } 
         }
@@ -40,13 +43,15 @@ namespace Combate
         public float BaseDamage { get => baseDamage; set => baseDamage = value; }
         public int Posicion { get => posicion; set => posicion = value; }
 
+        public List<Estado> EfectosDeEstado { get => efectosDeEstado; }
+
         //Habilidades
         protected List<Habilidad> habilidades = new List<Habilidad>();
         public List<Habilidad> Habilidades { get => habilidades; }
 
         private void Morir()
         {
-            //Aqui agregaremos funcionalidad en un futuro
+            new Estado(this, "muerto"); //Esto automaticamente añade el nuevo estado a la lista
         }
 
         public abstract bool EsPersonaje();
@@ -60,5 +65,26 @@ namespace Combate
             mana = maxMana;
             this.baseDamage = baseDamage;
         }
+
+        public void AddEstado(Estado estado)
+        {
+            efectosDeEstado.Add(estado);
+        }
+        public void RemoveEstado(Estado estado)
+        {
+            efectosDeEstado.Remove(estado);
+        }
+        public bool HasEstado(string nombre)
+        {
+            foreach(Estado estado in efectosDeEstado)
+            {
+                if(estado.nombre == nombre)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
