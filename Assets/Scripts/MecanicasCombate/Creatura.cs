@@ -85,6 +85,29 @@ namespace Combate
             }
             return false;
         }
+        public List<Estado> FindAllEstados(string nombre) //Entrega todos los estados con el nombre en cuestión
+        {
+            List<Estado> output = new List<Estado>();
+            foreach(Estado estado in efectosDeEstado)
+            {
+                if( estado.nombre == nombre)
+                {
+                    output.Add(estado);
+                }
+            }
+            return output;
+        }
+        public Estado FindEstado(string nombre)
+        {
+            foreach (Estado estado in efectosDeEstado)
+            {
+                if (estado.nombre == nombre)
+                {
+                    return estado;
+                }
+            }
+            return null;
+        }
 
     }
 }
