@@ -110,7 +110,7 @@ public class PersonajeUI : MonoBehaviour
     {
         if (Input.GetKeyDown(teclaControl))  // Si el jugador presiona la tecla asignada
         {
-            float offset = 0;
+            float offset = 0.1f;
             float tiempoCiclo = audioMaster.TimeInBeats % duracionCiclo;
             inputsTime.Add(tiempoCiclo*2 - offset);
             Debug.Log("Input detectado en tiempo: " + (tiempoCiclo*2-offset));

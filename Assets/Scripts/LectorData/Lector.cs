@@ -106,11 +106,16 @@ namespace Lector
             {
                 return new Ataque();
             }
+            else if (tipo == "Curacion")
+            {
+                return new Curacion();
+            }
             else
             {
                 Debug.Log("No se encontró el tipo de habilidad: " + tipo);
                 return new Ataque();
             }
+            
         }
     }
 }

@@ -17,6 +17,9 @@ namespace Combate
         private float mana;
         private float baseDamage;
 
+        //Effectos de Estado
+        private List<(string, float)> efectosDeEstado = new List<(string, float)>(); //Los efectos de estado funcionan con un nombre y opcionalmente un valor asociado
+
         private int posicion; //Posición en el juego (0-3) son los slots de los personajes o enemigos segun corresponda. Debe concordar con el indice en las listas del master
 
         //Propiedades para encapsular las stats. No se que tan necesario es esto en realidad, pero se supone que es buen práctica.
