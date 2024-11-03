@@ -24,6 +24,7 @@ namespace Combate
                 if (duracion <= 0)
                 {
                     creatura.RemoveEstado(this);
+                    creatura = null;
                 }
             }
         }

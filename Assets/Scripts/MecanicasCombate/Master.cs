@@ -9,6 +9,8 @@ namespace Combate
 {
     public class Master : MonoBehaviour
     {
+        [SerializeField] private AudioMaster audioMaster; //Referencia al AudioMaster, para saber el tiempo d ela canción
+
         //Data
         [SerializeField] private TextAsset archivoHabilidades;
         [SerializeField] private TextAsset archivoPersonajes;
@@ -27,12 +29,44 @@ namespace Combate
         [SerializeField] private List<string> nombresPersonajes; //Escribirlos en el inspector
         [SerializeField] private List<string> nombresEnemigos;
 
+        //Manejo de Turnos
+        public enum TurnType { personajes, enemigos, nadie} 
+        public TurnType turnoActual = TurnType.personajes;
+        private int ciclosPorTurno = 4;
+        private int cicloActual = 0;
+        private int duracionCiclo;
+        private int cicloInicioTurno = 0;
+
 
         //Encapsulamos las listas y ahora son readonly
         public List<Personaje> Personajes { get => slotsPersonajes; }
         public List<Enemigo> Enemigos { get => slotsEnemigos; }
         public Dictionary<string, Habilidad> DictHabilidades { get => dictHabilidades; }
         public Dictionary<string, Personaje> DictPersonajes { get => dictPersonajes; }
+
+        private void Update()
+        {
+            int ciclo = Mathf.FloorToInt(audioMaster.TimeInBeats / duracionCiclo);
+            if (ciclo > cicloActual) //true cuando comienza un nuevo ciclo
+            {
+                cicloActual = ciclo;
+                OnCiclo();
+
+                if(ciclo-cicloInicioTurno >= ciclosPorTurno)
+                {
+                    cicloInicioTurno = ciclo;
+                    //Porque no hago esto con un bool? Porque me odio
+                    if(turnoActual == TurnType.personajes)
+                    {
+                        turnoActual = TurnType.enemigos;
+                    }
+                    else if(turnoActual== TurnType.enemigos)
+                    {
+                        turnoActual= TurnType.personajes;
+                    }
+                }
+            }
+        }
 
         private void Awake()
         {
@@ -86,5 +120,18 @@ namespace Combate
                 }
             }
         }
+        private void OnCiclo()
+        {
+            //Se les avisa a los personajes que pasó un cilco
+            foreach (Personaje p in slotsPersonajes)
+            {
+                p.OnCiclo();
+            }
+            foreach(Enemigo e in slotsEnemigos)
+            {
+                e.OnCiclo();
+            }
+        }
+
     }
 }

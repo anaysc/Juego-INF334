@@ -109,5 +109,13 @@ namespace Combate
             return null;
         }
 
+        public void OnCiclo()
+        {
+            foreach(Estado estado in efectosDeEstado)
+            {
+                estado.Actualizar();
+            }
+        }
+
     }
 }
