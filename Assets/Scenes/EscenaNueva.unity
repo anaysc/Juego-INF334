@@ -1737,6 +1737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b38fc8be600ae4bad12db4a12cc474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMaster: {fileID: 628488561}
   archivoHabilidades: {fileID: 4900000, guid: d1cc1644af856094a9e575177b5e8e58, type: 3}
   archivoPersonajes: {fileID: 4900000, guid: 51567f660a72a5c4ebf62c92206de5cf, type: 3}
   archivoEnemigos: {fileID: 4900000, guid: 37449bbcef489b441af81e69af4153af, type: 3}
@@ -1752,6 +1753,7 @@ MonoBehaviour:
   - Heroe Percusion
   nombresEnemigos:
   - Enemigo1
+  turnoActual: 0
 --- !u!4 &691793353
 Transform:
   m_ObjectHideFlags: 0
