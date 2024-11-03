@@ -11,6 +11,7 @@ namespace Combate
         const float TOLERANCIA = 0.2f;
 
         public bool seleccionado = false; //variable controlada por el master, que se asegura que solo un personaje pueda activar su habilidad por ciclo (los combos seran una excepcion)
+        public int gradoDeExitoReciente = 0; //Podria ser util llevar la cuenta del ultimo grado de exito que se calculo
 
         public Personaje(string nombre, float maxHp, float maxMana, float baseDamage) : base(nombre, maxHp, maxMana, baseDamage)
         {
@@ -38,7 +39,9 @@ namespace Combate
                     mejorError = error;
                 }
             }
-            return (habilidades[mejorIndice], ErrorAGradoDeExito(mejorError, habilidades[mejorIndice].Patron.Substring(0,largo)));
+            int gradoDeExito = ErrorAGradoDeExito(mejorError, habilidades[mejorIndice].Patron.Substring(0, largo));
+            gradoDeExitoReciente = gradoDeExito;
+            return (habilidades[mejorIndice], gradoDeExito);
         }
 
         private float CalcularError(string patronObjetivo, List<float> inputs)

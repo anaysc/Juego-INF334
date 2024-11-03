@@ -29,7 +29,7 @@ namespace Combate
         [SerializeField] private List<string> nombresEnemigos;
 
         //Manejo de Turnos
-        public enum TurnType { personajes, enemigos, nadie} 
+        public enum TurnType { personajes, enemigos, nadie }
         public TurnType turnoActual = TurnType.personajes;
         private int ciclosPorTurno = 4;
         private int cicloActual = 0;
@@ -53,17 +53,17 @@ namespace Combate
                 cicloActual = ciclo;
                 OnCiclo();
 
-                if(ciclo-cicloInicioTurno >= ciclosPorTurno)
+                if (ciclo - cicloInicioTurno >= ciclosPorTurno)
                 {
                     cicloInicioTurno = ciclo;
                     //Porque no hago esto con un bool? Porque me odio
-                    if(turnoActual == TurnType.personajes)
+                    if (turnoActual == TurnType.personajes)
                     {
                         turnoActual = TurnType.enemigos;
                     }
-                    else if(turnoActual== TurnType.enemigos)
+                    else if (turnoActual == TurnType.enemigos)
                     {
-                        turnoActual= TurnType.personajes;
+                        turnoActual = TurnType.personajes;
                     }
                 }
             }
@@ -78,7 +78,7 @@ namespace Combate
             lineas = archivoPersonajes.text.Split('\n').Skip(1).ToArray();
             dictPersonajes = Lector.Lector.LeerPersonajes(lineas, dictHabilidades);
             lineas = archivoEnemigos.text.Split('\n').Skip(1).ToArray();
-            dictEnemigos = Lector.Lector.LeerEnemigos(lineas, dictHabilidades); 
+            dictEnemigos = Lector.Lector.LeerEnemigos(lineas, dictHabilidades);
 
             //Luego se inicializan los personajes activos en los slots
             InitPersonajes();
@@ -130,14 +130,14 @@ namespace Combate
             {
                 p.OnCiclo();
             }
-            foreach(Enemigo e in slotsEnemigos)
+            foreach (Enemigo e in slotsEnemigos)
             {
                 e.OnCiclo();
             }
         }
         public bool TrySeleccionar(Personaje personaje)
         {
-            if (personajeSeleccionado == null)
+            if (personajeSeleccionado == null || personajeSeleccionado.gradoDeExitoReciente==0)
             {
                 personajeSeleccionado = personaje;
                 personaje.seleccionado = true;
