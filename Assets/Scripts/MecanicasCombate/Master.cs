@@ -51,8 +51,11 @@ namespace Combate
             if (ciclo > cicloActual) //true cuando comienza un nuevo ciclo
             {
                 cicloActual = ciclo;
+                foreach(PersonajeUI personajeUI in slotsPersonajesUI)
+                {
+                    personajeUI.OnCiclo(ciclo);
+                }
                 OnCiclo();
-
                 if (ciclo - cicloInicioTurno >= ciclosPorTurno)
                 {
                     cicloInicioTurno = ciclo;

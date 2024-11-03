@@ -71,13 +71,7 @@ public class PersonajeUI : MonoBehaviour
         float tiempoCiclo = audioMaster.TimeInBeats % duracionCiclo;
         if(ciclo > cicloActual) //true cuando comienza un nuevo ciclo
         {
-            habilidadActivada = false;
-            //achicar al mono
-            borde.SetActive(false);
-            cicloActual = ciclo;
-            FinalizarCiclo();
-            proximoCheckeo = 0.5f;
-            Debug.Log("Ciclo: " + ciclo);
+            //Aqui iba OnCiclo() pero ahora se encargara de eso el master, para asegurarse de que se ejecute antes que el master
         }
         if(tiempoCiclo >= proximoCheckeo)
         {
@@ -86,6 +80,16 @@ public class PersonajeUI : MonoBehaviour
         }
 
         
+    }
+    public void OnCiclo(int ciclo)
+    {
+        habilidadActivada = false;
+        //achicar al mono
+        borde.SetActive(false);
+        cicloActual = ciclo;
+        FinalizarCiclo();
+        proximoCheckeo = 0.5f;
+        Debug.Log("Ciclo: " + ciclo);
     }
 
     private void SeleccionarPersonaje(string nuevoNombre) //Esta version de la funcion no se va a usar desde que la seleccion de personajes este a cargo del Master (preguntar a GAT por aclaración)
