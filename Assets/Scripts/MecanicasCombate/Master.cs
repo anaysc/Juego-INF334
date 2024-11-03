@@ -1,4 +1,3 @@
-using Lector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,8 +33,10 @@ namespace Combate
         public TurnType turnoActual = TurnType.personajes;
         private int ciclosPorTurno = 4;
         private int cicloActual = 0;
-        private int duracionCiclo;
+        private int duracionCiclo = 8;
         private int cicloInicioTurno = 0;
+
+        private Personaje personajeSeleccionado = null;
 
 
         //Encapsulamos las listas y ahora son readonly
@@ -122,6 +123,8 @@ namespace Combate
         }
         private void OnCiclo()
         {
+            personajeSeleccionado = null;
+
             //Se les avisa a los personajes que pasó un cilco
             foreach (Personaje p in slotsPersonajes)
             {
@@ -130,6 +133,20 @@ namespace Combate
             foreach(Enemigo e in slotsEnemigos)
             {
                 e.OnCiclo();
+            }
+        }
+        public bool TrySeleccionar(Personaje personaje)
+        {
+            if (personajeSeleccionado == null)
+            {
+                personajeSeleccionado = personaje;
+                personaje.seleccionado = true;
+                Debug.Log(personaje.Nombre + " seleccionado");
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

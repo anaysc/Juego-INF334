@@ -6,8 +6,11 @@ namespace Combate
 {
     public class Personaje : Creatura
     {
+        //Constantes para el calculo del grado de exito
         const float ERRORMAX = 1.5f;
         const float TOLERANCIA = 0.2f;
+
+        public bool seleccionado = false; //variable controlada por el master, que se asegura que solo un personaje pueda activar su habilidad por ciclo (los combos seran una excepcion)
 
         public Personaje(string nombre, float maxHp, float maxMana, float baseDamage) : base(nombre, maxHp, maxMana, baseDamage)
         {
@@ -115,6 +118,11 @@ namespace Combate
             {
                 return 0;
             }
+        }
+        public override void OnCiclo()
+        {
+            base.OnCiclo();
+            seleccionado = false;
         }
     }
 }

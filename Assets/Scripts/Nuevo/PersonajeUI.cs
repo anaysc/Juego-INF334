@@ -114,23 +114,28 @@ public class PersonajeUI : MonoBehaviour
             float tiempoCiclo = audioMaster.TimeInBeats % duracionCiclo;
             inputsTime.Add(tiempoCiclo*2 - offset);
             Debug.Log("Input detectado en tiempo: " + (tiempoCiclo*2-offset));
+
+            master.TrySeleccionar(personaje);
         }
     }
     void FinalizarCiclo() 
     {
-        (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
-        Debug.Log("Obtuviste un puntaje de " + gradoExito);
-
-        //Aqui se activan los efectos mecanicos de la habilidad
-        if(habilidadDetectada != null && gradoExito>0)
+        if (personaje.seleccionado) //Esto es para checkear que no se activen multiples personajes a la vez
         {
-            if(habilidadDetectada.TryActivar(master, personaje, gradoExito))
+            (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
+            Debug.Log("Obtuviste un puntaje de " + gradoExito);
+
+            //Aqui se activan los efectos mecanicos de la habilidad
+            if (habilidadDetectada != null && gradoExito > 0)
             {
-                Debug.Log("Habilidad " + habilidadDetectada.Nombre + " Activada Correctamente");
-            }
-            else
-            {
-                Debug.Log("Habilidad " + habilidadDetectada.Nombre + " no se pudo activar");
+                if (habilidadDetectada.TryActivar(master, personaje, gradoExito))
+                {
+                    Debug.Log("Habilidad " + habilidadDetectada.Nombre + " Activada Correctamente");
+                }
+                else
+                {
+                    Debug.Log("Habilidad " + habilidadDetectada.Nombre + " no se pudo activar");
+                }
             }
         }
 
@@ -152,7 +157,7 @@ public class PersonajeUI : MonoBehaviour
     {
         //tiempoCiclo esta medido en corcheas (antes eran semicorcheas pero es muy rapido), y son la cantidad de elementos del patron que deberían compararse
         (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime, largo);
-        if (gradoExito > 0)
+        if (gradoExito > 0 && personaje.seleccionado)
         {
             ActivarTrackHabilidad(habilidadDetectada);
         }

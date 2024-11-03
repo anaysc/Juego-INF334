@@ -109,7 +109,7 @@ namespace Combate
             return null;
         }
 
-        public void OnCiclo()
+        public virtual void OnCiclo()
         {
             foreach(Estado estado in efectosDeEstado)
             {
