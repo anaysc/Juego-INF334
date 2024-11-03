@@ -73,7 +73,7 @@ namespace Combate.Habilidades
     public class Ataque : TargetedHabilidad
     {
         private float[] damageMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daño base que hace el ataque segun el grado de exito
-        string damageType = "normal";
+        private string damageType = "normal";
         protected override void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito)
         {
             float damage = damageMulti[gradoDeExito] * creatura.BaseDamage;
