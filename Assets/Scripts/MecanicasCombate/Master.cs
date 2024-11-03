@@ -44,6 +44,9 @@ namespace Combate
         public List<Enemigo> Enemigos { get => slotsEnemigos; }
         public Dictionary<string, Habilidad> DictHabilidades { get => dictHabilidades; }
         public Dictionary<string, Personaje> DictPersonajes { get => dictPersonajes; }
+        public int CicloInicioTurno { get => cicloInicioTurno; }
+        public int DuracionCiclo { get => duracionCiclo; }
+        public int CiclosPorTurno { get => ciclosPorTurno; }
 
         private void Update()
         {
