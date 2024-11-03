@@ -7,7 +7,7 @@ namespace Combate
     public class BuffHabilidad : TargetedHabilidad
     {
         private bool debuff = false; //si es true afecta a los enemigos
-        private string nombreEstado = "?";
+        private string nombreEstado;
         private float valor;
         private int? duracion;
         protected override void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito)
@@ -31,6 +31,30 @@ namespace Combate
                 oponentes.AddRange(master.Personajes);
             }
             return oponentes;
+        }
+
+        protected override void SetParametros(string[] parametros)
+        {
+            foreach (string parametro in parametros)
+            {
+                string nombreParam = parametro.Split(':')[0];
+                if(nombreParam == "debuff")
+                {
+                    debuff = true;
+                }
+                else if(nombreParam == "nombreEstado")
+                {
+                    nombreEstado = parametro.Split(':')[1];
+                }
+                else if(nombreParam == "valor")
+                {
+                    valor = float.Parse(parametro.Split(":")[1]);
+                }
+                else if(nombreParam == "duracion")
+                {
+                    duracion = int.Parse(parametro.Split(":")[1]);
+                }
+            }
         }
     }
 }
