@@ -245,7 +245,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7533727887038581347, guid: 452f681fcc69a0d408b78f6e9cc1ffa1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 482173937}
   m_SourcePrefab: {fileID: 100100000, guid: 452f681fcc69a0d408b78f6e9cc1ffa1, type: 3}
 --- !u!1 &31886806
 GameObject:
@@ -1685,11 +1688,44 @@ MonoBehaviour:
   audioSourceBase: {fileID: 1632476050}
   activar: {fileID: 688240465}
   borde: {fileID: 1912071012}
+--- !u!1 &482173933 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7533727887038581347, guid: 452f681fcc69a0d408b78f6e9cc1ffa1, type: 3}
+  m_PrefabInstance: {fileID: 28444402}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &482173934 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7533727887038581346, guid: 452f681fcc69a0d408b78f6e9cc1ffa1, type: 3}
   m_PrefabInstance: {fileID: 28444402}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &482173935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7533727887038581345, guid: 452f681fcc69a0d408b78f6e9cc1ffa1, type: 3}
+  m_PrefabInstance: {fileID: 28444402}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482173933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &482173937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482173933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc6d17719c01ca4b877f02fa7959e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 691793352}
+  audioMaster: {fileID: 628488561}
+  clock: {fileID: 482173935}
+  relojTurnoPersonajes: {fileID: 21300000, guid: ce8637774427361428d758c6c49d138b, type: 3}
+  relojTurnoEnemigos: {fileID: 21300000, guid: 64f5428e485e0204db94d129eab4847f, type: 3}
 --- !u!1 &510666403
 GameObject:
   m_ObjectHideFlags: 0
