@@ -8,7 +8,7 @@ namespace Combate
     {
         //Constantes para el calculo del grado de exito
         const float ERRORMAX = 1.5f;
-        const float TOLERANCIA = 0.2f;
+        public const float TOLERANCIA = 0.2f;
 
         public bool seleccionado = false; //variable controlada por el master, que se asegura que solo un personaje pueda activar su habilidad por ciclo (los combos seran una excepcion)
         public int gradoDeExitoReciente = 0; //Podria ser util llevar la cuenta del ultimo grado de exito que se calculo
@@ -20,9 +20,9 @@ namespace Combate
 
         public override bool EsPersonaje() { return true; }
 
-        public (Habilidad, int) DetectarPatron(List<float> inputs, int largo = 16) //Entrega la habilidad del personaje que más concuerde con el patrón recibido, y el grado de éxito
+        public (Habilidad, int) DetectarPatron(List<float> inputs, int largo = 16) //Entrega la habilidad del personaje que mï¿½s concuerde con el patrï¿½n recibido, y el grado de ï¿½xito
         {
-            //inputs deberia ser los tiempos en los que el usuario apretó el botón. 0 es al comienzo, 16 al final de un compás. Pueden pasarse un poquito de los bordes si es necesario (para considerar si el usuario apreto un poco muy pronto)
+            //inputs deberia ser los tiempos en los que el usuario apretï¿½ el botï¿½n. 0 es al comienzo, 16 al final de un compï¿½s. Pueden pasarse un poquito de los bordes si es necesario (para considerar si el usuario apreto un poco muy pronto)
 
             
             //largo es en que parte del ciclo de habilidad (dos compases por ahora) vamos, para considerar hasta ahi nomas el string del patron
@@ -44,7 +44,7 @@ namespace Combate
             return (habilidades[mejorIndice], gradoDeExito);
         }
 
-        private float CalcularError(string patronObjetivo, List<float> inputs)
+        public float CalcularError(string patronObjetivo, List<float> inputs)
         {
             //patronObjetivo deberia ser ajustado al largo apropiado
             float error = 0;
@@ -52,7 +52,7 @@ namespace Combate
             //Calcular error tipo 1
             for(int j = 0; j < patronObjetivo.Length; j++)
             {
-                if(patronObjetivo[j] != 'x') //Si debería ir un pulso
+                if(patronObjetivo[j] != 'x') //Si deberï¿½a ir un pulso
                 {
                     //Se encuentra el pulso mas cercano (maximo error 2.5 corcheas de diferencia)
                     float minDist = ERRORMAX; 
@@ -94,7 +94,7 @@ namespace Combate
         }
         private int ErrorAGradoDeExito(float error, string patronObjetivo)
         {
-            //Primero calculamos el error que se obtendría si el ususario no hace nada
+            //Primero calculamos el error que se obtendrï¿½a si el ususario no hace nada
             float errorBase = 0;
             for(int j = 0; j < patronObjetivo.Length; j++)
             {
@@ -104,7 +104,7 @@ namespace Combate
                 }
             }
 
-            //Estos numeros claramente no serán finales, están por mientras
+            //Estos numeros claramente no serï¿½n finales, estï¿½n por mientras
             if(error < 0.1f*errorBase)
             {
                 return 3;
