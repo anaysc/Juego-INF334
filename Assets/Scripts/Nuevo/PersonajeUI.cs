@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Combate;
+using TMPro;
 
 public class PersonajeUI : MonoBehaviour
 {
     [SerializeField] private Master master; //Referencia al master
     [SerializeField] private AudioMaster audioMaster; //Referencia al AudioMaster de la escena
+    [SerializeField] private AudioSource efectoTeclaSource; // AudioSource instanciado para el sonido de tecla
+    [SerializeField] private AudioSource efectoTeclaSourceBad; // AudioSource instanciado para el sonido de tecla
+    [SerializeField] private TextMeshProUGUI bienTexto; // Referencia al texto que muestra "¡Bien!" usando TextMeshPro
     private float volumenDefault = 0.5f;  // Volumen estándar cuando el personaje está en base
-    private float volumenReducido = 0.2f; // Volumen reducido para personajes que no están en habilidad
+    private float volumenReducido = 0.05f; // Volumen reducido para personajes que no están en habilidad
     private float volumenAudioMasterDefault = 0.5f; // Volumen por defecto para el AudioMaster
-    private float volumenAudioMasterReducido = 0.1f;// Volumen reducido para el AudioMaster cuando hay una habilidad activa
+    private float volumenAudioMasterReducido = 0.05f;// Volumen reducido para el AudioMaster cuando hay una habilidad activa
 
 
     private int duracionCiclo = 8; //En Beats
@@ -30,11 +34,19 @@ public class PersonajeUI : MonoBehaviour
     private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private AudioManager audioManager;
     // [SerializeField] private Animator animador; // Referencia al Animator del personaje
-
     void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
         borde.SetActive(false);
+        if (efectoTeclaSource == null)
+        {
+            Debug.LogWarning("efectoTeclaSource no está asignado en el Inspector");
+        }
+        if (efectoTeclaSource != null)
+        {
+            efectoTeclaSource.volume = 0.3f; // Ajusta el valor según prefieras
+        }
+
 
         /*
         if(nombrePersonaje != "")
@@ -125,6 +137,7 @@ public class PersonajeUI : MonoBehaviour
             Debug.Log("Input detectado en tiempo: " + (tiempoCiclo*2-offset));
 
             master.TrySeleccionar(personaje);
+            // Validar si el input fue en el tiempo correcto utilizando CalcularError
         }
     }
     void FinalizarCiclo() 
@@ -169,10 +182,26 @@ public class PersonajeUI : MonoBehaviour
         if (gradoExito > 0 && personaje.seleccionado)
         {
             ActivarTrackHabilidad(habilidadDetectada);
+            // Reproducir el sonido de tecla cada vez que se detecta una pulsación
+            if (efectoTeclaSource != null)
+            {
+                efectoTeclaSource.Play();
+            }
+            if (bienTexto != null)
+            {
+                bienTexto.gameObject.SetActive(true);
+            }
         }
         else
         {
             ActivarTrackBase();
+            if (habilidadActivada == true)
+            {
+                if (efectoTeclaSourceBad != null)
+                {
+                    efectoTeclaSourceBad.Play();
+                }
+            }
         }
     }
 
@@ -214,10 +243,12 @@ public class PersonajeUI : MonoBehaviour
 
     void ActivarTrackBase()
     {
+        bienTexto.gameObject.SetActive(false);
         DetenerTrackHabilidad();   
         audioSourceBase.mute = false;
         AjustarVolumenOtrosPersonajes(false);
         audioMaster.masterAudioSource.volume = volumenAudioMasterDefault; // Restaurar volumen del AudioMaster
+        borde.SetActive(false);
 
 
     }
