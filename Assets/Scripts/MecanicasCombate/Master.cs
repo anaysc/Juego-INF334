@@ -155,6 +155,10 @@ namespace Combate
                 return false;
             }
         }
+        public List<PersonajeUI> ObtenerTodosPersonajes()
+        {
+            return slotsPersonajesUI;
+        }
 
     }
 }

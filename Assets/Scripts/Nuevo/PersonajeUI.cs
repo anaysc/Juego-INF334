@@ -7,6 +7,11 @@ public class PersonajeUI : MonoBehaviour
 {
     [SerializeField] private Master master; //Referencia al master
     [SerializeField] private AudioMaster audioMaster; //Referencia al AudioMaster de la escena
+    private float volumenDefault = 0.5f;  // Volumen estándar cuando el personaje está en base
+    private float volumenReducido = 0.2f; // Volumen reducido para personajes que no están en habilidad
+    private float volumenAudioMasterDefault = 0.5f; // Volumen por defecto para el AudioMaster
+    private float volumenAudioMasterReducido = 0.1f;// Volumen reducido para el AudioMaster cuando hay una habilidad activa
+
 
     private int duracionCiclo = 8; //En Beats
 
@@ -183,6 +188,8 @@ public class PersonajeUI : MonoBehaviour
         //Primero muteamos la habilidad base y cualquier otra habilidad que podría estar sonando
         DetenerTrackHabilidad();
         audioSourceBase.mute = true;
+        AjustarVolumenOtrosPersonajes(true);
+        audioMaster.masterAudioSource.volume = volumenAudioMasterReducido; // Reducir volumen del AudioMaster
 
         int indice = personaje.Habilidades.IndexOf(habilidad);
         if(indice != -1)
@@ -209,6 +216,20 @@ public class PersonajeUI : MonoBehaviour
     {
         DetenerTrackHabilidad();   
         audioSourceBase.mute = false;
+        AjustarVolumenOtrosPersonajes(false);
+        audioMaster.masterAudioSource.volume = volumenAudioMasterDefault; // Restaurar volumen del AudioMaster
+
+
+    }
+    void AjustarVolumenOtrosPersonajes(bool reducirVolumen)
+    {
+        foreach (var personaje in master.ObtenerTodosPersonajes())
+        {
+            if (personaje != this) // Solo ajustar a otros personajes
+            {
+                personaje.audioSourceBase.volume = reducirVolumen ? volumenReducido : volumenDefault;
+            }
+        }
     }
 
 
