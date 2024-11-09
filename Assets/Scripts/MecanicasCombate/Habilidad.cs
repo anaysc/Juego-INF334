@@ -45,6 +45,7 @@ namespace Combate
         {
             if(SePuedeActivar(master, creatura, gradoDeExito))
             {
+                creatura.Mana -= costoMana;
                 Activar(master,creatura, gradoDeExito);
                 return true;
             }
