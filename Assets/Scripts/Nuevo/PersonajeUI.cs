@@ -140,9 +140,13 @@ public class PersonajeUI : MonoBehaviour
             // Validar si el input fue en el tiempo correcto utilizando CalcularError
         }
     }
+    bool isPersonajeSeleccionado()
+    {
+        return master.PersonajeSeleccionado == personaje;
+    }
     void FinalizarCiclo() 
     {
-        if (personaje.seleccionado) //Esto es para checkear que no se activen multiples personajes a la vez
+        if (isPersonajeSeleccionado() && master.turnoActual==TurnType.personajes) //Esto es para checkear que no se activen multiples personajes a la vez
         {
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
             Debug.Log("Obtuviste un puntaje de " + gradoExito);
@@ -179,7 +183,7 @@ public class PersonajeUI : MonoBehaviour
     {
         //tiempoCiclo esta medido en corcheas (antes eran semicorcheas pero es muy rapido), y son la cantidad de elementos del patron que deberían compararse
         (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime, largo);
-        if (gradoExito > 0 && personaje.seleccionado)
+        if (gradoExito > 0 && isPersonajeSeleccionado() && master.turnoActual==TurnType.personajes)
         {
             ActivarTrackHabilidad(habilidadDetectada);
             // Reproducir el sonido de tecla cada vez que se detecta una pulsación
@@ -201,6 +205,10 @@ public class PersonajeUI : MonoBehaviour
                 {
                     efectoTeclaSourceBad.Play();
                 }
+            }
+            if(master.turnoActual == TurnType.enemigos)
+            {
+                audioSourceBase.volume = volumenAudioMasterReducido;
             }
         }
     }

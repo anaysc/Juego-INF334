@@ -15,6 +15,13 @@ public class EnemigoUI : MonoBehaviour
     public Button botonReiniciar; // Botón de "Volver a Jugar"
     public Button botonMenuPrincipal; // Botón de "Menú Principal"
 
+    [SerializeField] private Master master; //Referencia al master
+    [SerializeField] private AudioMaster audioMaster; //Referencia al AudioMaster de la escena
+
+    public AudioSource audioSourceBase;
+    public List<AudioSource> audioSourceHabilidades;
+
+
     private float tiempoInicio; // Tiempo cuando comenzó el juego
 
     internal void SeleccionarEnemigo(Enemigo e)
@@ -35,12 +42,27 @@ public class EnemigoUI : MonoBehaviour
 
     void Update()
     {
+        audioSourceBase.mute = (master.turnoActual != TurnType.enemigos);
+
         // Revisa constantemente si la vida del enemigo es menor o igual a 0
         if (enemigo.Hp <= 0)
         {
             TerminarJuego();
         }
     }
+
+    public void OnCiclo(int ciclo)
+    {
+        
+    }
+    public void ActivarTrackBase()
+    {
+        audioSourceBase.mute = false;
+    }
+
+
+
+
 
     void TerminarJuego()
     {

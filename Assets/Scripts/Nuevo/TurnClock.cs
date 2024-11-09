@@ -15,11 +15,11 @@ public class TurnClock : MonoBehaviour
 
     private void Update()
     {
-        if (master.turnoActual == Master.TurnType.personajes)
+        if (master.turnoActual == TurnType.personajes)
         {
             clock.sprite = relojTurnoPersonajes;
         }
-        else if(master.turnoActual == Master.TurnType.enemigos)
+        else if(master.turnoActual == TurnType.enemigos)
         {
             clock.sprite = relojTurnoEnemigos;
         }

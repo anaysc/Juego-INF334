@@ -29,7 +29,6 @@ namespace Combate
         [SerializeField] private List<string> nombresEnemigos;
 
         //Manejo de Turnos
-        public enum TurnType { personajes, enemigos, nadie }
         public TurnType turnoActual = TurnType.personajes;
         private int ciclosPorTurno = 4;
         private int cicloActual = 0;
@@ -47,6 +46,7 @@ namespace Combate
         public int CicloInicioTurno { get => cicloInicioTurno; }
         public int DuracionCiclo { get => duracionCiclo; }
         public int CiclosPorTurno { get => ciclosPorTurno; }
+        public Personaje PersonajeSeleccionado { get => personajeSeleccionado; }
 
         private void Update()
         {
@@ -57,6 +57,10 @@ namespace Combate
                 foreach(PersonajeUI personajeUI in slotsPersonajesUI)
                 {
                     personajeUI.OnCiclo(ciclo);
+                }
+                foreach(EnemigoUI enemigoUI in slotsEnemigosUI)
+                {
+                    enemigoUI.OnCiclo(ciclo);
                 }
                 OnCiclo();
                 if (ciclo - cicloInicioTurno >= ciclosPorTurno)
@@ -161,4 +165,5 @@ namespace Combate
         }
 
     }
+    public enum TurnType { personajes, enemigos, nadie }
 }
