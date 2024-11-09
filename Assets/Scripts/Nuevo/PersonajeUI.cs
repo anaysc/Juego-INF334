@@ -44,40 +44,8 @@ public class PersonajeUI : MonoBehaviour
         }
         if (efectoTeclaSource != null)
         {
-            efectoTeclaSource.volume = 0.3f; // Ajusta el valor según prefieras
+            efectoTeclaSource.volume = 0.2f; // Ajusta el valor según prefieras
         }
-
-
-        /*
-        if(nombrePersonaje != "")
-        {
-            SeleccionarPersonaje(nombrePersonaje); //Temporalmente esto funciona así
-            if (personaje == null)
-            {
-                Debug.LogWarning("El personaje no está asignado");
-            }
-        }
-        */
-
-        /*
-        // Aquí buscamos el track base del personaje y reproducimos su track
-        if (personaje != null)
-        {
-            // Usar el AudioManager para obtener el AudioClip correspondiente
-            AudioClip audioBase = audioManager.ObtenerAudioPorNombre(nombreTrackBase);
-
-            if (audioBase != null && audioSourceBase != null)
-            {
-                audioSourceBase.clip = audioBase;  // Asignar el AudioClip al AudioSource
-                audioSourceBase.Play();            // Reproducir el audio
-                Debug.Log("Reproduciendo el track de la habilidad base: " + nombreTrackBase);
-            }
-            else
-            {
-                Debug.LogWarning("No se pudo reproducir el audio de la habilidad base.");
-            }
-        }
-        */
 
     }
 
