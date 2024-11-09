@@ -100,6 +100,34 @@ namespace Lector
 
             return habilidades;
         }
+
+        public static PlanEnemigo LeerPlan(string[] lineas, Dictionary<string, Habilidad> habilidades)
+        {
+            List<(int, Habilidad)> movimientos = new List<(int, Habilidad)>();
+
+            foreach (string linea in lineas)
+            {
+                if (linea != "")
+                {
+                    string[] parametros = linea.Split(';');
+                    string nombreEnemigo = parametros[0];
+                    int posicion = int.Parse(parametros[1]);
+                    string nombreHabilidad = parametros[2];
+
+                    if(habilidades.TryGetValue(nombreHabilidad, out Habilidad habilidad))
+                    {
+                        movimientos.Add((posicion, habilidad));
+                        Debug.Log("Plan enemigos Movimiento: (" + posicion + "," + nombreHabilidad + ")");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Habilidad " + nombreHabilidad + " no encontrada");
+                    }
+                }
+            }
+            return new PlanEnemigo(movimientos);
+        }
+
         private static Habilidad CrearHabilidadPorTipo(string tipo)
         {
             if(tipo == "Ataque")
@@ -110,12 +138,15 @@ namespace Lector
             {
                 return new Curacion();
             }
+            else if(tipo == "Buff" && tipo == "Debuff") 
+            {
+                return new BuffHabilidad();
+            }
             else
             {
                 Debug.Log("No se encontró el tipo de habilidad: " + tipo);
                 return new Ataque();
             }
-            
         }
     }
 }

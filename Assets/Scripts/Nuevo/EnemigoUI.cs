@@ -21,6 +21,8 @@ public class EnemigoUI : MonoBehaviour
     public AudioSource audioSourceBase;
     public List<AudioSource> audioSourceHabilidades;
 
+    public bool habilidadActivada = false;
+
 
     private float tiempoInicio; // Tiempo cuando comenzó el juego
 
@@ -31,6 +33,7 @@ public class EnemigoUI : MonoBehaviour
 
     void Start()
     {
+
         tiempoInicio = Time.time; // Inicia el tiempo cuando comienza el juego
         panelVictoria.SetActive(false); // Ocultar el panel de victoria al inicio
         Time.timeScale = 1f; // Asegurarse de que el tiempo fluye normalmente
@@ -42,7 +45,7 @@ public class EnemigoUI : MonoBehaviour
 
     void Update()
     {
-        audioSourceBase.mute = (master.turnoActual != TurnType.enemigos);
+        audioSourceBase.mute = (master.turnoActual != TurnType.enemigos || habilidadActivada);
 
         // Revisa constantemente si la vida del enemigo es menor o igual a 0
         if (enemigo.Hp <= 0)
@@ -58,8 +61,34 @@ public class EnemigoUI : MonoBehaviour
     public void ActivarTrackBase()
     {
         audioSourceBase.mute = false;
+        DetenerTrackHabilidad();
     }
+    public void ActivarTrackHabilidad(Habilidad habilidad)
+    {
+        //Primero muteamos la habilidad base y cualquier otra habilidad que podría estar sonando
+        DetenerTrackHabilidad();
+        audioSourceBase.mute = true;
+        //audioMaster.masterAudioSource.volume = volumenAudioMasterReducido; // Reducir volumen del AudioMaster
 
+        int indice = enemigo.Habilidades.IndexOf(habilidad);
+        if (indice != -1)
+        {
+            //Aqui desmuteamos el track de la habilidad
+            audioSourceHabilidades[indice].mute = false;
+        }
+        else
+        {
+            Debug.LogWarning("habilidad: " + habilidad.Nombre + " no encontrada");
+        }
+    }
+    public void DetenerTrackHabilidad()
+    {
+
+        foreach (AudioSource audioSource in audioSourceHabilidades)
+        {
+            audioSource.mute = true;
+        }
+    }
 
 
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Combate
@@ -14,10 +15,12 @@ namespace Combate
         [SerializeField] private TextAsset archivoHabilidades;
         [SerializeField] private TextAsset archivoPersonajes;
         [SerializeField] private TextAsset archivoEnemigos;
+        [SerializeField] private TextAsset archivoPlanEnemigos;
 
         private Dictionary<string, Habilidad> dictHabilidades;
         private Dictionary<string, Personaje> dictPersonajes;
         private Dictionary<string, Enemigo> dictEnemigos;
+        [SerializeField] private ControladorEnemigos controladorEnemigos;
 
         private List<Personaje> slotsPersonajes = new List<Personaje>(); //Los 4 slots de personajes
         private List<Enemigo> slotsEnemigos = new List<Enemigo>(); //Los 4 slots de enemigos
@@ -41,6 +44,8 @@ namespace Combate
         //Encapsulamos las listas y ahora son readonly
         public List<Personaje> Personajes { get => slotsPersonajes; }
         public List<Enemigo> Enemigos { get => slotsEnemigos; }
+        
+        public List<EnemigoUI> EnemigosUI {  get => slotsEnemigosUI; }
         public Dictionary<string, Habilidad> DictHabilidades { get => dictHabilidades; }
         public Dictionary<string, Personaje> DictPersonajes { get => dictPersonajes; }
         public int CicloInicioTurno { get => cicloInicioTurno; }
@@ -62,6 +67,7 @@ namespace Combate
                 {
                     enemigoUI.OnCiclo(ciclo);
                 }
+                controladorEnemigos.FinalizarCiclo(turnoActual);
                 OnCiclo();
                 if (ciclo - cicloInicioTurno >= ciclosPorTurno)
                 {
@@ -76,6 +82,7 @@ namespace Combate
                         turnoActual = TurnType.personajes;
                     }
                 }
+                controladorEnemigos.EmpezarCiclo(turnoActual);
             }
         }
 
@@ -89,6 +96,11 @@ namespace Combate
             dictPersonajes = Lector.Lector.LeerPersonajes(lineas, dictHabilidades);
             lineas = archivoEnemigos.text.Split('\n').Skip(1).ToArray();
             dictEnemigos = Lector.Lector.LeerEnemigos(lineas, dictHabilidades);
+
+            lineas = archivoPlanEnemigos.text.Split('\n').Skip(1).ToArray();
+            PlanEnemigo planEnemigo = Lector.Lector.LeerPlan(lineas, dictHabilidades);
+            controladorEnemigos.plan = planEnemigo;
+            
 
             //Luego se inicializan los personajes activos en los slots
             InitPersonajes();

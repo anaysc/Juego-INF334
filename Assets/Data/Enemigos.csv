@@ -1,2 +1,2 @@
-Nombre;HP;Mana;DanoBase;Habilidades
-Enemigo1;50;0;1;nada
+Nombre;HP;Mana;DanoBase;Habilidades;
+Enemigo1;50;0;1;AtaqueEnemigo;
