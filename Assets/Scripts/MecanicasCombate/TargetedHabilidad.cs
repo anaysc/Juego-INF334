@@ -6,6 +6,10 @@ namespace Combate {
     //Una clase que engloba a todas las habilidades que actuan sobre objetivos, o sea practicamente todas las habilidades 
     public abstract class TargetedHabilidad : Habilidad
     {
+        protected enum TargetRule { simple, fixedPosition, random }
+        protected TargetRule targetRule = TargetRule.random;
+        protected int targetPosition = 0; //Only applies if targetRule is fixedPosition 
+
         protected abstract List<Creatura> ElegirObjetivos(Master master, Creatura creatura);
 
         protected static List<Creatura> ElegirPrimerObjetivo(int posicion, List<Creatura> oponentes)
@@ -26,6 +30,16 @@ namespace Combate {
                 }
             }
             return null; //Esto solo ocurre si no hay oponentes
+        }
+        protected static List<Creatura> ElegirObjetivoAleatorio(List<Creatura> oponentes)
+        {
+            List<Creatura> objetivos = new List<Creatura>();
+            if (oponentes.Count > 0)
+            {
+                int index = Random.Range(0, oponentes.Count);
+                objetivos.Add(oponentes[index]);
+            }
+            return objetivos;
         }
         protected abstract void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito);
         protected override void Activar(Master master, Creatura creatura, int gradoDeExito)
