@@ -138,13 +138,13 @@ namespace Lector
             {
                 return new Curacion();
             }
-            else if(tipo == "Buff" && tipo == "Debuff") 
+            else if(tipo == "Buff" || tipo == "Debuff") 
             {
                 return new BuffHabilidad();
             }
             else
             {
-                Debug.Log("No se encontró el tipo de habilidad: " + tipo);
+                Debug.Log("No se encontrï¿½ el tipo de habilidad: " + tipo);
                 return new Ataque();
             }
         }

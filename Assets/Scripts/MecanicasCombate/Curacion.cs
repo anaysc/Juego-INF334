@@ -5,7 +5,7 @@ namespace Combate.Habilidades
     /*
     public class Curacion : Habilidad
     {
-        private float[] healMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daño base que hace el ataque segun el grado de exito
+        private float[] healMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daï¿½o base que hace el ataque segun el grado de exito
 
         protected override void Activar(Master master, Creatura creatura, int gradoDeExito)
         {
@@ -44,7 +44,7 @@ namespace Combate.Habilidades
 
         protected virtual Creatura ElegirObjetivo(Master master, Creatura creatura)
         {
-            //Esta implementación por defecto elige al oponente en la misma pocisión, y si no puede pasa al siguiente y así.
+            //Esta implementaciï¿½n por defecto elige al oponente en la misma pocisiï¿½n, y si no puede pasa al siguiente y asï¿½.
             List<Creatura> aliados = new List<Creatura>();
             if (creatura.EsPersonaje())
             {
@@ -70,7 +70,7 @@ namespace Combate.Habilidades
     */
     public class Curacion : TargetedHabilidad
     {
-        private float[] healMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daño base que hace el ataque segun el grado de exito
+        private float[] healMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daï¿½o base que hace el ataque segun el grado de exito
 
         protected override void SetParametros(string[] parametros)
         {
@@ -100,7 +100,7 @@ namespace Combate.Habilidades
                 aliados.AddRange(master.Enemigos);
             }
 
-            return ElegirPrimerObjetivo(creatura.Posicion, aliados);
+            return ElegirTodosLosObjetivos(aliados);
         }
 
         protected override void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito)

@@ -6,7 +6,7 @@ namespace Combate {
     //Una clase que engloba a todas las habilidades que actuan sobre objetivos, o sea practicamente todas las habilidades 
     public abstract class TargetedHabilidad : Habilidad
     {
-        protected enum TargetRule { simple, fixedPosition, random }
+        protected enum TargetRule { simple, fixedPosition, random, todos }
         protected TargetRule targetRule = TargetRule.random;
         protected int targetPosition = 0; //Only applies if targetRule is fixedPosition 
 
@@ -14,7 +14,7 @@ namespace Combate {
 
         protected static List<Creatura> ElegirPrimerObjetivo(int posicion, List<Creatura> oponentes)
         {
-            //Esta implementación por defecto elige al oponente en la misma pocisión, y si no puede pasa al siguiente y así.
+            //Esta implementaciï¿½n por defecto elige al oponente en la misma pocisiï¿½n, y si no puede pasa al siguiente y asï¿½.
             //nota: oponentes podra en realidad ser aliados si es una habilidad que actua sobre aliados
 
             List<Creatura> objetivos = new List<Creatura>();
@@ -40,6 +40,25 @@ namespace Combate {
                 objetivos.Add(oponentes[index]);
             }
             return objetivos;
+        }
+        protected static List<Creatura> ElegirTodosLosObjetivos(List<Creatura> oponentes)
+        {
+            return oponentes;
+        }
+        protected static List<Creatura> ElegirObjetivosSegunRegla(TargetRule targetRule, List<Creatura> oponentes, Creatura ejecutor)
+        {
+            if(targetRule == TargetRule.simple)
+            {
+                return ElegirPrimerObjetivo(ejecutor.Posicion, oponentes);
+            }
+            else if(targetRule==TargetRule.random)
+            {
+                return ElegirObjetivoAleatorio(oponentes);
+            }
+            else if(targetRule==TargetRule.fixedPosition){
+                return null; //Por mientras que no esta implementado, aunque es facil
+            }
+            return null;
         }
         protected abstract void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito);
         protected override void Activar(Master master, Creatura creatura, int gradoDeExito)

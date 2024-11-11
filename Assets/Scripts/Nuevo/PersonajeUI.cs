@@ -32,11 +32,15 @@ public class PersonajeUI : MonoBehaviour
     public List<AudioSource> audioSourceHabilidades;  // El AudioSource preexistente en el GameObject
     public AudioSource audioSourceBase; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
     public AudioSource activar; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
+    public AudioSource desactivar; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
 
     public GameObject borde;
     private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private AudioManager audioManager;
     // [SerializeField] private Animator animador; // Referencia al Animator del personaje
+    public AudioSource sonidoInput; // AudioSource que se reproducirá al detectar el input
+    public TextMeshProUGUI textoDaño; 
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -47,14 +51,14 @@ public class PersonajeUI : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         // borde.SetActive(false);
-        if (efectoTeclaSource == null)
-        {
-            Debug.LogWarning("efectoTeclaSource no está asignado en el Inspector");
-        }
-        if (efectoTeclaSource != null)
-        {
-            efectoTeclaSource.volume = 0.2f; // Ajusta el valor según prefieras
-        }
+        // if (efectoTeclaSource == null)
+        // {
+        //     Debug.LogWarning("efectoTeclaSource no está asignado en el Inspector");
+        // }
+        // if (efectoTeclaSource != null)
+        // {
+        //     efectoTeclaSource.volume = 0.2f; // Ajusta el valor según prefieras
+        // }
 
     }
 
@@ -108,6 +112,15 @@ public class PersonajeUI : MonoBehaviour
     {
         if (Input.GetKeyDown(teclaControl))  // Si el jugador presiona la tecla asignada
         {
+            // Reproducir el sonido de input
+            if (sonidoInput != null)
+            {
+                sonidoInput.Play();
+            }
+            else
+            {
+                Debug.LogWarning("sonidoInput no está asignado en el Inspector");
+            }
             float offset = 0.1f;
             float tiempoCiclo = audioMaster.TimeInBeats % duracionCiclo;
             inputsTime.Add(tiempoCiclo*2 - offset);
@@ -140,8 +153,14 @@ public class PersonajeUI : MonoBehaviour
                     Debug.Log("Habilidad " + habilidadDetectada.Nombre + " no se pudo activar");
                 }
             }
+            // Actualizar el texto de daño y mostrarlo en pantalla
+            if (textoDaño != null && gradoExito > 0)
+            {
+                textoDaño.text = "-" + gradoExito;
+                textoDaño.gameObject.SetActive(true);
+                StartCoroutine(OcultarTextoDaño()); // Ocultar el texto después de un tiempo
+            }
         }
-
 
         ActivarTrackBase();
 
@@ -155,7 +174,12 @@ public class PersonajeUI : MonoBehaviour
             inputsTime.Add(lastInput-(duracionCiclo*2));
         }
     }
-
+    // Corrutina para ocultar el texto de daño después de un breve tiempo
+    private IEnumerator OcultarTextoDaño()
+    {
+        yield return new WaitForSeconds(1.5f); // Espera 1.5 segundos
+        textoDaño.gameObject.SetActive(false);
+    }
     void CheckearHabilidad(int largo) //Debería llamarse medio beat despues de comenzar el ciclo, y opcionalmente despues
     {
         //tiempoCiclo esta medido en corcheas (antes eran semicorcheas pero es muy rapido), y son la cantidad de elementos del patron que deberían compararse
@@ -164,10 +188,10 @@ public class PersonajeUI : MonoBehaviour
         {
             ActivarTrackHabilidad(habilidadDetectada);
             // Reproducir el sonido de tecla cada vez que se detecta una pulsación
-            if (efectoTeclaSource != null)
-            {
-                efectoTeclaSource.Play();
-            }
+            // if (efectoTeclaSource != null)
+            // {
+            //     efectoTeclaSource.Play();
+            // }
             if (bienTexto != null)
             {
                 bienTexto.gameObject.SetActive(true);
@@ -178,10 +202,10 @@ public class PersonajeUI : MonoBehaviour
             ActivarTrackBase();
             if (habilidadActivada == true)
             {
-                if (efectoTeclaSourceBad != null)
-                {
-                    efectoTeclaSourceBad.Play();
-                }
+                // if (efectoTeclaSourceBad != null)
+                // {
+                //     efectoTeclaSourceBad.Play();
+                // }
             }
             if(master.turnoActual == TurnType.enemigos)
             {
@@ -204,6 +228,11 @@ public class PersonajeUI : MonoBehaviour
                 spriteRenderer.sprite = spriteAtaque;
             }
         }
+        else
+        {
+            //desactivar.Play();
+
+        }
         //Primero muteamos la habilidad base y cualquier otra habilidad que podría estar sonando
         DetenerTrackHabilidad();
         audioSourceBase.mute = true;
@@ -224,7 +253,6 @@ public class PersonajeUI : MonoBehaviour
 
     void DetenerTrackHabilidad()
     {
-
         foreach(AudioSource audioSource in audioSourceHabilidades)
         {
             audioSource.mute = true;
@@ -244,6 +272,7 @@ public class PersonajeUI : MonoBehaviour
         {
             spriteRenderer.sprite = spriteNormal;
         }
+        
 
 
     }

@@ -11,7 +11,7 @@ namespace Combate
 
         //Stats
         private string nombre;
-        private float maxHp; //La máxima vida de la creatura
+        private float maxHp; //La mï¿½xima vida de la creatura
         private float hp;    //La vida actual de la creatura
         private float maxMana;
         private float mana;
@@ -20,9 +20,9 @@ namespace Combate
         //Effectos de Estado
         private List<Estado> efectosDeEstado = new List<Estado>(); //Los efectos de estado funcionan con un nombre y opcionalmente un valor asociado
 
-        private int posicion; //Posición en el juego (0-3) son los slots de los personajes o enemigos segun corresponda. Debe concordar con el indice en las listas del master
+        private int posicion; //Posicion en el juego (0-3) son los slots de los personajes o enemigos segun corresponda. Debe concordar con el indice en las listas del master
 
-        //Propiedades para encapsular las stats. No se que tan necesario es esto en realidad, pero se supone que es buen práctica.
+        //Propiedades para encapsular las stats. No se que tan necesario es esto en realidad, pero se supone que es buen prï¿½ctica.
 
         public string Nombre { get => nombre; }
         public float MaxHp { get => maxHp; set => maxHp = value; }
@@ -51,7 +51,7 @@ namespace Combate
 
         private void Morir()
         {
-            new Estado(this, "muerto"); //Esto automaticamente añade el nuevo estado a la lista
+            new Estado(this, "muerto"); //Esto automaticamente aï¿½ade el nuevo estado a la lista
         }
 
         public abstract bool EsPersonaje();
@@ -85,7 +85,7 @@ namespace Combate
             }
             return false;
         }
-        public List<Estado> FindAllEstados(string nombre) //Entrega todos los estados con el nombre en cuestión
+        public List<Estado> FindAllEstados(string nombre) //Entrega todos los estados con el nombre en cuestiï¿½n
         {
             List<Estado> output = new List<Estado>();
             foreach(Estado estado in efectosDeEstado)
@@ -111,7 +111,8 @@ namespace Combate
 
         public virtual void OnCiclo()
         {
-            foreach(Estado estado in efectosDeEstado)
+            List<Estado> efectoscopia = new List<Estado>(efectosDeEstado);
+            foreach(Estado estado in efectoscopia)
             {
                 estado.Actualizar();
             }
