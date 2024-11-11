@@ -15,6 +15,9 @@ public class PersonajeUI : MonoBehaviour
     private float volumenReducido = 0.05f; // Volumen reducido para personajes que no están en habilidad
     private float volumenAudioMasterDefault = 0.5f; // Volumen por defecto para el AudioMaster
     private float volumenAudioMasterReducido = 0.05f;// Volumen reducido para el AudioMaster cuando hay una habilidad activa
+    public Sprite spriteNormal;
+    public Sprite spriteAtaque;
+    private SpriteRenderer spriteRenderer;
 
 
     private int duracionCiclo = 8; //En Beats
@@ -36,8 +39,14 @@ public class PersonajeUI : MonoBehaviour
     // [SerializeField] private Animator animador; // Referencia al Animator del personaje
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogWarning("SpriteRenderer no encontrado en el personaje.");
+        }
+
         audioManager = FindObjectOfType<AudioManager>();
-        borde.SetActive(false);
+        // borde.SetActive(false);
         if (efectoTeclaSource == null)
         {
             Debug.LogWarning("efectoTeclaSource no está asignado en el Inspector");
@@ -70,7 +79,7 @@ public class PersonajeUI : MonoBehaviour
     {
         habilidadActivada = false;
         //achicar al mono
-        borde.SetActive(false);
+        // borde.SetActive(false);
         cicloActual = ciclo;
         FinalizarCiclo();
         proximoCheckeo = 0.5f;
@@ -187,8 +196,13 @@ public class PersonajeUI : MonoBehaviour
         {
             //hacer sonido y agrandar al mono
             activar.Play();
-            borde.SetActive(true);
+            // borde.SetActive(true);
             habilidadActivada = true;
+            // Cambia al sprite de ataque
+            if (spriteRenderer != null && spriteAtaque != null)
+            {
+                spriteRenderer.sprite = spriteAtaque;
+            }
         }
         //Primero muteamos la habilidad base y cualquier otra habilidad que podría estar sonando
         DetenerTrackHabilidad();
@@ -224,7 +238,12 @@ public class PersonajeUI : MonoBehaviour
         audioSourceBase.mute = false;
         AjustarVolumenOtrosPersonajes(false);
         audioMaster.masterAudioSource.volume = volumenAudioMasterDefault; // Restaurar volumen del AudioMaster
-        borde.SetActive(false);
+        // borde.SetActive(false);
+        // Restaurar el sprite normal cuando el track base vuelva a sonar
+        if (spriteRenderer != null && spriteNormal != null)
+        {
+            spriteRenderer.sprite = spriteNormal;
+        }
 
 
     }

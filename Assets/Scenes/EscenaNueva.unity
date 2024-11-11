@@ -1259,7 +1259,7 @@ Transform:
   m_GameObject: {fileID: 233288536}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.57, y: 0.58, z: 0}
+  m_LocalPosition: {x: 1.75, y: -0.01, z: 0}
   m_LocalScale: {x: 1.3437699, y: 0.83976, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2669,7 +2669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &353153428
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3344,7 +3344,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 932ce8ce7b8fd8e4d9fb9bce6a7e0b7d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70d60bde40761ee4685be7becefafa65, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3364,7 +3364,7 @@ Transform:
   m_GameObject: {fileID: 477646776}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 54.86, y: 28.47, z: 0}
+  m_LocalPosition: {x: 54.82, y: 29.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3389,6 +3389,8 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 748127056}
+  spriteNormal: {fileID: 21300000, guid: 70d60bde40761ee4685be7becefafa65, type: 3}
+  spriteAtaque: {fileID: 21300000, guid: ee29978434c158549b15bd856606d166, type: 3}
   nombreTrackBase: ViolinBase
   nombrePersonaje: Heroe Violin
   teclaControl: 106
@@ -4017,7 +4019,7 @@ Transform:
   m_GameObject: {fileID: 580684292}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.57, y: 0.53, z: 0}
+  m_LocalPosition: {x: -1.53, y: -0.32, z: 0}
   m_LocalScale: {x: 1.3437699, y: 0.83976, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5495,7 +5497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &890599225
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5589,7 +5591,7 @@ Transform:
   m_GameObject: {fileID: 896956431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.55, y: 0.52, z: 0}
+  m_LocalPosition: {x: -1.55, y: -0.21, z: 0}
   m_LocalScale: {x: 1.3437742, y: 0.83976376, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6038,7 +6040,7 @@ Transform:
   m_GameObject: {fileID: 948985578}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalPosition: {x: 0.04, y: -1.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6385,7 +6387,7 @@ Transform:
   m_GameObject: {fileID: 1052494890}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalPosition: {x: 0.04, y: -0.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6992,7 +6994,7 @@ Transform:
   m_GameObject: {fileID: 1135833882}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalPosition: {x: -0.02, y: -0.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8825,7 +8827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1425980386
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9689,7 +9691,7 @@ Transform:
   m_GameObject: {fileID: 1594161419}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 0.57, z: 0}
+  m_LocalPosition: {x: 1.77, y: -0.14, z: 0}
   m_LocalScale: {x: 1.3437699, y: 0.83976, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10248,7 +10250,7 @@ Transform:
   m_GameObject: {fileID: 1684378847}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalPosition: {x: -0, y: -0.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11796,7 +11798,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 230db3240b492574094d76e3dbd404a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bce1e48b65bd3c439da24d4e9c555a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11816,7 +11818,7 @@ Transform:
   m_GameObject: {fileID: 1845724041}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.140003, y: 26.93, z: 0}
+  m_LocalPosition: {x: 53.14, y: 27.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11841,6 +11843,8 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 160917794}
+  spriteNormal: {fileID: 21300000, guid: 6bce1e48b65bd3c439da24d4e9c555a3, type: 3}
+  spriteAtaque: {fileID: 21300000, guid: 3dd4969cb454e6b43843014d5ff73289, type: 3}
   nombreTrackBase: GuitarraBase
   nombrePersonaje: Heroe Guitarra
   teclaControl: 102
@@ -12125,7 +12129,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 590b73e132435194da7d40dc8a3816f0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6eda14a1f8420854db0f8939de8d34d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12145,7 +12149,7 @@ Transform:
   m_GameObject: {fileID: 1904411794}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 54.9, y: 26.93, z: 0}
+  m_LocalPosition: {x: 54.75, y: 27.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12170,6 +12174,8 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 926371107}
+  spriteNormal: {fileID: 21300000, guid: 6eda14a1f8420854db0f8939de8d34d9, type: 3}
+  spriteAtaque: {fileID: 21300000, guid: 8f3febb8102483a48999cbb0675f381b, type: 3}
   nombreTrackBase: PercusionBase
   nombrePersonaje: Heroe Percusion
   teclaControl: 107
@@ -12194,7 +12200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1912071013
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12880,7 +12886,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f4ba7a5e8b25ae241a6c94d4d6df858d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 721b2c31d2a804646921e6d75ade4730, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12900,7 +12906,7 @@ Transform:
   m_GameObject: {fileID: 2086539918}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.120003, y: 28.49, z: 0}
+  m_LocalPosition: {x: 53.14, y: 29.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12925,6 +12931,8 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 1137015123}
+  spriteNormal: {fileID: 21300000, guid: 721b2c31d2a804646921e6d75ade4730, type: 3}
+  spriteAtaque: {fileID: 21300000, guid: 36e483c32f91c25499288e7f599dffab, type: 3}
   nombreTrackBase: BajoBase
   nombrePersonaje: Heroe Bajo
   teclaControl: 100
