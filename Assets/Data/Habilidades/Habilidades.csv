@@ -6,4 +6,5 @@ ViolinHabilidad2;Buff;nx xs nx xs nx xs nx xs;2;nombreEstado:bonusDamage,valor:2
 PercusionHabilidad1;Ataque;nx xx nx xx nx xx nx xx;0;damageMulti:0|1|2|3;
 PercusionHabilidad2;Curacion;ss cx ss cx ss cx ss cx;2;healMulti:0|1|2|3;
 GuitarraHabilidad1;Ataque;nx xx nx xx nx xx nx xx;0;damageMulti:0|1|2|3;
+GuitarraHabilidad2;Ataque;cx nx xn xx cx nx xn xx ;2;damageMulti:0|2|4|6;
 AtaqueEnemigo;Ataque;x;0;damageMulti:0|1|2|3;
