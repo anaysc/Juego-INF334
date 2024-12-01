@@ -84,6 +84,10 @@ namespace Combate.Habilidades
                     {
                         targetRule = TargetRule.random;
                     }
+                    else if (valorParam == "todos")
+                    {
+                        targetRule = TargetRule.todos;
+                    }
                 }
             }
         }
