@@ -56,5 +56,9 @@ namespace Combate
                 }
             }
         }
+        public string NombreEstado
+        {
+            get { return nombreEstado; }
+        }
     }
 }

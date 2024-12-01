@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Combate;
 using TMPro;
+using Combate.Habilidades;
 
 public class PersonajeUI : MonoBehaviour
 {
@@ -40,7 +41,9 @@ public class PersonajeUI : MonoBehaviour
     private AudioManager audioManager;
     // [SerializeField] private Animator animador; // Referencia al Animator del personaje
     public AudioSource sonidoInput; // AudioSource que se reproducirá al detectar el input
-    public TextMeshProUGUI textoDaño; 
+    public TextMeshProUGUI textoDaño;
+    public TextMeshProUGUI textoCura;
+    public TextMeshProUGUI textoBuff;
     public float lastHp;
     public bool estaMuerto = false; // Indica si el personaje/enemigo ya murió
 
@@ -157,10 +160,22 @@ public class PersonajeUI : MonoBehaviour
                 }
             }
             // Actualizar el texto de daño y mostrarlo en pantalla
-            if (textoDaño != null && gradoExito > 0)
+            if (textoDaño != null && gradoExito > 0 && habilidadDetectada is Ataque)
             {
                 textoDaño.text = "-" + gradoExito;
                 textoDaño.gameObject.SetActive(true);
+                StartCoroutine(OcultarTextoDaño()); // Ocultar el texto después de un tiempo
+            }
+            else if (habilidadDetectada != null && gradoExito > 0 && habilidadDetectada is Curacion)
+            {
+                textoCura.text = "+" + gradoExito;
+                textoCura.gameObject.SetActive(true);
+                StartCoroutine(OcultarTextoDaño()); // Ocultar el texto después de un tiempo
+            }
+            else if (habilidadDetectada != null && gradoExito > 0 && habilidadDetectada is BuffHabilidad buffHabilidad)
+            {
+                textoBuff.text = buffHabilidad.NombreEstado + " +"+ gradoExito;
+                textoBuff.gameObject.SetActive(true);
                 StartCoroutine(OcultarTextoDaño()); // Ocultar el texto después de un tiempo
             }
         }
@@ -182,6 +197,8 @@ public class PersonajeUI : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f); // Espera 1.5 segundos
         textoDaño.gameObject.SetActive(false);
+        textoCura.gameObject.SetActive(false);
+        textoBuff.gameObject.SetActive(false);
     }
     void CheckearHabilidad(int largo) //Debería llamarse medio beat despues de comenzar el ciclo, y opcionalmente despues
     {
