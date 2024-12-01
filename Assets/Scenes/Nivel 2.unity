@@ -1895,6 +1895,9 @@ MonoBehaviour:
   habilidadActivada: 0
   botonRetryVictoria: {fileID: 959860531}
   escenaRetry: Nivel 2
+  "estaRecibiendoDa\xF1o": 0
+  spriteRenderer: {fileID: 0}
+  lastHp: 0
 --- !u!1 &323133065
 GameObject:
   m_ObjectHideFlags: 0
@@ -8798,6 +8801,7 @@ MonoBehaviour:
   botonRetryVictoria: {fileID: 959860531}
   nombreEscenaMenuPrincipal: MenuPrincipal
   escenaRetry: Nivel 2
+  "audioDa\xF1o": {fileID: 1444083666}
 --- !u!4 &1755446315
 Transform:
   m_ObjectHideFlags: 0
@@ -9887,6 +9891,8 @@ MonoBehaviour:
   bienTexto: {fileID: 160917794}
   spriteNormal: {fileID: 21300000, guid: 6bce1e48b65bd3c439da24d4e9c555a3, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 3dd4969cb454e6b43843014d5ff73289, type: 3}
+  spriteRenderer: {fileID: 0}
+  "estaRecibiendoDa\xF1o": 0
   nombreTrackBase: GuitarraBase
   nombrePersonaje: Heroe Guitarra
   teclaControl: 102
@@ -9898,6 +9904,7 @@ MonoBehaviour:
   borde: {fileID: 0}
   sonidoInput: {fileID: 2062786324}
   "textoDa\xF1o": {fileID: 1679666733}
+  lastHp: 0
 --- !u!1 &1848508255
 GameObject:
   m_ObjectHideFlags: 0
@@ -10185,6 +10192,8 @@ MonoBehaviour:
   bienTexto: {fileID: 926371107}
   spriteNormal: {fileID: 21300000, guid: 6eda14a1f8420854db0f8939de8d34d9, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 8f3febb8102483a48999cbb0675f381b, type: 3}
+  spriteRenderer: {fileID: 0}
+  "estaRecibiendoDa\xF1o": 0
   nombreTrackBase: PercusionBase
   nombrePersonaje: Heroe Percusion
   teclaControl: 107
@@ -10197,6 +10206,7 @@ MonoBehaviour:
   borde: {fileID: 0}
   sonidoInput: {fileID: 2062786324}
   "textoDa\xF1o": {fileID: 1679666733}
+  lastHp: 0
 --- !u!1 &1950486728
 GameObject:
   m_ObjectHideFlags: 0

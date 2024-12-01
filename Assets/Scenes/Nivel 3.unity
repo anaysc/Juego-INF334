@@ -2396,6 +2396,10 @@ MonoBehaviour:
   habilidadActivada: 0
   botonRetryVictoria: {fileID: 691650628}
   escenaRetry: Nivel 1
+  "estaRecibiendoDa\xF1o": 0
+  spriteRenderer: {fileID: 0}
+  lastHp: 0
+  estaMuerto: 0
 --- !u!1 &323133065
 GameObject:
   m_ObjectHideFlags: 0
@@ -3552,6 +3556,8 @@ MonoBehaviour:
   bienTexto: {fileID: 748127056}
   spriteNormal: {fileID: 21300000, guid: 70d60bde40761ee4685be7becefafa65, type: 3}
   spriteAtaque: {fileID: 21300000, guid: ee29978434c158549b15bd856606d166, type: 3}
+  spriteRenderer: {fileID: 0}
+  "estaRecibiendoDa\xF1o": 0
   nombreTrackBase: ViolinBase
   nombrePersonaje: Heroe Violin
   teclaControl: 106
@@ -3564,6 +3570,8 @@ MonoBehaviour:
   borde: {fileID: 1912071012}
   sonidoInput: {fileID: 2062786324}
   "textoDa\xF1o": {fileID: 1679666733}
+  lastHp: 0
+  estaMuerto: 0
 --- !u!1 &482173933 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7533727887038581347, guid: 452f681fcc69a0d408b78f6e9cc1ffa1, type: 3}
@@ -12343,6 +12351,7 @@ MonoBehaviour:
   botonRetryVictoria: {fileID: 691650628}
   nombreEscenaMenuPrincipal: MenuPrincipal
   escenaRetry: Nivel 3
+  "audioDa\xF1o": {fileID: 1444083666}
 --- !u!4 &1755446315
 Transform:
   m_ObjectHideFlags: 0
@@ -13622,6 +13631,8 @@ MonoBehaviour:
   bienTexto: {fileID: 160917794}
   spriteNormal: {fileID: 21300000, guid: 6bce1e48b65bd3c439da24d4e9c555a3, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 3dd4969cb454e6b43843014d5ff73289, type: 3}
+  spriteRenderer: {fileID: 0}
+  "estaRecibiendoDa\xF1o": 0
   nombreTrackBase: GuitarraBase
   nombrePersonaje: Heroe Guitarra
   teclaControl: 102
@@ -13633,6 +13644,8 @@ MonoBehaviour:
   borde: {fileID: 1425980385}
   sonidoInput: {fileID: 2062786324}
   "textoDa\xF1o": {fileID: 1679666733}
+  lastHp: 0
+  estaMuerto: 0
 --- !u!1 &1848508255
 GameObject:
   m_ObjectHideFlags: 0
@@ -14224,6 +14237,8 @@ MonoBehaviour:
   bienTexto: {fileID: 926371107}
   spriteNormal: {fileID: 21300000, guid: 6eda14a1f8420854db0f8939de8d34d9, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 8f3febb8102483a48999cbb0675f381b, type: 3}
+  spriteRenderer: {fileID: 0}
+  "estaRecibiendoDa\xF1o": 0
   nombreTrackBase: PercusionBase
   nombrePersonaje: Heroe Percusion
   teclaControl: 107
@@ -14236,6 +14251,8 @@ MonoBehaviour:
   borde: {fileID: 890599224}
   sonidoInput: {fileID: 2062786324}
   "textoDa\xF1o": {fileID: 1679666733}
+  lastHp: 0
+  estaMuerto: 0
 --- !u!1 &1912071012
 GameObject:
   m_ObjectHideFlags: 0
@@ -14876,6 +14893,8 @@ MonoBehaviour:
   bienTexto: {fileID: 1137015123}
   spriteNormal: {fileID: 21300000, guid: 721b2c31d2a804646921e6d75ade4730, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 36e483c32f91c25499288e7f599dffab, type: 3}
+  spriteRenderer: {fileID: 0}
+  "estaRecibiendoDa\xF1o": 0
   nombreTrackBase: BajoBase
   nombrePersonaje: Heroe Bajo
   teclaControl: 100
@@ -14888,6 +14907,8 @@ MonoBehaviour:
   borde: {fileID: 353153427}
   sonidoInput: {fileID: 742201673}
   "textoDa\xF1o": {fileID: 1679666733}
+  lastHp: 0
+  estaMuerto: 0
 --- !u!1 &2092950280
 GameObject:
   m_ObjectHideFlags: 0

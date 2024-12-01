@@ -17,7 +17,8 @@ public class PersonajeUI : MonoBehaviour
     private float volumenAudioMasterReducido = 0.05f;// Volumen reducido para el AudioMaster cuando hay una habilidad activa
     public Sprite spriteNormal;
     public Sprite spriteAtaque;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
+    public bool estaRecibiendoDaño = false; // Indica si el personaje está recibiendo daño
 
 
     private int duracionCiclo = 8; //En Beats
@@ -40,6 +41,8 @@ public class PersonajeUI : MonoBehaviour
     // [SerializeField] private Animator animador; // Referencia al Animator del personaje
     public AudioSource sonidoInput; // AudioSource que se reproducirá al detectar el input
     public TextMeshProUGUI textoDaño; 
+    public float lastHp;
+    public bool estaMuerto = false; // Indica si el personaje/enemigo ya murió
 
     void Start()
     {

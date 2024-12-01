@@ -27,6 +27,10 @@ public class EnemigoUI : MonoBehaviour
     public string escenaRetry = "Nivel 1"; // Nombre de la escena para "Retry"
 
     private float tiempoInicio; // Tiempo cuando comenzó el juego
+    public bool estaRecibiendoDaño = false; // Indica si el personaje está recibiendo daño
+    public SpriteRenderer spriteRenderer;
+    public float lastHp;
+    public bool estaMuerto = false; // Indica si el personaje/enemigo ya murió
 
     internal void SeleccionarEnemigo(Enemigo e)
     {
@@ -35,6 +39,11 @@ public class EnemigoUI : MonoBehaviour
 
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogWarning("SpriteRenderer no encontrado en el enemigo.");
+        }
         fuentesAudio = new List<AudioSource>(FindObjectsOfType<AudioSource>());
         tiempoInicio = Time.time; // Inicia el tiempo cuando comienza el juego
         panelVictoria.SetActive(false); // Ocultar el panel de victoria al inicio
@@ -69,7 +78,6 @@ public class EnemigoUI : MonoBehaviour
         {
             enemigo.Reiniciar(); // Llama al método Reiniciar de cada enemigo
         }
-
     }
     public void OnCiclo(int ciclo)
     {

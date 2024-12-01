@@ -27,9 +27,24 @@ public class UI : MonoBehaviour
     // Nombre de la escena del menú principal
     public string nombreEscenaMenuPrincipal = "MenuPrincipal"; // Cambia esto por el nombre de tu escena del menú principal
     public string escenaRetry = "Nivel 1"; // Nombre de la escena para "Retry"
+    public AudioSource audioDaño; 
 
     void Start()
     {
+        foreach (var personaje in personajes)
+        {
+            if (personaje != null && personaje.personaje != null)
+            {
+                personaje.lastHp = personaje.personaje.MaxHp;
+            }
+        }
+
+        // Inicializar lastHp para enemigo
+        if (enemigo != null && enemigo.enemigo != null)
+        {
+            enemigo.lastHp = enemigo.enemigo.MaxHp;
+        }
+
         fuentesAudio = new List<AudioSource>(FindObjectsOfType<AudioSource>());
         // Iniciar el juego, ocultar el panel y reiniciar el contador de tiempo
         panelPerdiste.SetActive(false);
@@ -49,18 +64,57 @@ public class UI : MonoBehaviour
         // Verificar si todos los personajes están muertos
         if (!juegoTerminado && TodosLosPersonajesMuertos())
         {
-            // Mostrar el panel de derrota
             MostrarDerrota();
         }
 
         // Verificar si el audio principal ha terminado
         if (!juegoTerminado && audioMaster.HaTerminado)
         {
-            // Terminar el juego si el audio ha terminado y no se ha llamado antes
             MostrarDerrota();
+        }
+        foreach (var personaje in personajes)
+        {
+            if (personaje != null && personaje.personaje != null)
+            {
+                if (personaje.personaje.Hp < personaje.lastHp && !personaje.estaMuerto) // Si la vida bajó
+                {
+                    MostrarEfectoDaño(personaje);
+                }
+                // Actualizar lastHp
+                personaje.lastHp = personaje.personaje.Hp;
 
+            }
+        }
+
+        // Detectar daño en el enemigo
+        if (enemigo != null && enemigo.enemigo != null)
+        {
+            if (enemigo.enemigo.Hp < enemigo.lastHp && !enemigo.estaMuerto) // Si la vida bajó
+            {
+                MostrarEfectoDaño(enemigo);
+                Debug.Log("daño al enemigo");
+            }
+            // Actualizar lastHp
+            enemigo.lastHp = enemigo.enemigo.Hp;
         }
     }
+    private void CambiarABlancoYNegro(MonoBehaviour criatura)
+    {
+        SpriteRenderer spriteRenderer = criatura.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            // Cambia el color del sprite a una tonalidad de gris
+            spriteRenderer.color = new Color(0.3f, 0.3f, 0.3f, 1f); // Gris sin alterar la transparencia
+            Debug.Log($"Cambiado a blanco y negro (color) en: {criatura.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"No se encontró SpriteRenderer en {criatura.name}");
+        }
+}
+
+
+
     void ReiniciarEstados()
     {
         foreach (var personaje in personajes)
@@ -131,6 +185,85 @@ public class UI : MonoBehaviour
 
         // Cambiar a la escena especificada
         SceneManager.LoadScene(nombreEscena);
+    }
+    private void MostrarEfectoDaño(PersonajeUI personaje)
+    {
+        if (!personaje.estaRecibiendoDaño) // Solo si el efecto no está activo
+        {
+            StartCoroutine(EfectoDaño(personaje.spriteRenderer, personaje));
+        }
+        
+    }
+
+    private void MostrarEfectoDaño(EnemigoUI enemigo)
+    {
+        if (!enemigo.estaRecibiendoDaño) // Solo si el efecto no está activo
+        {
+            StartCoroutine(EfectoDaño(enemigo.spriteRenderer, enemigo));
+        }
+    }
+    private IEnumerator EfectoDaño(SpriteRenderer spriteRenderer, MonoBehaviour criatura)
+    {
+
+        if (criatura is PersonajeUI personaje)
+        {
+            personaje.estaRecibiendoDaño = true;
+        }
+        else if (criatura is EnemigoUI enemigo)
+        {
+            enemigo.estaRecibiendoDaño = true;
+        }
+        // Reproducir sonido de daño
+        if (audioDaño != null)
+        {
+            audioDaño.Play();
+        }
+
+
+        Color colorOriginal = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+
+        try
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                spriteRenderer.enabled = false;
+                yield return new WaitForSeconds(0.2f);
+                spriteRenderer.enabled = true;
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+        finally
+        {
+            spriteRenderer.color = colorOriginal;
+
+            if (criatura is PersonajeUI p)
+            {
+                p.estaRecibiendoDaño = false;
+            }
+            else if (criatura is EnemigoUI e)
+            {
+                e.estaRecibiendoDaño = false;
+            }
+        }
+        if (criatura is PersonajeUI pe)
+        {
+            if (pe.personaje.Hp <= 0 && !pe.estaMuerto) // Si el personaje murió
+            {
+                CambiarABlancoYNegro(pe);
+                pe.estaMuerto = true; // Marcarlo como muerto para no repetir el cambio
+            }
+        }
+        else if (criatura is EnemigoUI en)
+        {
+           if (en.enemigo.Hp <= 0 && !en.estaMuerto) // Si el personaje murió
+            {
+                CambiarABlancoYNegro(en);
+                en.estaMuerto = true; // Marcarlo como muerto para no repetir el cambio
+            }
+        }
+
+
     }
 
 
