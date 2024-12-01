@@ -3128,22 +3128,21 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432669540}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 945793206}
   - {fileID: 1758069975}
   - {fileID: 1471068784}
-  - {fileID: 1347076563}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 853023679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 990, y: 556.875}
+  m_SizeDelta: {x: 1980, y: 1113.75}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &432669542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5973,7 +5972,7 @@ GameObject:
   - component: {fileID: 853023681}
   - component: {fileID: 853023680}
   m_Layer: 5
-  m_Name: Canvas Vida quitada
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5992,6 +5991,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1002290732}
+  - {fileID: 1347076563}
+  - {fileID: 432669541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9220,11 +9221,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1805793795}
-  m_Father: {fileID: 432669541}
+  m_Father: {fileID: 853023679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 803.2725, y: 452}
+  m_AnchoredPosition: {x: 803.27246, y: 452.00006}
   m_SizeDelta: {x: 247.3934, y: 102.177}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1347076564
@@ -10229,7 +10230,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471068781}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15464,7 +15465,6 @@ SceneRoots:
   - {fileID: 1912071014}
   - {fileID: 890599226}
   - {fileID: 1425980387}
-  - {fileID: 432669541}
   - {fileID: 853023679}
   - {fileID: 1755446315}
   - {fileID: 323133069}
