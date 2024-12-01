@@ -117,6 +117,14 @@ namespace Combate
                 estado.Actualizar();
             }
         }
+        public void Reiniciar()
+        {
+            Hp = MaxHp;           // Restablecer la vida al máximo
+            Mana = MaxMana;       // Restablecer el maná al máximo
+            efectosDeEstado.Clear(); // Eliminar todos los efectos de estado
+            // Otros reinicios según sea necesario
+        }
 
     }
+
 }

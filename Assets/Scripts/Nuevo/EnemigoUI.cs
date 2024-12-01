@@ -12,8 +12,9 @@ public class EnemigoUI : MonoBehaviour
     public Enemigo enemigo; // Referencia al objeto enemigo
     public GameObject panelVictoria; // Panel de victoria
     public TMP_Text textoTiempo; // Texto TMP para mostrar el tiempo
-    public Button botonReiniciar; // Botón de "Volver a Jugar"
-    public Button botonMenuPrincipal; // Botón de "Menú Principal"
+    public Button botonMenuPrincipalVictoria; // Botón de "Menú Principal"
+    private List<AudioSource> fuentesAudio; // Lista para todas las fuentes de audio en la escena
+    [SerializeField] public List<PersonajeUI> personajes; // Cambié a PersonajeUI porque parece que manejas personajes desde esta clase
 
     [SerializeField] private Master master; //Referencia al master
     [SerializeField] private AudioMaster audioMaster; //Referencia al AudioMaster de la escena
@@ -22,7 +23,8 @@ public class EnemigoUI : MonoBehaviour
     public List<AudioSource> audioSourceHabilidades;
 
     public bool habilidadActivada = false;
-
+    public Button botonRetryVictoria; // Botón que activará y desactivará la pausa
+    public string escenaRetry = "Nivel 1"; // Nombre de la escena para "Retry"
 
     private float tiempoInicio; // Tiempo cuando comenzó el juego
 
@@ -33,14 +35,15 @@ public class EnemigoUI : MonoBehaviour
 
     void Start()
     {
-
+        fuentesAudio = new List<AudioSource>(FindObjectsOfType<AudioSource>());
         tiempoInicio = Time.time; // Inicia el tiempo cuando comienza el juego
         panelVictoria.SetActive(false); // Ocultar el panel de victoria al inicio
         Time.timeScale = 1f; // Asegurarse de que el tiempo fluye normalmente
 
         // Asignar los eventos a los botones
-        botonReiniciar.onClick.AddListener(VolverAJugar);
-        botonMenuPrincipal.onClick.AddListener(IrMenuPrincipal);
+        botonMenuPrincipalVictoria.onClick.AddListener(IrMenuPrincipal);
+        botonRetryVictoria.onClick.AddListener(() => CambiarEscena(escenaRetry));
+
     }
 
     void Update()
@@ -53,7 +56,21 @@ public class EnemigoUI : MonoBehaviour
             TerminarJuego();
         }
     }
+    void ReiniciarEstados()
+    {
+        foreach (var personaje in personajes)
+        {
+            if (personaje != null)
+            {
+                personaje.personaje.Reiniciar(); // Llama al método Reiniciar de cada personaje
+            }
+        }
+        if (enemigo != null)
+        {
+            enemigo.Reiniciar(); // Llama al método Reiniciar de cada enemigo
+        }
 
+    }
     public void OnCiclo(int ciclo)
     {
         
@@ -89,15 +106,18 @@ public class EnemigoUI : MonoBehaviour
             audioSource.mute = true;
         }
     }
-
-
-
-
     void TerminarJuego()
     {
+        ReiniciarEstados();
         // Pausar el juego
         Time.timeScale = 0f;
-
+        foreach (AudioSource fuente in fuentesAudio)
+        {
+            if (fuente.isPlaying)
+            {
+                fuente.Pause();
+            }
+        }
         // Calcular el tiempo total
         float tiempoFinal = Time.time - tiempoInicio;
 
@@ -113,9 +133,9 @@ public class EnemigoUI : MonoBehaviour
     // Método para reiniciar el juego
     void VolverAJugar()
     {
+        ReiniciarEstados();
         // Reinicia el tiempo y el estado del enemigo
         tiempoInicio = Time.time; // Restablece el tiempo al actual
-        enemigo.Hp = enemigo.MaxHp; // Restablecer la vida del enemigo
         panelVictoria.SetActive(false); // Ocultar el panel de victoria
         Time.timeScale = 1f; // Reanudar el tiempo
 
@@ -125,7 +145,18 @@ public class EnemigoUI : MonoBehaviour
     // Método para ir al menú principal
     void IrMenuPrincipal()
     {
+        ReiniciarEstados();
+
         // Cambiar de escena al menú principal
         SceneManager.LoadScene("MenuPrincipal");
+    }
+    void CambiarEscena(string nombreEscena)
+    {
+        // Restablecer el tiempo de juego antes de recargar
+        Time.timeScale = 1f;
+        ReiniciarEstados();
+
+        // Cambiar a la escena especificada
+        SceneManager.LoadScene(nombreEscena);
     }
 }
