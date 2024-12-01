@@ -11,6 +11,8 @@ namespace Combate
         private string patron; //una secuencia de 16 caracteres que representa un compás. "nxxx" significa negra, "cx" corchea, "s" semicorchea, "bxxxxxxx" blanca.
         protected float costoMana = 0;
 
+        public string nombreDisplay;
+
         public string Patron { get => patron; }
         public string Nombre { get => nombre; }
 
@@ -19,11 +21,20 @@ namespace Combate
             this.nombre = nombre;
             this.patron = patron;
             this.costoMana = costoMana;
+            this.nombreDisplay = nombre; //Por defecto en caso que no haya otro
             SetParametros(parametros);
         }
         protected virtual void SetParametros(string[] parametros)
         {
-
+            foreach (string parametro in parametros)
+            {
+                string nombreParam = parametro.Split(':', 2)[0];
+                string valorParam = parametro.Split(":", 2)[1];
+                if (nombreParam == "nombreDisplay")
+                {
+                    nombreDisplay = valorParam;
+                }
+            }
         }
 
         protected abstract void Activar(Master master, Creatura creatura, int gradoDeExito); //La creatura es el personaje o enemigo realizando la habilidad

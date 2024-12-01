@@ -57,6 +57,7 @@ namespace Combate.Habilidades
 
         protected override void SetParametros(string[] parametros)
         {
+            base.SetParametros(parametros);
             foreach (string parametro in parametros)
             {
                 string nombreParam = parametro.Split(':', 2)[0];
