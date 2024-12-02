@@ -8,10 +8,11 @@ namespace Combate.Habilidades
     {
         private float[] damageMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del daño base que hace el ataque segun el grado de exito
         private string damageType = "normal";
+        private float damage;
 
         protected override void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito)
         {
-            float damage = damageMulti[gradoDeExito] * creatura.BaseDamage;
+            damage = damageMulti[gradoDeExito] * creatura.BaseDamage;
             if (objetivo != null)//Esto no deberia ser necesario igual porque ya se deberia estar checkeando a traves de SePuedeActivar
             {
                 Estado resistencia = objetivo.FindEstado("resistencia-" + damageType);
@@ -27,7 +28,10 @@ namespace Combate.Habilidades
                 objetivo.Hp -= damage;
             }
         }
-
+        public float Damage
+        {
+            get{ return damage; }
+        }
         protected override List<Creatura> ElegirObjetivos(Master master, Creatura creatura)
         {
             List<Creatura> oponentes = new List<Creatura>();

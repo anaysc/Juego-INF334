@@ -158,15 +158,15 @@ public class PersonajeUI : MonoBehaviour
                 }
             }
             // Actualizar el texto de daño y mostrarlo en pantalla
-            if (textoDaño != null && gradoExito > 0 && habilidadDetectada is Ataque)
+            if (textoDaño != null && gradoExito > 0 && habilidadDetectada is Ataque atack)
             {
-                textoDaño.text = "-" + gradoExito;
+                textoDaño.text = "-" + atack.Damage.ToString("F1");
                 textoDaño.gameObject.SetActive(true);
                 StartCoroutine(OcultarTextoDaño()); // Ocultar el texto después de un tiempo
             }
-            else if (habilidadDetectada != null && gradoExito > 0 && habilidadDetectada is Curacion)
+            else if (habilidadDetectada != null && gradoExito > 0 && habilidadDetectada is Curacion cura)
             {
-                textoCura.text = "+" + gradoExito;
+                textoCura.text = "+" + cura.Heal.ToString("F1");
                 textoCura.gameObject.SetActive(true);
                 StartCoroutine(OcultarTextoDaño()); // Ocultar el texto después de un tiempo
             }
