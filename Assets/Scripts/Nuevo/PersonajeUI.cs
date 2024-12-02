@@ -44,6 +44,7 @@ public class PersonajeUI : MonoBehaviour
     public TextMeshProUGUI textoDaño;
     public TextMeshProUGUI textoCura;
     public TextMeshProUGUI textoBuff;
+    public TextMeshProUGUI nombreHabilidad;
     public float lastHp;
     public bool estaMuerto = false; // Indica si el personaje/enemigo ya murió
 
@@ -216,6 +217,11 @@ public class PersonajeUI : MonoBehaviour
             {
                 bienTexto.gameObject.SetActive(true);
             }
+            if (nombreHabilidad != null)
+            {
+                nombreHabilidad.text = "Estás usando: " + habilidadDetectada.nombreDisplay;
+                nombreHabilidad.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -282,6 +288,7 @@ public class PersonajeUI : MonoBehaviour
     void ActivarTrackBase()
     {
         bienTexto.gameObject.SetActive(false);
+        nombreHabilidad.gameObject.SetActive(false);
         DetenerTrackHabilidad();   
         audioSourceBase.mute = false;
         AjustarVolumenOtrosPersonajes(false);
