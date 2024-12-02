@@ -38,7 +38,14 @@ public class Pausa : MonoBehaviour
         // Obtener todas las fuentes de audio en la escena
         fuentesAudio = new List<AudioSource>(FindObjectsOfType<AudioSource>());
     }
-
+    void Update()
+    {
+        // Detectar si se presiona la tecla P
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            AlternarPausa(); // Llama al método para pausar o reanudar el juego
+        }
+    }
     // Función para pausar y reanudar el juego
     public void AlternarPausa()
     {

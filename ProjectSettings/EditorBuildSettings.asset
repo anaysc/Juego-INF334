@@ -38,4 +38,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/Tutorial 3.unity
     guid: 1f61b688ff30e4844b5d50c3d080f205
+  - enabled: 1
+    path: Assets/Resources/Scenes/Demo 1.unity
+    guid: 848e945ca03e3a242a9208a6a67bcc3f
+  - enabled: 1
+    path: Assets/Resources/Scenes/Demo 2.unity
+    guid: 1cb3439fbc45cbb428cec15026cf580d
+  - enabled: 1
+    path: Assets/Resources/Scenes/Demo 3.unity
+    guid: f5b7b87bfa33ef0469a04a4fa2655854
   m_configObjects: {}
