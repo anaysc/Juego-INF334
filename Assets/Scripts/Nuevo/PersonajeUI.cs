@@ -13,7 +13,7 @@ public class PersonajeUI : MonoBehaviour
     [SerializeField] private AudioSource efectoTeclaSourceBad; // AudioSource instanciado para el sonido de tecla
     [SerializeField] private TextMeshProUGUI bienTexto; // Referencia al texto que muestra "¡Bien!" usando TextMeshPro
     private float volumenDefault = 0.5f;  // Volumen estándar cuando el personaje está en base
-    private float volumenReducido = 0.05f; // Volumen reducido para personajes que no están en habilidad
+    public float volumenReducido = 0.05f; // Volumen reducido para personajes que no están en habilidad
     private float volumenAudioMasterDefault = 0.5f; // Volumen por defecto para el AudioMaster
     private float volumenAudioMasterReducido = 0.05f;// Volumen reducido para el AudioMaster cuando hay una habilidad activa
     public Sprite spriteNormal;
