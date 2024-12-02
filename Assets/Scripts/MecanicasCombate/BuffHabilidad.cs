@@ -59,7 +59,21 @@ namespace Combate
         }
         public string NombreEstado
         {
-            get { return nombreEstado; }
+            get
+            {
+                if (nombreEstado == "bonusDamage")
+                {
+                    return "Ataque";
+                }
+                else if (nombreEstado == "resistencia-normal")
+                {
+                    return "Defensa";
+                }
+                else
+                {
+                    return nombreEstado; // Devuelve el valor original si no coincide con ningún caso
+                }
+            }
         }
     }
 }
