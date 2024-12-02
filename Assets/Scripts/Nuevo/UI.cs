@@ -31,6 +31,8 @@ public class UI : MonoBehaviour
 
     void Start()
     {
+        MuteMusic();
+        
         foreach (var personaje in personajes)
         {
             if (personaje != null && personaje.personaje != null)
@@ -266,6 +268,14 @@ public class UI : MonoBehaviour
 
     }
 
+    void MuteMusic()
+    {
+        MusicManager musicManager = FindObjectOfType<MusicManager>();
+        if (musicManager != null)
+        {
+            musicManager.MuteMusic();
+        }
+    }
 
 }
 

@@ -13,12 +13,14 @@ public class Pausa : MonoBehaviour
     [SerializeField] public List<PersonajeUI> personajes; // Cambié a PersonajeUI porque parece que manejas personajes desde esta clase
     [SerializeField] public EnemigoUI enemigo; // Referencia al objeto enemigo
     public string nombreEscenaMenuPrincipal = "MenuPrincipal"; // Cambia esto por el nombre de tu escena del menú principal
-    public string escenaRetry = "Nivel 1"; // Nombre de la escena para "Retry"
+    private string escenaRetry; // Nombre de la escena para "Retry"
 
     private List<AudioSource> fuentesAudio; // Lista para todas las fuentes de audio en la escena
 
     void Start()
     {
+        escenaRetry = SceneManager.GetActiveScene().name;
+
         botonQuit.onClick.AddListener(() => CambiarEscena(nombreEscenaMenuPrincipal));
         botonRetry.onClick.AddListener(() => CambiarEscena(escenaRetry));
         // Asegurarse de que el juego comience sin pausa
@@ -44,6 +46,14 @@ public class Pausa : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             AlternarPausa(); // Llama al método para pausar o reanudar el juego
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            CambiarEscena(escenaRetry); // Llama al método para pausar o reanudar el juego
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CambiarEscena("MenuPrincipal"); // Llama al método para pausar o reanudar el juego
         }
     }
     // Función para pausar y reanudar el juego
@@ -108,11 +118,26 @@ public class Pausa : MonoBehaviour
     }
     void CambiarEscena(string nombreEscena)
     {
+        Debug.LogWarning(nombreEscena);
+        if (nombreEscena == nombreEscenaMenuPrincipal)
+        {
+            UnmuteMusic();
+        }
         // Restablecer el tiempo de juego antes de recargar
         Time.timeScale = 1f;
         ReiniciarEstados();
 
         // Cambiar a la escena especificada
         SceneManager.LoadScene(nombreEscena);
+    }
+    void UnmuteMusic()
+    {
+        Debug.LogWarning("desmutear");
+
+        MusicManager musicManager = FindObjectOfType<MusicManager>();
+        if (musicManager != null)
+        {
+            musicManager.UnmuteMusic();
+        }
     }
 }

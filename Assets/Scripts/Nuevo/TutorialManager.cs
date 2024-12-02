@@ -137,23 +137,44 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowVideo()
     {
+        MuteMusic();
         // nextButton.SetActive(false); // Ocultar el botón "Siguiente".
         tutorialVideo.gameObject.SetActive(true); // Activar el video.
         tutorialVideo.Play();
 
         // Esperar a que termine el video para continuar.
-        // Invoke(nameof(EndVideo), (float)tutorialVideo.length);
+        Invoke(nameof(EndVideo), (float)tutorialVideo.length);
     }
 
     private void EndVideo()
     {
+        UnmuteMusic();
         tutorialVideo.gameObject.SetActive(false); // Ocultar el video.
-        dialogueText.text = "¡Es tu turno de actuar! Presiona el botón para empezar.";
+        dialogueText.text = "Es tu turno de actuar... Presiona el botón para empezar y ¡Buena suerte!.";
         playLevelButton.SetActive(true); // Mostrar el botón para jugar.
+        nextButton.SetActive(false);
+
     }
 
     public void OnPlayLevelButtonPressed()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene($"Level{currentLevel}");
     }
+    void MuteMusic()
+    {
+        MusicManager musicManager = FindObjectOfType<MusicManager>();
+        if (musicManager != null)
+        {
+            musicManager.MuteMusic();
+        }
+    }
+    void UnmuteMusic()
+    {
+        MusicManager musicManager = FindObjectOfType<MusicManager>();
+        if (musicManager != null)
+        {
+            musicManager.UnmuteMusic();
+        }
+    }
+
 }
