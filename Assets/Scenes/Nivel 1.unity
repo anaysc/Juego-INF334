@@ -2104,7 +2104,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce60f325abe16e1408f2d226e825c21a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce77d0f8de178e94e9df8f013edb6528, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2124,7 +2124,7 @@ Transform:
   m_GameObject: {fileID: 320819714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60.45, y: 26.94, z: 0}
+  m_LocalPosition: {x: 60.48, y: 28.25, z: 0}
   m_LocalScale: {x: 1.3618783, y: 1.4473, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2159,6 +2159,8 @@ MonoBehaviour:
   escenaRetry: Nivel 1
   "estaRecibiendoDa\xF1o": 0
   spriteRenderer: {fileID: 0}
+  spriteNormal: {fileID: 21300000, guid: ce77d0f8de178e94e9df8f013edb6528, type: 3}
+  spriteAtaque: {fileID: 21300000, guid: e38a4ccd47cca6f45a8a56b233fa34a4, type: 3}
   lastHp: 0
   estaMuerto: 0
 --- !u!1 &323133065
@@ -2341,7 +2343,7 @@ Transform:
   m_GameObject: {fileID: 352492090}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -1.39, z: 0}
+  m_LocalPosition: {x: -0.08, y: -2.28, z: 0}
   m_LocalScale: {x: 2.283896, y: 1.2482957, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5936,7 +5938,7 @@ Transform:
   m_GameObject: {fileID: 1052494890}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.04, y: -0.96, z: 0}
+  m_LocalPosition: {x: 0.02, y: -0.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10027,7 +10029,7 @@ Transform:
   m_GameObject: {fileID: 1840352364}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalPosition: {x: -0, y: -1.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10415,6 +10417,7 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 160917794}
+  volumenReducido: 0.3
   spriteNormal: {fileID: 21300000, guid: 6bce1e48b65bd3c439da24d4e9c555a3, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 3dd4969cb454e6b43843014d5ff73289, type: 3}
   spriteRenderer: {fileID: 0}
@@ -10720,6 +10723,7 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 926371107}
+  volumenReducido: 0.05
   spriteNormal: {fileID: 21300000, guid: 6eda14a1f8420854db0f8939de8d34d9, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 8f3febb8102483a48999cbb0675f381b, type: 3}
   spriteRenderer: {fileID: 0}

@@ -29,6 +29,9 @@ public class EnemigoUI : MonoBehaviour
     private float tiempoInicio; // Tiempo cuando comenzó el juego
     public bool estaRecibiendoDaño = false; // Indica si el personaje está recibiendo daño
     public SpriteRenderer spriteRenderer;
+    public Sprite spriteNormal;
+    public Sprite spriteAtaque;
+
     public float lastHp;
     public bool estaMuerto = false; // Indica si el personaje/enemigo ya murió
 
@@ -59,6 +62,12 @@ public class EnemigoUI : MonoBehaviour
     {
         audioSourceBase.mute = (master.turnoActual != TurnType.enemigos || habilidadActivada);
 
+        if (master.turnoActual != TurnType.enemigos)
+        {
+            // Cambiar al sprite normal
+            spriteRenderer.sprite = spriteNormal;
+        }
+
         // Revisa constantemente si la vida del enemigo es menor o igual a 0
         if (enemigo.Hp <= 0)
         {
@@ -87,9 +96,18 @@ public class EnemigoUI : MonoBehaviour
     {
         audioSourceBase.mute = false;
         DetenerTrackHabilidad();
+        if (spriteRenderer != null && spriteNormal != null)
+        {
+            spriteRenderer.sprite = spriteNormal;
+        }
+        
     }
     public void ActivarTrackHabilidad(Habilidad habilidad)
     {
+        if (spriteRenderer != null && spriteAtaque != null)
+        {
+            spriteRenderer.sprite = spriteAtaque;
+        }
         //Primero muteamos la habilidad base y cualquier otra habilidad que podría estar sonando
         DetenerTrackHabilidad();
         audioSourceBase.mute = true;
@@ -105,6 +123,7 @@ public class EnemigoUI : MonoBehaviour
         {
             Debug.LogWarning("habilidad: " + habilidad.Nombre + " no encontrada");
         }
+
     }
     public void DetenerTrackHabilidad()
     {

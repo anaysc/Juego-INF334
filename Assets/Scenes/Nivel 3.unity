@@ -2416,7 +2416,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ce60f325abe16e1408f2d226e825c21a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 53f6049444599004abdfd6d665485310, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2436,7 +2436,7 @@ Transform:
   m_GameObject: {fileID: 320819714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 59.77, y: 27.01, z: 0}
+  m_LocalPosition: {x: 59.92, y: 27.84, z: 0}
   m_LocalScale: {x: 1.2550291, y: 1.255029, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2474,6 +2474,8 @@ MonoBehaviour:
   escenaRetry: Nivel 1
   "estaRecibiendoDa\xF1o": 0
   spriteRenderer: {fileID: 0}
+  spriteNormal: {fileID: 21300000, guid: 53f6049444599004abdfd6d665485310, type: 3}
+  spriteAtaque: {fileID: 21300000, guid: fc30da25b85243c4288579da47c3cbed, type: 3}
   lastHp: 0
   estaMuerto: 0
 --- !u!1 &323133065
@@ -2656,8 +2658,8 @@ Transform:
   m_GameObject: {fileID: 352492090}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -1.3, z: 0}
-  m_LocalScale: {x: 1.2688597, y: 0.7254715, z: 1}
+  m_LocalPosition: {x: -0.09, y: -2.42, z: 0}
+  m_LocalScale: {x: 1.7715819, y: 1.0606394, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 278873696}
@@ -3840,6 +3842,7 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 748127056}
+  volumenReducido: 0.05
   spriteNormal: {fileID: 21300000, guid: 70d60bde40761ee4685be7becefafa65, type: 3}
   spriteAtaque: {fileID: 21300000, guid: ee29978434c158549b15bd856606d166, type: 3}
   spriteRenderer: {fileID: 0}
@@ -11868,8 +11871,8 @@ Transform:
   m_GameObject: {fileID: 1643446238}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 56.9068, y: 27.47, z: 0}
-  m_LocalScale: {x: 1.0038, y: 1.1877, z: 1}
+  m_LocalPosition: {x: 56.91, y: 27.84, z: 0}
+  m_LocalScale: {x: 1.0038, y: 1.4866176, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 976896375}
@@ -13839,7 +13842,7 @@ Transform:
   m_GameObject: {fileID: 1840352364}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.14, z: 0}
+  m_LocalPosition: {x: -0.01, y: -1.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14227,6 +14230,7 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 160917794}
+  volumenReducido: 0.05
   spriteNormal: {fileID: 21300000, guid: 6bce1e48b65bd3c439da24d4e9c555a3, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 3dd4969cb454e6b43843014d5ff73289, type: 3}
   spriteRenderer: {fileID: 0}
@@ -14970,6 +14974,7 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 926371107}
+  volumenReducido: 0.05
   spriteNormal: {fileID: 21300000, guid: 6eda14a1f8420854db0f8939de8d34d9, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 8f3febb8102483a48999cbb0675f381b, type: 3}
   spriteRenderer: {fileID: 0}
@@ -15762,6 +15767,7 @@ MonoBehaviour:
   efectoTeclaSource: {fileID: 1613606103}
   efectoTeclaSourceBad: {fileID: 1444083666}
   bienTexto: {fileID: 1137015123}
+  volumenReducido: 0.05
   spriteNormal: {fileID: 21300000, guid: 721b2c31d2a804646921e6d75ade4730, type: 3}
   spriteAtaque: {fileID: 21300000, guid: 36e483c32f91c25499288e7f599dffab, type: 3}
   spriteRenderer: {fileID: 0}
