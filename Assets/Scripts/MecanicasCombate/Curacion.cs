@@ -6,6 +6,7 @@ namespace Combate.Habilidades
     public class Curacion : TargetedHabilidad
     {
         private float[] healMulti = { 0, 0.5f, 0.75f, 1 }; //Factor del da�o base que hace el ataque segun el grado de exito
+        private float heal;
 
         protected override void SetParametros(string[] parametros)
         {
@@ -41,11 +42,15 @@ namespace Combate.Habilidades
 
         protected override void AplicarEfecto(Creatura creatura, Creatura objetivo, int gradoDeExito)
         {
-            float heal = healMulti[gradoDeExito];
+            heal = healMulti[gradoDeExito];
             if (objetivo != null)//Esto no deberia ser necesario igual porque ya se deberia estar checkeando a traves de SePuedeActivar
             {
                 objetivo.Hp += heal;
             }
+        }
+        public float Heal
+        {
+            get { return heal; }
         }
     }
 }
