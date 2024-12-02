@@ -227,7 +227,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1114569913}
   - {fileID: 1165730183}
   - {fileID: 410416247}
   - {fileID: 1694566592}
@@ -239,6 +238,7 @@ RectTransform:
   - {fileID: 785212194}
   - {fileID: 1660878148}
   - {fileID: 1336927769}
+  - {fileID: 1114569913}
   - {fileID: 1553184275}
   m_Father: {fileID: 1448061050}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3174884138f55ae4bbec7cdcd9bedd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreEscena: Nivel 2
+  nombreEscena: Tutorial 2
 --- !u!114 &410416249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3174884138f55ae4bbec7cdcd9bedd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreEscena: Nivel 1
+  nombreEscena: Tutorial 1
 --- !u!114 &1114569915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2855,7 +2855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3174884138f55ae4bbec7cdcd9bedd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreEscena: Nivel 3
+  nombreEscena: Tutorial 3
 --- !u!114 &1889269308
 MonoBehaviour:
   m_ObjectHideFlags: 0

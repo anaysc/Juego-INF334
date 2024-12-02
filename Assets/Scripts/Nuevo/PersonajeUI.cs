@@ -20,10 +20,7 @@ public class PersonajeUI : MonoBehaviour
     public Sprite spriteAtaque;
     public SpriteRenderer spriteRenderer;
     public bool estaRecibiendoDaño = false; // Indica si el personaje está recibiendo daño
-
-
     private int duracionCiclo = 8; //En Beats
-
     private int cicloActual = 0;
     private float proximoCheckeo = 0;
     private bool habilidadActivada = false;
@@ -35,7 +32,6 @@ public class PersonajeUI : MonoBehaviour
     public AudioSource audioSourceBase; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
     public AudioSource activar; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
     public AudioSource desactivar; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
-
     public GameObject borde;
     private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private AudioManager audioManager;
@@ -47,6 +43,7 @@ public class PersonajeUI : MonoBehaviour
     public TextMeshProUGUI nombreHabilidad;
     public float lastHp;
     public bool estaMuerto = false; // Indica si el personaje/enemigo ya murió
+    [SerializeField] private Color colorHabilidadEspecial = Color.white; // Color único para la habilidad especial
 
     void Start()
     {
@@ -219,7 +216,15 @@ public class PersonajeUI : MonoBehaviour
             }
             if (nombreHabilidad != null)
             {
-                nombreHabilidad.text = "Estás usando: " + habilidadDetectada.nombreDisplay;
+                if (EsHabilidadEspecial(habilidadDetectada))
+                {
+                    nombreHabilidad.color = colorHabilidadEspecial; // Usa el color especial asociado
+                }
+                else
+                {
+                    nombreHabilidad.color = Color.white; // Usa un color por defecto si no es especial
+                }
+                nombreHabilidad.text = habilidadDetectada.nombreDisplay;
                 nombreHabilidad.gameObject.SetActive(true);
             }
         }
@@ -314,6 +319,10 @@ public class PersonajeUI : MonoBehaviour
         }
     }
 
+    private bool EsHabilidadEspecial(Habilidad habilidad)
+    {
+        return habilidad.Nombre.Contains("Habilidad2"); // Verifica si el nombre contiene "Habilidad2"
+    }
 
 }
  
