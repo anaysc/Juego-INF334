@@ -11,7 +11,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject bateriaObject; // Objeto batería para activarlo.
     [SerializeField] private VideoPlayer tutorialVideo; // Video de demostración.
     [SerializeField] private int currentLevel; // Nivel actual (1, 2, 3...).
-
+    [SerializeField] private string demoscene;
     private Dictionary<int, string[]> dialoguesByLevel;
     private string[] dialogues;
     private int currentDialogueIndex = 0;
@@ -49,7 +49,7 @@ public class TutorialManager : MonoBehaviour
                     "Ahora, te mostraré una demostración de lo que debes hacer. Observa bien, porque este será tu momento de brillar en unos instantes. ¡Presta atención a cómo seguir el ritmo y cuándo atacar!",
                     "... Presta atención ...",
                     "¡Y eso es todo! Ahora es tu turno. Quiero que te concentres, escuches la base de la batería y uses todo lo que te mostré para vencer a nuestro primer enemigo: **la Flauta Desafinada**.",
-                    "Cuando estés listo, presiona el botón de comenzar. Recuerda, estamos contigo en cada paso. ¡No dejes que el ritmo se detenga!"
+                    "Para asegurar que estás listo, deberás demostrar que entendiste las habilidades... ¡Te pondremos a prueba antes de comenzar con el nivel 1!"
                 }
             },
             {
@@ -150,7 +150,7 @@ public class TutorialManager : MonoBehaviour
     {
         UnmuteMusic();
         tutorialVideo.gameObject.SetActive(false); // Ocultar el video.
-        dialogueText.text = "Es tu turno de actuar... Presiona el botón para empezar y ¡Buena suerte!.";
+        dialogueText.text = "Para asegurar que estás listo, deberás demostrar que entendiste las habilidades... ¡Te pondremos a prueba antes de comenzar con el nivel 1!";
         playLevelButton.SetActive(true); // Mostrar el botón para jugar.
         nextButton.SetActive(false);
 
@@ -158,7 +158,7 @@ public class TutorialManager : MonoBehaviour
 
     public void OnPlayLevelButtonPressed()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene($"Level{currentLevel}");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(demoscene);
     }
     void MuteMusic()
     {

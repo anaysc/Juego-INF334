@@ -2293,7 +2293,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 1
-  m_AspectRatio: 0
+  m_AspectRatio: 5
   m_DataSource: 0
   m_TimeUpdateMode: 1
   m_PlaybackSpeed: 1
@@ -2449,7 +2449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA1Jugar!"
+  m_text: Practica
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ffc5d860a50f2042a868eabe6b9d9c6, type: 2}
   m_sharedMaterial: {fileID: -3720416819535339328, guid: 0ffc5d860a50f2042a868eabe6b9d9c6, type: 2}
@@ -5341,6 +5341,7 @@ MonoBehaviour:
   bateriaObject: {fileID: 1904411794}
   tutorialVideo: {fileID: 902298471}
   currentLevel: 1
+  demoscene: Demo Nivel 1
 --- !u!4 &1850262172
 Transform:
   m_ObjectHideFlags: 0
@@ -5826,7 +5827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3174884138f55ae4bbec7cdcd9bedd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nombreEscena: Nivel 1
+  nombreEscena: Demo Nivel 1
 --- !u!114 &2037750611
 MonoBehaviour:
   m_ObjectHideFlags: 0

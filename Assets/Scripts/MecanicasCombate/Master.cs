@@ -9,7 +9,7 @@ namespace Combate
 {
     public class Master : MonoBehaviour
     {
-        [SerializeField] private AudioMaster audioMaster; //Referencia al AudioMaster, para saber el tiempo d ela canción
+        [SerializeField] public AudioMaster audioMaster; //Referencia al AudioMaster, para saber el tiempo d ela canción
 
         //Data
         [SerializeField] private TextAsset archivoHabilidades;
@@ -25,7 +25,7 @@ namespace Combate
         private List<Personaje> slotsPersonajes = new List<Personaje>(); //Los 4 slots de personajes
         private List<Enemigo> slotsEnemigos = new List<Enemigo>(); //Los 4 slots de enemigos
 
-        [SerializeField] private List<PersonajeUI> slotsPersonajesUI = new List<PersonajeUI>(); //Asignarlos en el inspector
+        [SerializeField] public List<PersonajeUI> slotsPersonajesUI = new List<PersonajeUI>(); //Asignarlos en el inspector
         [SerializeField] private List<EnemigoUI> slotsEnemigosUI = new List<EnemigoUI>();
 
         [SerializeField] private List<string> nombresPersonajes; //Escribirlos en el inspector
@@ -34,8 +34,8 @@ namespace Combate
         //Manejo de Turnos
         public TurnType turnoActual = TurnType.personajes;
         private int ciclosPorTurno = 4;
-        private int cicloActual = 0;
-        private int duracionCiclo = 8;
+        public int cicloActual = 0;
+        public int duracionCiclo = 8;
         private int cicloInicioTurno = 0;
 
         private Personaje personajeSeleccionado = null;
@@ -86,7 +86,7 @@ namespace Combate
             }
         }
 
-        private void Awake()
+        public virtual void Awake()
         {
             //Lo primero que se hace es que se leen los archivos con los datos sobre habilidades y personajes y se crean las instancias de las clases correspondientes...
             //guardandolas en diccionarios
@@ -125,7 +125,7 @@ namespace Combate
                 }
             }
         }
-        private void InitEnemigos()
+        public virtual void InitEnemigos()
         {
             for (int i = 0; i < nombresEnemigos.Count; i++)
             {
@@ -143,7 +143,7 @@ namespace Combate
                 }
             }
         }
-        private void OnCiclo()
+        public virtual void OnCiclo()
         {
             personajeSeleccionado = null;
 

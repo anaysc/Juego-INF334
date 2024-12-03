@@ -33,7 +33,7 @@ public class PersonajeUI : MonoBehaviour
     public AudioSource activar; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
     public AudioSource desactivar; //El AudioSource que esta siempre tocando la base y se mute según sea necesario
     public GameObject borde;
-    private List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
+    public List<float> inputsTime = new List<float>(); // lista de tiempos en los que se han apretados (o no) los últimos 8 beats
     private AudioManager audioManager;
     // [SerializeField] private Animator animador; // Referencia al Animator del personaje
     public AudioSource sonidoInput; // AudioSource que se reproducirá al detectar el input
@@ -83,15 +83,16 @@ public class PersonajeUI : MonoBehaviour
 
         
     }
-    public void OnCiclo(int ciclo)
+    public (string, int) OnCiclo(int ciclo)
     {
         habilidadActivada = false;
         //achicar al mono
         // borde.SetActive(false);
         cicloActual = ciclo;
-        FinalizarCiclo();
+        (string nombre, int grado)  = FinalizarCiclo();
         proximoCheckeo = 0.5f;
         Debug.Log("Ciclo: " + ciclo);
+        return (nombre,grado);
     }
 
     private void SeleccionarPersonaje(string nuevoNombre) //Esta version de la funcion no se va a usar desde que la seleccion de personajes este a cargo del Master (preguntar a GAT por aclaración)
@@ -138,8 +139,10 @@ public class PersonajeUI : MonoBehaviour
     {
         return master.PersonajeSeleccionado == personaje;
     }
-    void FinalizarCiclo() 
+    (string, int) FinalizarCiclo() 
     {
+        string hab = "";
+        int grad = 0;
         if (isPersonajeSeleccionado() && master.turnoActual==TurnType.personajes) //Esto es para checkear que no se activen multiples personajes a la vez
         {
             (Habilidad habilidadDetectada, int gradoExito) = personaje.DetectarPatron(inputsTime);
@@ -175,7 +178,9 @@ public class PersonajeUI : MonoBehaviour
                 textoBuff.text = buffHabilidad.NombreEstado + " +"+ gradoExito;
                 textoBuff.gameObject.SetActive(true);
                 StartCoroutine(OcultarTextoDaño()); // Ocultar el texto después de un tiempo
-            }
+            }      
+            hab = habilidadDetectada.Nombre;
+            grad = gradoExito;
         }
 
         ActivarTrackBase();
@@ -189,6 +194,8 @@ public class PersonajeUI : MonoBehaviour
         {
             inputsTime.Add(lastInput-(duracionCiclo*2));
         }
+        return (hab,grad);
+ 
     }
     // Corrutina para ocultar el texto de daño después de un breve tiempo
     private IEnumerator OcultarTextoDaño()
