@@ -1296,10 +1296,10 @@ RectTransform:
   m_LocalScale: {x: 2.475, y: 2.475, z: 2.475}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 396582864}
-  - {fileID: 98713784}
   - {fileID: 382712473}
   - {fileID: 536619933}
+  - {fileID: 396582864}
+  - {fileID: 98713784}
   m_Father: {fileID: 1995561508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1833,8 +1833,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 34.000103}
-  m_SizeDelta: {x: 440.3034, y: 165.378}
+  m_AnchoredPosition: {x: 0, y: 58.345}
+  m_SizeDelta: {x: 440.3, y: 116.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &281826763
 MonoBehaviour:
@@ -2517,7 +2517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 34.000103}
+  m_AnchoredPosition: {x: 0, y: 34.000103}
   m_SizeDelta: {x: 440.3034, y: 165.378}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &382712474
@@ -3121,8 +3121,8 @@ GameObject:
   m_Component:
   - component: {fileID: 535754829}
   - component: {fileID: 535754828}
-  - component: {fileID: 535754827}
   - component: {fileID: 535754826}
+  - component: {fileID: 535754827}
   m_Layer: 5
   m_Name: Button Retry
   m_TagString: Untagged
@@ -3278,8 +3278,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.0094, y: -21.448}
-  m_SizeDelta: {x: 440.3034, y: 165.378}
+  m_AnchoredPosition: {x: -1.0094, y: 12.124}
+  m_SizeDelta: {x: 440.3, y: 98.233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &536619934
 CanvasRenderer:
@@ -4994,7 +4994,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!1 &874657807
 GameObject:
@@ -6688,10 +6688,10 @@ RectTransform:
   m_LocalScale: {x: 2.475, y: 2.475, z: 2.475}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 535754829}
-  - {fileID: 1548642580}
   - {fileID: 281826762}
   - {fileID: 2075929437}
+  - {fileID: 535754829}
+  - {fileID: 1548642580}
   m_Father: {fileID: 1995561508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8599,8 +8599,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1548642580}
   - component: {fileID: 1548642582}
-  - component: {fileID: 1548642581}
   - component: {fileID: 1548642583}
+  - component: {fileID: 1548642581}
   m_Layer: 5
   m_Name: Button Quit
   m_TagString: Untagged
@@ -10657,6 +10657,7 @@ MonoBehaviour:
   nombreHabilidad: {fileID: 675160181}
   lastHp: 0
   estaMuerto: 0
+  colorHabilidadEspecial: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1848508255
 GameObject:
   m_ObjectHideFlags: 0
@@ -11092,6 +11093,7 @@ MonoBehaviour:
   nombreHabilidad: {fileID: 1315112048}
   lastHp: 0
   estaMuerto: 0
+  colorHabilidadEspecial: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1950486728
 GameObject:
   m_ObjectHideFlags: 0
@@ -11340,8 +11342,8 @@ Canvas:
   m_GameObject: {fileID: 1995561504}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1262482348}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -11352,7 +11354,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1995561508
 RectTransform:
@@ -11717,8 +11719,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.0094, y: -21.448}
-  m_SizeDelta: {x: 440.3034, y: 165.378}
+  m_AnchoredPosition: {x: -1.0094, y: 30.621}
+  m_SizeDelta: {x: 440.3, y: 61.241}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075929438
 MonoBehaviour:
@@ -12399,7 +12401,6 @@ MonoBehaviour:
   - {fileID: 1845724045}
   enemigo: {fileID: 320819718}
   nombreEscenaMenuPrincipal: MenuPrincipal
-  escenaRetry: Nivel 1
 --- !u!1 &2135298631
 GameObject:
   m_ObjectHideFlags: 0
