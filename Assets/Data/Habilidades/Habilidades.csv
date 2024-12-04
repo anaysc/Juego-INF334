@@ -10,5 +10,5 @@ GuitarraHabilidad2;Ataque;cx nx xn xx cx nx xn xx;2;damageMulti:0|2|4|6,nombreDi
 AtaqueEnemigo;Ataque;x;0;damageMulti:0|1|2|3;
 AtaqueTrompeta;Ataque;x;0;damageMulti:0|1|2|3,targetRule:todos;
 SynthCarga;Buff;x;0;nombreEstado:bonusDamage,valor:2,duracion:8;
-SynthAtaque;Ataque;x;0;damageMulti:0|1|2|3;
+SynthAtaque;Ataque;x;0;damageMulti:0|2|3|4;
 SynthShift;Buff;x;0;nombreEstado:resistencia-normal,valor:2,duracion:4;

@@ -56,6 +56,10 @@ namespace Combate.Habilidades
             {
                 
             }
+            else if (targetRule == TargetRule.todos)
+            {
+                return ElegirTodosLosObjetivos(oponentes);
+            }
             return null;
         }
 
