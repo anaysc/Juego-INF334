@@ -1,4 +1,4 @@
 Nombre;HP;Mana;DanoBase;Habilidades;
 Enemigo1;25;0;1;AtaqueEnemigo;
 EnemigoTrompeta;25;0;1;AtaqueTrompeta,AtaqueEnemigo;
-EnemigoSynth;30;0;1;SynthCarga,SynthAtaque,SynthShift;
+EnemigoSynth;40;0;1;SynthCarga,SynthAtaque,SynthShift;
