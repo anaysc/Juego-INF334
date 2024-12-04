@@ -76,7 +76,7 @@ namespace Combate
 
             if (!habilidad1Completada)
             {
-                if (nombre == nombreHabilidad1 && grado > 2)
+                if (nombre == nombreHabilidad1 && grado > 1)
                 {
                     contadorHabilidad1++;
                     Debug.Log($"Habilidad {nombreHabilidad1} ejecutada correctamente {contadorHabilidad1} veces.");
@@ -91,7 +91,7 @@ namespace Combate
             }
             else if (!habilidad2Completada)
             {
-                if (nombre == nombreHabilidad2 && grado > 2)
+                if (nombre == nombreHabilidad2 && grado > 1)
                 {
                     contadorHabilidad2++;
                     Debug.Log($"Habilidad {nombreHabilidad2} ejecutada correctamente {contadorHabilidad2} veces.");
