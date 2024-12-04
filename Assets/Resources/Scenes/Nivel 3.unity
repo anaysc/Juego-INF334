@@ -5804,7 +5804,7 @@ MonoBehaviour:
   archivoHabilidades: {fileID: 4900000, guid: d1cc1644af856094a9e575177b5e8e58, type: 3}
   archivoPersonajes: {fileID: 4900000, guid: 51567f660a72a5c4ebf62c92206de5cf, type: 3}
   archivoEnemigos: {fileID: 4900000, guid: 37449bbcef489b441af81e69af4153af, type: 3}
-  archivoPlanEnemigos: {fileID: 4900000, guid: 2ffe24c3344825c429985fbfb6234a95, type: 3}
+  archivoPlanEnemigos: {fileID: 4900000, guid: 5cf24edb65f9ecd4b995829fd2a1e7a6, type: 3}
   controladorEnemigos: {fileID: 2034282700}
   slotsPersonajesUI:
   - {fileID: 2086539922}
